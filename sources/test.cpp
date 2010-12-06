@@ -18,6 +18,7 @@ namespace Illuminate {
 //@+node:gcross.20101205182001.1422: *3* (constructors)
 Test::Test(const string& name, Suite& parent)
     : Node(name,&parent)
+    , test_id(getRoot().registerTest(this))
 {
     parent.tests.push_back(this);
 }

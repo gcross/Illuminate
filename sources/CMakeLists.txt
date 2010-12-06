@@ -3,6 +3,7 @@
 add_library(illuminate
     node.cpp
     suite.cpp
+    root.cpp
     test.cpp
     utils.cpp
     visitors/plain_printer.cpp

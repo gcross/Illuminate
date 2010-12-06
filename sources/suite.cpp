@@ -42,8 +42,6 @@ void Suite::visit(Visitor& visitor) {
         visitor.test(*test);
     }
 }
-//@+node:gcross.20101205214942.2484: ** getRoot
-Suite& getRoot() { return getParentSuite(); }
 //@-others
 
 }
@@ -52,10 +50,7 @@ Suite& getRoot() { return getParentSuite(); }
 //@+node:gcross.20101205214942.2497: ** << Outside Namespace >>
 //@+others
 //@+node:gcross.20101205214942.2499: *3* getParentSuite
-Illuminate::Suite& getParentSuite() {
-    static Illuminate::Suite root("Root",NULL);
-    return root;
-}
+Illuminate::Suite& getParentSuite() { return Illuminate::getRoot(); }
 //@-others
 //@-<< Outside Namespace >>
 //@-leo

@@ -61,9 +61,28 @@ public:
     void visit(Visitor& visitor);
 //@-others
 };
+//@+node:gcross.20101206104532.1407: *3* Root
+class Root : public Suite {
+//@+others
+//@+node:gcross.20101206104532.1411: *4* (friends)
+friend Root& getRoot();
+//@+node:gcross.20101206104532.1408: *4* (fields)
+public:
+    vector<Test*> tests;
+//@+node:gcross.20101206104532.1409: *4* (constructors)
+private:
+    Root();
+//@+node:gcross.20101206104532.1410: *4* (methods)
+public:
+    int registerTest(Test* test);
+//@-others
+};
 //@+node:gcross.20101205182001.2592: *3* Test
 class Test : public Node {
     //@+others
+    //@+node:gcross.20101206104532.1412: *4* (fields)
+    public:
+        const int test_id;
     //@+node:gcross.20101205182001.2593: *4* (constructors)
     protected:
         Test(const string& name, Suite& parent);
@@ -79,7 +98,7 @@ struct Visitor {
 //@-others
 //@+node:gcross.20101205182001.2588: ** Functions
 //@+node:gcross.20101205214942.2483: *3* getRoot
-Suite& getRoot();
+Root& getRoot();
 //@+node:gcross.20101206104532.1371: *3* underscoresToSpaces
 string underscoresToSpaces(const string& old_string);
 //@-others
