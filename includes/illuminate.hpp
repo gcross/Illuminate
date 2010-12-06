@@ -77,11 +77,32 @@ struct Visitor {
     virtual void test(Test& suite) = 0;
 };
 //@-others
-//@+node:gcross.20101205182001.2588: ** Variables
-extern Suite Parent;
+//@+node:gcross.20101205182001.2588: ** Functions
+//@+node:gcross.20101205214942.2483: *3* getRoot
+Suite& getRoot();
 //@-others
 
 }
+
+//@+<< Outside Namespace >>
+//@+node:gcross.20101205214942.2488: ** << Outside Namespace >>
+//@+others
+//@+node:gcross.20101205214942.2490: *3* Macros
+//@+node:gcross.20101205214942.2489: *4* testSuite
+#define testSuite(suiteName) \
+    namespace SUITE_##suiteName { \
+        static Illuminate::Suite& _getParentSuite() { \
+            static Illuminate::Suite& parent = getParentSuite(); \
+            return parent.lookupSuite(#suiteName); \
+        } \
+        static Illuminate::Suite& getParentSuite() { return _getParentSuite(); } \
+    } \
+    namespace SUITE_##suiteName
+//@+node:gcross.20101205214942.2491: *3* Functions
+//@+node:gcross.20101205214942.2493: *4* getParentSuite
+Illuminate::Suite& getParentSuite();
+//@-others
+//@-<< Outside Namespace >>
 
 #endif
 //@-leo
