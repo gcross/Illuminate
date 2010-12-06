@@ -80,6 +80,8 @@ struct Visitor {
 //@+node:gcross.20101205182001.2588: ** Functions
 //@+node:gcross.20101205214942.2483: *3* getRoot
 Suite& getRoot();
+//@+node:gcross.20101206104532.1371: *3* underscoresToSpaces
+string underscoresToSpaces(const string& old_string);
 //@-others
 
 }
@@ -92,8 +94,8 @@ Suite& getRoot();
 #define testSuite(suiteName) \
     namespace SUITE_##suiteName { \
         static Illuminate::Suite& _getParentSuite() { \
-            static Illuminate::Suite& parent = getParentSuite(); \
-            return parent.lookupSuite(#suiteName); \
+            static Illuminate::Suite& suite = getParentSuite().lookupSuite(Illuminate::underscoresToSpaces(#suiteName)); \
+            return suite; \
         } \
         static Illuminate::Suite& getParentSuite() { return _getParentSuite(); } \
     } \
