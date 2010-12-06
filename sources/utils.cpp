@@ -7,7 +7,7 @@
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/foreach.hpp>
 
-#include "illuminate.hpp"
+#include "illuminate/core.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {

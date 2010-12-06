@@ -9,8 +9,10 @@
 <v t="gcross.20101205182001.1276"><vh>@thin CMakeLists.txt</vh></v>
 <v t="gcross.20101205182001.1281"><vh>@path includes</vh>
 <v t="gcross.20101205182001.1312"><vh>@thin CMakeLists.txt</vh></v>
-<v t="gcross.20101205182001.2567"><vh>@thin illuminate.hpp</vh></v>
+<v t="gcross.20101206142257.1466"><vh>@thin illuminate.hpp</vh></v>
 <v t="gcross.20101206142257.1387"><vh>@path illuminate</vh>
+<v t="gcross.20101205182001.2567"><vh>@thin core.hpp</vh></v>
+<v t="gcross.20101206142257.1399"><vh>@thin macros.hpp</vh></v>
 <v t="gcross.20101205214942.1358"><vh>@path visitors</vh>
 <v t="gcross.20101205214942.1345"><vh>@thin plain_printer.hpp</vh></v>
 </v>

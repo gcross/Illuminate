@@ -6,7 +6,7 @@
 //@+node:gcross.20101205182001.1307: ** << Includes >>
 #include <boost/foreach.hpp>
 
-#include "illuminate.hpp"
+#include "illuminate/core.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {
@@ -37,10 +37,10 @@ void Suite::visit(Visitor& visitor) {
     BOOST_FOREACH(Suite& suite, nested_suites) {
         suite.visit(visitor);
     }
-    visitor.exit(*this);
     BOOST_FOREACH(Test* test, tests) {
         visitor.test(*test);
     }
+    visitor.exit(*this);
 }
 //@-others
 

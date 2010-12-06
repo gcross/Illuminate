@@ -5,16 +5,20 @@
 //@+<< Includes >>
 //@+node:gcross.20101205214942.2505: ** << Includes >>
 #include "illuminate.hpp"
-#include "visitors/plain_printer.hpp"
+#include "illuminate/visitors/plain_printer.hpp"
 //@-<< Includes >>
 
 //@+others
 //@+node:gcross.20101205214942.2506: ** Tests
 testSuite(Suite_1) {
-    testSuite(subSuite_B) { static Illuminate::Suite parent = getParentSuite(); }
+    testSuite(subSuite_B) {
+        testCase(X) { }
+    }
 }
 testSuite(Suite_2) {
-    testSuite(subSuite) { static Illuminate::Suite parent = getParentSuite(); }
+    testSuite(subSuite) {
+        testCase(X) { }
+    }
 }
 //@-others
 //@-leo

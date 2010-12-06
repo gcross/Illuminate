@@ -2,7 +2,8 @@
 #@+node:gcross.20101205182001.1312: * @thin CMakeLists.txt
 install (
     FILES
-        illuminate.hpp
+        illuminate/core.hpp
+        illuminate/macros.hpp
         illuminate/visitors/plain_printer.hpp
     DESTINATION include
 )
