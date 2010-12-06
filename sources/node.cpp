@@ -21,8 +21,8 @@ Node::Node(const string& name, const Suite* parent)
     , parent(parent)
     , full_name(
         parent == NULL
-            ? parent->name + "::" + name
-            : name
+            ? name
+            : (parent->name + "::" + name)
       )
 { }
 //@-others
