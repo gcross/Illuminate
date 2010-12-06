@@ -23,11 +23,16 @@
 <v t="gcross.20101205214942.1342"><vh>@thin plain_printer.cpp</vh></v>
 </v>
 </v>
+<v t="gcross.20101205214942.1326"><vh>@path tests</vh>
+<v t="gcross.20101205214942.1919"><vh>@thin CMakeLists.txt</vh></v>
+<v t="gcross.20101205214942.1329"><vh>@thin test.cpp</vh></v>
+<v t="gcross.20101205214942.2504"><vh>@thin test2.cpp</vh></v>
 </v>
 </vnodes>
 <tnodes>
 <t tx="gcross.20101205182001.1274"></t>
 <t tx="gcross.20101205182001.1281"></t>
+<t tx="gcross.20101205214942.1326"></t>
 <t tx="gcross.20101205214942.1341"></t>
 <t tx="gcross.20101205214942.1358"></t>
 </tnodes>
