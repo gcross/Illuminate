@@ -6,7 +6,7 @@
 //@+node:gcross.20101205214942.1343: ** << Includes >>
 #include <iostream>
 
-#include "visitors/plain_printer.hpp"
+#include "illuminate/visitors/plain_printer.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {

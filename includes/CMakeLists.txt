@@ -3,7 +3,7 @@
 install (
     FILES
         illuminate.hpp
-        visitors/plain_printer.hpp
-    DESTINATION include/illuminate
+        illuminate/visitors/plain_printer.hpp
+    DESTINATION include
 )
 #@-leo
