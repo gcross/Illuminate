@@ -20,17 +20,11 @@ using namespace std;
 //@+node:gcross.20101205214942.1350: ** class PlainPrinterVisitor
 //@+node:gcross.20101205214942.1351: *3* (constructors)
 PlainPrinterVisitor::PlainPrinterVisitor(ostream& out)
-    : indentation(0)
-    , out(out)
+    : IndentedOutputVisitor(out)
 { }
-//@+node:gcross.20101205214942.1353: *3* enter
-void PlainPrinterVisitor::enter(const Suite& suite) {
+//@+node:gcross.20101205214942.1353: *3* suite
+void PlainPrinterVisitor::suite(const Suite& suite) {
     writeIndentedLine(suite.name + ":");
-    indentation += 4;
-}
-//@+node:gcross.20101205214942.1355: *3* exit
-void PlainPrinterVisitor::exit(const Suite& suite) {
-    indentation -= 4;
 }
 //@+node:gcross.20101205214942.1356: *3* test
 void PlainPrinterVisitor::test(Test& test) {
@@ -40,11 +34,6 @@ void PlainPrinterVisitor::test(Test& test) {
 void PlainPrinterVisitor::visit(Suite& suite, ostream& out) {
     PlainPrinterVisitor visitor(out);
     suite.visit(visitor);
-}
-//@+node:gcross.20101205214942.1357: *3* writeIndented
-void PlainPrinterVisitor::writeIndentedLine(const string& s) {
-    for(int i = 0; i < indentation; ++i) out << ' ';
-    out << s << endl;
 }
 //@-others
 

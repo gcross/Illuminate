@@ -10,6 +10,7 @@
 #include <iostream>
 
 #include "illuminate.hpp"
+#include "illuminate/visitors/indented_output.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {
@@ -21,15 +22,12 @@ using namespace std;
 
 //@+others
 //@+node:gcross.20101205214942.1348: ** class PlainPrinterVisitor
-class PlainPrinterVisitor : public Visitor {
-    int indentation;
-    ostream& out;
+class PlainPrinterVisitor : public IndentedOutputVisitor {
+protected:
     PlainPrinterVisitor(ostream& out);
-    void writeIndentedLine(const string& s);
-public:
-    virtual void enter(const Suite& suite);
-    virtual void exit(const Suite& suite);
+    virtual void suite(const Suite& test);
     virtual void test(Test& test);
+public:
     static void visit(Suite& suite, ostream& out=cout);
 };
 //@-others

@@ -4,6 +4,7 @@ install (
     FILES
         illuminate/core.hpp
         illuminate/macros.hpp
+        illuminate/visitors/indented_output.hpp
         illuminate/visitors/plain_printer.hpp
     DESTINATION include
 )

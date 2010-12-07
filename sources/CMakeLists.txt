@@ -6,6 +6,7 @@ add_library(illuminate
     root.cpp
     test.cpp
     utils.cpp
+    visitors/indented_output.cpp
     visitors/plain_printer.cpp
 )
 

@@ -14,6 +14,7 @@
 <v t="gcross.20101205182001.2567"><vh>@thin core.hpp</vh></v>
 <v t="gcross.20101206142257.1399"><vh>@thin macros.hpp</vh></v>
 <v t="gcross.20101205214942.1358"><vh>@path visitors</vh>
+<v t="gcross.20101206161648.1548"><vh>@thin indented_output.hpp</vh></v>
 <v t="gcross.20101205214942.1345"><vh>@thin plain_printer.hpp</vh></v>
 </v>
 </v>
@@ -26,6 +27,7 @@
 <v t="gcross.20101205182001.1418"><vh>@thin test.cpp</vh></v>
 <v t="gcross.20101206104532.1377"><vh>@thin utils.cpp</vh></v>
 <v t="gcross.20101205214942.1341"><vh>@path visitors</vh>
+<v t="gcross.20101206161648.1562"><vh>@thin indented_output.cpp</vh></v>
 <v t="gcross.20101205214942.1342"><vh>@thin plain_printer.cpp</vh></v>
 </v>
 </v>

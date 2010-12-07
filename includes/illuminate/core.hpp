@@ -98,7 +98,9 @@ class Test : public Node {
     //@-others
 };
 //@+node:gcross.20101205182001.2596: *3* Visitor
-struct Visitor {
+class Visitor {
+    friend class Suite;
+protected:
     virtual void enter(const Suite& suite) = 0;
     virtual void exit(const Suite& suite) = 0;
     virtual void test(Test& suite) = 0;
