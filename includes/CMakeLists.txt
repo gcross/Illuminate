@@ -15,6 +15,7 @@ install (
 
 install (
     FILES
+        illuminate/visitors/ansi_test_runner.hpp
         illuminate/visitors/indented_output.hpp
         illuminate/visitors/plain_printer.hpp
         illuminate/visitors/plain_test_runner.hpp
