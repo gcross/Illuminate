@@ -36,18 +36,20 @@
 <v t="gcross.20101206161648.1590"><vh>@thin plain_test_runner.cpp</vh></v>
 </v>
 </v>
-<v t="gcross.20101205214942.1326"><vh>@path tests</vh>
-<v t="gcross.20101205214942.1919"><vh>@thin CMakeLists.txt</vh></v>
-<v t="gcross.20101205214942.1329"><vh>@thin test.cpp</vh></v>
-<v t="gcross.20101205214942.2504"><vh>@thin test2.cpp</vh></v>
+<v t="gcross.20101206161648.1787"><vh>@path tests</vh>
+<v t="gcross.20101206161648.1788"><vh>@thin CMakeLists.txt</vh></v>
+<v t="gcross.20101206161648.1789"><vh>@thin examples.cpp</vh></v>
+<v t="gcross.20101206161648.1791"><vh>@thin fake1.cpp</vh></v>
+<v t="gcross.20101206161648.1794"><vh>@thin fake2.cpp</vh></v>
+<v t="gcross.20101206161648.1800"><vh>@thin template.cpp</vh></v>
 </v>
 </vnodes>
 <tnodes>
 <t tx="gcross.20101205182001.1274"></t>
 <t tx="gcross.20101205182001.1281"></t>
-<t tx="gcross.20101205214942.1326"></t>
 <t tx="gcross.20101205214942.1341"></t>
 <t tx="gcross.20101205214942.1358"></t>
 <t tx="gcross.20101206142257.1387"></t>
+<t tx="gcross.20101206161648.1787"></t>
 </tnodes>
 </leo_file>

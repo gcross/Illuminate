@@ -32,12 +32,17 @@
 //@+node:gcross.20101206161648.1617: *3* TEST_EXPECTATION
 #define TEST_EXPECTATION(expression,message) { if(not (expression)) { Illuminate::Test::registerFailure(__FILE__,__LINE__,(message)); } }
 //@+node:gcross.20101206161648.1520: ** Checks
-//@+node:gcross.20101206161648.1618: *3* EQ_
+//@+node:gcross.20101206161648.1618: *3* EQ
 #define EQ_EXPRESSION(expected_value,actual_value) (expected_value) == (actual_value)
 #define EQ_MESSAGE(expected_value,actual_value) "Actual value <" #actual_value "> does not match the expected value <" #expected_value ">"
 #define ASSERT_EQ(expected_value,actual_value) DO_CHECK_WITH_2_ARGUMENTS(EQ,expected_value,actual_value,ASSERTION)
 #define EXPECT_EQ(expected_value,actual_value) DO_CHECK_WITH_2_ARGUMENTS(EQ,expected_value,actual_value,EXPECTATION)
-//@+node:gcross.20101206161648.1622: *3* TRUE_
+//@+node:gcross.20101206161648.1814: *3* NEAR
+#define NEAR_EXPRESSION(expected_value,actual_value,absolute_error) abs(expected_value - actual_value) <=  absolute_error
+#define NEAR_MESSAGE(expected_value,actual_value,absolute_error) "Actual value <" #actual_value "> does not match the expected value <" #expected_value ">" " within an absolute tolerance of <" #absolute_error ">"
+#define ASSERT_NEAR(expected_value,actual_value,absolute_error) DO_CHECK_WITH_3_ARGUMENTS(NEAR,expected_value,actual_value,absolute_error,ASSERTION)
+#define EXPECT_NEAR(expected_value,actual_value,absolute_error) DO_CHECK_WITH_3_ARGUMENTS(NEAR,expected_value,actual_value,absolute_error,EXPECTATION)
+//@+node:gcross.20101206161648.1622: *3* TRUE
 #define TRUE_EXPRESSION(expression) expression
 #define TRUE_MESSAGE(expression) "Assertion failed: " #expression
 #define ASSERT_TRUE(expression) DO_CHECK_WITH_1_ARGUMENT(TRUE,expression,ASSERTION)
