@@ -2,8 +2,8 @@
 //@+node:gcross.20101205214942.1345: * @thin plain_printer.hpp
 //@@language cplusplus
 
-#ifndef VISITORS_PLAIN_PRINTER_HPP
-#define VISITORS_PLAIN_PRINTER_HPP
+#ifndef ILLUMINATE_VISITORS_PLAIN_PRINTER_HPP
+#define ILLUMINATE_VISITORS_PLAIN_PRINTER_HPP
 
 //@+<< Includes >>
 //@+node:gcross.20101205214942.1346: ** << Includes >>

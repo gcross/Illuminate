@@ -2,8 +2,8 @@
 //@+node:gcross.20101206161648.1548: * @thin indented_output.hpp
 //@@language cplusplus
 
-#ifndef VISITORS_INDENTED_OUTPUT_HPP
-#define VISITORS_INDENTED_OUTPUT_HPP
+#ifndef ILLUMINATE_VISITORS_INDENTED_OUTPUT_HPP
+#define ILLUMINATE_VISITORS_INDENTED_OUTPUT_HPP
 
 //@+<< Includes >>
 //@+node:gcross.20101206161648.1549: ** << Includes >>
