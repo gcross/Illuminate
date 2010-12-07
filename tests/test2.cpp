@@ -5,7 +5,6 @@
 //@+<< Includes >>
 //@+node:gcross.20101205214942.2505: ** << Includes >>
 #include "illuminate.hpp"
-#include "illuminate/visitors/plain_printer.hpp"
 //@-<< Includes >>
 
 //@+others

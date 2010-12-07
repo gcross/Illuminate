@@ -42,10 +42,10 @@ void PlainTestRunnerVisitor::test(Test& test) {
         ++number_of_failed_tests;
     }
 }
-//@+node:gcross.20101206161648.1597: *3* visit
-void PlainTestRunnerVisitor::visit(Suite& suite, ostream& out) {
+//@+node:gcross.20101206161648.1597: *3* runTests
+void PlainTestRunnerVisitor::runTests(ostream& out) {
     PlainTestRunnerVisitor visitor(out);
-    suite.visit(visitor);
+    getRoot().visit(visitor);
     switch(visitor.number_of_failed_tests) {
         case 0: out << "All tests passed!" << endl;  break;
         case 1: out << "1 test failed" << endl;  break;

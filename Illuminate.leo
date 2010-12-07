@@ -22,6 +22,7 @@
 </v>
 <v t="gcross.20101205182001.1274"><vh>@path sources</vh>
 <v t="gcross.20101205182001.1278"><vh>@thin CMakeLists.txt</vh></v>
+<v t="gcross.20101206161648.1606"><vh>@thin main.cpp</vh></v>
 <v t="gcross.20101205182001.1356"><vh>@thin node.cpp</vh></v>
 <v t="gcross.20101206104532.1395"><vh>@thin root.cpp</vh></v>
 <v t="gcross.20101205182001.1306"><vh>@thin suite.cpp</vh></v>

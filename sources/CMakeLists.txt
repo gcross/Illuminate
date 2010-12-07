@@ -11,5 +11,14 @@ add_library(illuminate
     visitors/plain_test_runner.cpp
 )
 
-install (TARGETS illuminate DESTINATION lib)
+add_library(illuminate-main
+    main.cpp
+)
+
+install (
+    TARGETS
+        illuminate
+        illuminate-main
+    DESTINATION lib
+)
 #@-leo

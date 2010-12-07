@@ -29,7 +29,7 @@ protected:
     virtual void suite(const Suite& test);
     virtual void test(Test& test);
 public:
-    static void visit(Suite& suite, ostream& out=cout);
+    static void runTests(ostream& out=cout);
 };
 //@-others
 

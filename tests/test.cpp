@@ -7,7 +7,6 @@
 #include <iostream>
 
 #include "illuminate.hpp"
-#include "illuminate/visitors/plain_test_runner.hpp"
 
 using namespace std;
 //@-<< Includes >>
@@ -34,11 +33,6 @@ testSuite(Suite_2) {
             cout << "Should never be seen!" << endl;
         }
     }
-}
-//@+node:gcross.20101205214942.1926: ** main
-int main() {
-    Illuminate::PlainTestRunnerVisitor::visit(Illuminate::getRoot());
-    return 0;
 }
 //@-others
 //@-leo
