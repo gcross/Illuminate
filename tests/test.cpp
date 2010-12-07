@@ -13,23 +13,23 @@ using namespace std;
 
 //@+others
 //@+node:gcross.20101205214942.1927: ** Tests
-testSuite(Suite_1) {
-    testSuite(subSuite_A) {
-        testCase(X) {
-            fail("Failure 1");
-            fatallyFail("Failure 2");
-            fail("Failure 3");
+TEST_SUITE(Suite_1) {
+    TEST_SUITE(subSuite_A) {
+        TEST_CASE(X) {
+            FAIL("Failure 1");
+            FATALLY_FAIL("Failure 2");
+            FAIL("Failure 3");
         }
     }
 }
-testSuite(Suite_2) {
-    testSuite(subSuite) {
-        testCase(X) {
-            check(false);
-            check(0 < 1);
-            check(1 < 0);
-            assert_(0 < 1);
-            assert_(1 < 0);
+TEST_SUITE(Suite_2) {
+    TEST_SUITE(subSuite) {
+        TEST_CASE(X) {
+            EXPECT_TRUE(false);
+            EXPECT_TRUE(0 < 1);
+            EXPECT_TRUE(1 < 0);
+            ASSERT_TRUE(0 < 1);
+            ASSERT_TRUE(1 < 0);
             cout << "Should never be seen!" << endl;
         }
     }
