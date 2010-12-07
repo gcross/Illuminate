@@ -4,25 +4,40 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101205214942.1340: ** << Includes >>
+#include <iostream>
+
 #include "illuminate.hpp"
-#include "illuminate/visitors/plain_printer.hpp"
+#include "illuminate/visitors/plain_test_runner.hpp"
+
+using namespace std;
 //@-<< Includes >>
 
 //@+others
 //@+node:gcross.20101205214942.1927: ** Tests
 testSuite(Suite_1) {
     testSuite(subSuite_A) {
-        testCase(X) { }
+        testCase(X) {
+            fail("Failure 1");
+            fatallyFail("Failure 2");
+            fail("Failure 3");
+        }
     }
 }
 testSuite(Suite_2) {
     testSuite(subSuite) {
-        testCase(X) { }
+        testCase(X) {
+            check(false);
+            check(0 < 1);
+            check(1 < 0);
+            assert_(0 < 1);
+            assert_(1 < 0);
+            cout << "Should never be seen!" << endl;
+        }
     }
 }
 //@+node:gcross.20101205214942.1926: ** main
 int main() {
-    Illuminate::PlainPrinterVisitor::visit(Illuminate::getRoot());
+    Illuminate::PlainTestRunnerVisitor::visit(Illuminate::getRoot());
     return 0;
 }
 //@-others

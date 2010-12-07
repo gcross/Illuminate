@@ -22,6 +22,25 @@
     static void TEST_CASE_RUNNER_##caseName(); \
     static Illuminate::Test TEST_CASE_##caseName(#caseName,getParentSuite(),TEST_CASE_RUNNER_##caseName); \
     static void TEST_CASE_RUNNER_##caseName()
+//@+node:gcross.20101206161648.1519: ** Checks
+//@+node:gcross.20101206161648.1535: *3* check
+#define check(expression) { \
+    if(not (expression)) { \
+        Illuminate::Test::registerFailure(__FILE__,__LINE__,"Assertion failed: " #expression); \
+    } \
+}
+//@+node:gcross.20101206161648.1520: ** Assertions
+//@+node:gcross.20101206161648.1522: *3* assert_
+#define assert_(expression) { \
+    if(not (expression)) { \
+        Illuminate::Test::registerFatalFailure(__FILE__,__LINE__,"Assertion failed: " #expression); \
+    } \
+}
+//@+node:gcross.20101206161648.1598: ** Failures
+//@+node:gcross.20101206161648.1599: *3* fail
+#define fail(message) Illuminate::Test::registerFailure(message)
+//@+node:gcross.20101206161648.1601: *3* fatallyFail
+#define fatallyFail(message) Illuminate::Test::registerFatalFailure(message)
 //@-others
 
 #endif

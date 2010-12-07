@@ -9,6 +9,7 @@
 //@+node:gcross.20101205182001.2569: ** << Includes >>
 #include <boost/function.hpp>
 #include <boost/thread.hpp>
+#include <exception>
 #include <list>
 #include <memory>
 #include <string>
@@ -89,11 +90,20 @@ class Test : public Node {
         const int test_id;
         const function<void ()> runner;
         static thread_specific_ptr<vector<string> > current_failures;
+    //@+node:gcross.20101206161648.1514: *4* (exceptions)
+    struct FailureRegisteredOutsideTestContext : public std::exception { virtual const char* what() const throw(); };
+    struct FatalTestFailure { };
     //@+node:gcross.20101205182001.2593: *4* (constructors)
     public:
         Test(const string& name, Suite& parent, function<void ()> runner);
     //@+node:gcross.20101205182001.2594: *4* (methods)
     public:
+        static string annotateFailureMessage(const char* filename, int line_number, const string& message);
+        static void die();
+        static void registerFailure(const string& message);
+        static void registerFailure(const char* filename, int line_number, const string& message);
+        static void registerFatalFailure(const string& message);
+        static void registerFatalFailure(const char* filename, int line_number, const string& message);
         auto_ptr<vector<string> > run() const;
     //@-others
 };

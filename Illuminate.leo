@@ -16,6 +16,7 @@
 <v t="gcross.20101205214942.1358"><vh>@path visitors</vh>
 <v t="gcross.20101206161648.1548"><vh>@thin indented_output.hpp</vh></v>
 <v t="gcross.20101205214942.1345"><vh>@thin plain_printer.hpp</vh></v>
+<v t="gcross.20101206161648.1578"><vh>@thin plain_test_runner.hpp</vh></v>
 </v>
 </v>
 </v>
@@ -29,6 +30,7 @@
 <v t="gcross.20101205214942.1341"><vh>@path visitors</vh>
 <v t="gcross.20101206161648.1562"><vh>@thin indented_output.cpp</vh></v>
 <v t="gcross.20101205214942.1342"><vh>@thin plain_printer.cpp</vh></v>
+<v t="gcross.20101206161648.1590"><vh>@thin plain_test_runner.cpp</vh></v>
 </v>
 </v>
 <v t="gcross.20101205214942.1326"><vh>@path tests</vh>

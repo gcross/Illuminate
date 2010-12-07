@@ -12,12 +12,17 @@
 //@+node:gcross.20101205214942.2506: ** Tests
 testSuite(Suite_1) {
     testSuite(subSuite_B) {
-        testCase(X) { }
+        testCase(X) {
+            check(false);
+            check(1 < 0);
+        }
     }
 }
 testSuite(Suite_2) {
     testSuite(subSuite) {
-        testCase(X) { }
+        testCase(X) {
+            assert(true);
+        }
     }
 }
 //@-others
