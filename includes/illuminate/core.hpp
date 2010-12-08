@@ -25,6 +25,8 @@ using namespace std;
 //@-<< Usings >>
 
 //@+others
+//@+node:gcross.20101206161648.1861: ** Type aliases
+typedef auto_ptr<vector<string> > TestResult;
 //@+node:gcross.20101205182001.2570: ** Classes
 //@+<< Forward declarations >>
 //@+node:gcross.20101205182001.2577: *3* << Forward declarations >>
@@ -104,7 +106,7 @@ class Test : public Node {
         static void registerFailure(const char* filename, int line_number, const string& message);
         static void registerFatalFailure(const string& message);
         static void registerFatalFailure(const char* filename, int line_number, const string& message);
-        auto_ptr<vector<string> > run() const;
+        TestResult run() const;
     //@-others
 };
 //@+node:gcross.20101205182001.2596: *3* Visitor
