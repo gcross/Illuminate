@@ -5,11 +5,13 @@ add_library(illuminate
     suite.cpp
     root.cpp
     test.cpp
+    test_printers.cpp
+    test_worker.cpp
+    test_worker_group.cpp
     utils.cpp
-    visitors/ansi_test_runner.cpp
     visitors/indented_output.cpp
-    visitors/plain_printer.cpp
-    visitors/plain_test_runner.cpp
+    visitors/test_future.cpp
+    visitors/test_queue.cpp
 )
 
 add_library(illuminate-main

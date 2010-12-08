@@ -9,7 +9,7 @@
 //@+node:gcross.20101206161648.1549: ** << Includes >>
 #include <iostream>
 
-#include "illuminate.hpp"
+#include "illuminate/core.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {
@@ -21,7 +21,7 @@ using namespace std;
 
 //@+others
 //@+node:gcross.20101206161648.1551: ** class IndentedOutputVisitor
-class IndentedOutputVisitor : public Visitor {
+class IndentedOutputVisitor : public virtual Visitor {
 protected:
     int indentation;
     ostream& out;
@@ -31,7 +31,6 @@ protected:
     virtual void enter(const Suite& suite);
     virtual void exit(const Suite& suite);
     virtual void suite(const Suite& suite) = 0;
-    virtual void test(Test& test) = 0;
 };
 //@-others
 

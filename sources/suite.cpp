@@ -32,12 +32,12 @@ Suite& Suite::lookupSuite(const string& name) {
     return *(--nested_suites.end());
 }
 //@+node:gcross.20101205182001.1316: *3* visit
-void Suite::visit(Visitor& visitor) {
+void Suite::visit(Visitor& visitor) const {
     visitor.enter(*this);
-    BOOST_FOREACH(Suite& suite, nested_suites) {
+    BOOST_FOREACH(const Suite& suite, nested_suites) {
         suite.visit(visitor);
     }
-    BOOST_FOREACH(Test* test, tests) {
+    BOOST_FOREACH(const Test* test, tests) {
         visitor.test(*test);
     }
     visitor.exit(*this);

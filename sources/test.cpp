@@ -20,7 +20,7 @@ namespace Illuminate {
 //@+node:gcross.20101205182001.1422: *3* (constructors)
 Test::Test(const string& name, Suite& parent, function<void ()> runner)
     : Node(name,&parent)
-    , test_id(getRoot().registerTest(this))
+    , id(getRoot().registerTest(this))
     , runner(runner)
 {
     parent.tests.push_back(this);
@@ -40,6 +40,22 @@ string Test::annotateFailureMessage(const char* filename, int line_number, const
 //@+node:gcross.20101206161648.1517: *3* die
 void Test::die() {
     throw FatalTestFailure();
+}
+//@+node:gcross.20101206142257.1395: *3* operator()
+TestResult Test::operator()() const {
+    current_failures.reset(new vector<string>());
+    try {
+        runner();
+    } catch(FatalTestFailure) {
+        // Nothing to do in this case.
+    } catch(std::exception& e) {
+        registerFailure("Exception thrown: " + string(e.what()));
+    } catch(...) {
+        registerFailure("Unknown exception type thrown");
+    }
+    TestResult failures(current_failures.get());
+    current_failures.release();
+    return failures;
 }
 //@+node:gcross.20101206161648.1513: *3* registerFailure
 void Test::registerFailure(const string& message) {
@@ -61,22 +77,6 @@ void Test::registerFatalFailure(const string& message) {
 //@+node:gcross.20101206161648.1533: *3* registerFatalFailure
 void Test::registerFatalFailure(const char* filename, int line_number, const string& message) {
     registerFatalFailure(annotateFailureMessage(filename,line_number,message));
-}
-//@+node:gcross.20101206142257.1395: *3* run
-auto_ptr<vector<string> > Test::run() const {
-    current_failures.reset(new vector<string>());
-    try {
-        runner();
-    } catch(FatalTestFailure) {
-        // Nothing to do in this case.
-    } catch(std::exception& e) {
-        registerFailure("Exception thrown: " + string(e.what()));
-    } catch(...) {
-        registerFailure("Unknown exception type thrown");
-    }
-    auto_ptr<vector<string> > failures(current_failures.get());
-    current_failures.release();
-    return failures;
 }
 //@-others
 

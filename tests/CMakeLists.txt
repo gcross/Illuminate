@@ -6,6 +6,6 @@ add_executable(test EXCLUDE_FROM_ALL
     fake2
     template
 )
-target_link_libraries(test illuminate illuminate-main ${Boost_LIBRARIES})
+target_link_libraries(test illuminate-main illuminate ${Boost_LIBRARIES})
 set_property(TARGET test PROPERTY RUNTIME_OUTPUT_DIRECTORY .)
 #@-leo

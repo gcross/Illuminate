@@ -10,15 +10,17 @@ install (
     FILES
         illuminate/core.hpp
         illuminate/macros.hpp
+        illuminate/test_printers.hpp
+        illuminate/test_worker.hpp
+        illuminate/test_worker_group.hpp
     DESTINATION include/illuminate
 )
 
 install (
     FILES
-        illuminate/visitors/ansi_test_runner.hpp
         illuminate/visitors/indented_output.hpp
-        illuminate/visitors/plain_printer.hpp
-        illuminate/visitors/plain_test_runner.hpp
+        illuminate/visitors/test_future.hpp
+        illuminate/visitors/test_queue.hpp
     DESTINATION include/illuminate/visitors
 )
 #@-leo

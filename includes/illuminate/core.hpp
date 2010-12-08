@@ -8,10 +8,11 @@
 //@+<< Includes >>
 //@+node:gcross.20101205182001.2569: ** << Includes >>
 #include <boost/function.hpp>
+#include <boost/shared_ptr.hpp>
 #include <boost/thread.hpp>
 #include <exception>
 #include <list>
-#include <memory>
+#include <queue>
 #include <string>
 #include <vector>
 //@-<< Includes >>
@@ -25,6 +26,12 @@ using namespace std;
 //@-<< Usings >>
 
 //@+others
+//@+node:gcross.20101206161648.1861: ** Type aliases
+typedef shared_ptr<vector<string> > TestResult;
+typedef shared_ptr<packaged_task<TestResult> > TestTask;
+typedef shared_ptr<queue<TestTask> > TestQueue;
+typedef shared_ptr<unique_future<TestResult> > TestFuture;
+typedef shared_ptr<vector<TestFuture> > TestFutures;
 //@+node:gcross.20101205182001.2570: ** Classes
 //@+<< Forward declarations >>
 //@+node:gcross.20101205182001.2577: *3* << Forward declarations >>
@@ -63,7 +70,7 @@ private:
 public:
 
     Suite& lookupSuite(const string& name);
-    void visit(Visitor& visitor);
+    void visit(Visitor& visitor) const;
 //@-others
 };
 //@+node:gcross.20101206104532.1407: *3* Root
@@ -87,7 +94,7 @@ class Test : public Node {
     //@+others
     //@+node:gcross.20101206104532.1412: *4* (fields)
     public:
-        const int test_id;
+        const int id;
         const function<void ()> runner;
         static thread_specific_ptr<vector<string> > current_failures;
     //@+node:gcross.20101206161648.1514: *4* (exceptions)
@@ -104,7 +111,7 @@ class Test : public Node {
         static void registerFailure(const char* filename, int line_number, const string& message);
         static void registerFatalFailure(const string& message);
         static void registerFatalFailure(const char* filename, int line_number, const string& message);
-        auto_ptr<vector<string> > run() const;
+        TestResult operator()() const;
     //@-others
 };
 //@+node:gcross.20101205182001.2596: *3* Visitor
@@ -113,7 +120,7 @@ class Visitor {
 protected:
     virtual void enter(const Suite& suite) = 0;
     virtual void exit(const Suite& suite) = 0;
-    virtual void test(Test& suite) = 0;
+    virtual void test(const Test& test) = 0;
 };
 //@-others
 //@+node:gcross.20101205182001.2588: ** Functions

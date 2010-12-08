@@ -5,13 +5,13 @@
 //@+<< Includes >>
 //@+node:gcross.20101206161648.1607: ** << Includes >>
 #include "illuminate.hpp"
-#include "illuminate/visitors/ansi_test_runner.hpp"
+#include "illuminate/test_printers.hpp"
 //@-<< Includes >>
 
 //@+others
 //@+node:gcross.20101206161648.1609: ** main
 int main() {
-    Illuminate::ANSITestRunnerVisitor::runTests();
+    Illuminate::runTestsAndPrintFutures();
     return 0;
 }
 //@-others
