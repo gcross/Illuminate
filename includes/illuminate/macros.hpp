@@ -20,7 +20,7 @@
 //@+node:gcross.20101206142257.1407: *3* TEST_CASE
 #define TEST_CASE(caseName) \
     static void TEST_CASE_RUNNER_##caseName(); \
-    static Illuminate::Test TEST_CASE_##caseName(#caseName,getParentSuite(),TEST_CASE_RUNNER_##caseName); \
+    static Illuminate::Test TEST_CASE_##caseName(Illuminate::underscoresToSpaces(#caseName),getParentSuite(),TEST_CASE_RUNNER_##caseName); \
     static void TEST_CASE_RUNNER_##caseName()
 //@+node:gcross.20101206161648.1614: ** Helpers
 //@+node:gcross.20101206161648.1620: *3* DO_CHECK_WITH_X_ARGUMENT
