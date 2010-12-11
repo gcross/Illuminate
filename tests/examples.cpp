@@ -49,11 +49,11 @@ TEST_CASE(BoolExpression)
 {
     // The ASSERT_TRUE macro performs a general assertion;  the test fails and terminates
     // if the assertion is true.
-    ASSERT_TRUE(1 == 1u)
+    ASSERT_TRUE(1 == 1u);
 
     // The EXPECT_TRUE macro is like the ASSERT_TRUE macro, but it does not cause the test
     // to terminate on failure.
-    EXPECT_TRUE(1 == 1u)
+    EXPECT_TRUE(1 == 1u);
 
     // Since failure prints the expression inside the macro, one can use the trick
     // illustrated as follows to display a descriptive message when the tests fails:
