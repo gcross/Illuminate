@@ -47,6 +47,19 @@
             DO_TEST_##K(filename,line_number,F##_EXPRESSION(a,b,c),F##_MESSAGE(a,b,c));\
         }\
     }
+#define DEFINE_CHECK_WITH_4_ARGUMENTS(K,F) \
+    namespace Illuminate {\
+        template<class T1,class T2,class T3,class T4> void DO_##F##_##K(const char* filename, int line_number, const T1& a, const T2& b, const T3& c, const T4& d) {\
+            DO_TEST_##K(filename,line_number,F##_EXPRESSION(a,b,c,d),F##_MESSAGE(a,b,c,d));\
+        }\
+    }
+#include <iostream>
+#define DEFINE_CHECK_WITH_5_ARGUMENTS(K,F) \
+    namespace Illuminate {\
+        template<class T1,class T2,class T3,class T4,class T5> void DO_##F##_##K(const char* filename, int line_number, const T1& a, const T2& b, const T3& c, const T4& d, const T5& e) {\
+            DO_TEST_##K(filename,line_number,F##_EXPRESSION(a,b,c,d,e),F##_MESSAGE(a,b,c,d,e));\
+        }\
+    }
 //@+node:gcross.20101209224839.2292: *3* DEFINE_CHECKS
 #define DEFINE_CHECKS(F,N) \
     DEFINE_CHECK_WITH_##N##_ARGUMENTS(ASSERT,F) \
@@ -55,6 +68,8 @@
 #define DO_CHECK_WITH_1_ARGUMENTS(K,F,A) Illuminate::DO_##F##_##K(__FILE__,__LINE__,A);
 #define DO_CHECK_WITH_2_ARGUMENTS(K,F,A,B) Illuminate::DO_##F##_##K(__FILE__,__LINE__,A,B);
 #define DO_CHECK_WITH_3_ARGUMENTS(K,F,A,B,C) Illuminate::DO_##F##_##K(__FILE__,__LINE__,A,B,C);
+#define DO_CHECK_WITH_4_ARGUMENTS(K,F,A,B,C,D) Illuminate::DO_##F##_##K(__FILE__,__LINE__,A,B,C,D);
+#define DO_CHECK_WITH_5_ARGUMENTS(K,F,A,B,C,D,E) Illuminate::DO_##F##_##K(__FILE__,__LINE__,A,B,C,D,E);
 //@+node:gcross.20101206161648.1615: *3* DO_TEST_X
 #define DO_TEST_OF_KIND(FILE,LINE,expression,message,doRegisterFailure) { if(not (expression)) { Illuminate::Test::doRegisterFailure(FILE,LINE,message); } }
 #define DO_TEST_ASSERT(FILE,LINE,expression,message) DO_TEST_OF_KIND(FILE,LINE,expression,message,registerFatalFailure)
@@ -66,12 +81,30 @@
 DEFINE_CHECKS(EQ,2)
 #define ASSERT_EQ(A,B) DO_CHECK_WITH_2_ARGUMENTS(ASSERT,EQ,A,B)
 #define EXPECT_EQ(A,B) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,EQ,A,B)
+
+#define EQ_NAMED_EXPRESSION(name_1,value_1,name_2,value_2) (value_1) == (value_2)
+#define EQ_NAMED_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> does not match %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
+DEFINE_CHECKS(EQ_NAMED,4)
+#define ASSERT_EQ_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,EQ_NAMED,A,B,C,D)
+#define EXPECT_EQ_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,EQ_NAMED,A,B,C,D)
+
+#define ASSERT_EQ_QUOTED(A,B) ASSERT_EQ_NAMED(#A,A,#B,B)
+#define EXPECT_EQ_QUOTED(A,B) EXPECT_EQ_NAMED(#A,A,#B,B)
 //@+node:gcross.20101206161648.1814: *3* NEAR
-#define NEAR_EXPRESSION(expected_value,actual_value,absolute_error) abs((expected_value) - (actual_value)) <=  absolute_error
+#define NEAR_EXPRESSION(expected_value,actual_value,absolute_error) abs((expected_value) - (actual_value)) <= absolute_error
 #define NEAR_MESSAGE(expected_value,actual_value,absolute_error) (boost::format("Actual value <%1%> does not match the expected value <%2%> within an absolute tolerance of <%3%>") % (actual_value) % (expected_value) % (absolute_error)).str()
 DEFINE_CHECKS(NEAR,3)
 #define ASSERT_NEAR(A,B,C) DO_CHECK_WITH_3_ARGUMENTS(ASSERT,NEAR,A,B,C)
 #define EXPECT_NEAR(A,B,C) DO_CHECK_WITH_3_ARGUMENTS(EXPECT,NEAR,A,B,C)
+
+#define NEAR_NAMED_EXPRESSION(name_1,value_1,name_2,value_2,absolute_error) abs((value_2) - (value_1)) <= absolute_error
+#define NEAR_NAMED_MESSAGE(name_1,value_1,name_2,value_2,absolute_error) (boost::format("%1% <%2%> does not match %3% <%4%> within an absolute tolerance of <%5%>") % (name_1) % (value_1) % (name_2) % (value_2) % (absolute_error)).str()
+DEFINE_CHECKS(NEAR_NAMED,5)
+#define ASSERT_NEAR_NAMED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(ASSERT,NEAR_NAMED,A,B,C,D,E)
+#define EXPECT_NEAR_NAMED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(EXPECT,NEAR_NAMED,A,B,C,D,E)
+
+#define ASSERT_NEAR_QUOTED(A,B,C) ASSERT_NEAR_NAMED(#A,A,#B,B,C)
+#define EXPECT_NEAR_QUOTED(A,B,C) EXPECT_NEAR_NAMED(#A,A,#B,B,C)
 //@+node:gcross.20101206161648.1622: *3* TRUE
 #define TRUE_EXPRESSION(expression,_) expression
 #define TRUE_MESSAGE(_,expression) (boost::format("Assertion failed: %1%") % expression).str()
