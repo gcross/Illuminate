@@ -82,7 +82,7 @@ DEFINE_CHECKS(EQ,2)
 #define ASSERT_EQ(A,B) DO_CHECK_WITH_2_ARGUMENTS(ASSERT,EQ,A,B)
 #define EXPECT_EQ(A,B) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,EQ,A,B)
 
-#define EQ_NAMED_EXPRESSION(name_1,value_1,name_2,value_2) (value_1) == (value_2)
+#define EQ_NAMED_EXPRESSION(name_1,value_1,name_2,value_2) EQ_EXPRESSION(value_1,value_2)
 #define EQ_NAMED_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> does not match %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
 DEFINE_CHECKS(EQ_NAMED,4)
 #define ASSERT_EQ_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,EQ_NAMED,A,B,C,D)
@@ -90,6 +90,81 @@ DEFINE_CHECKS(EQ_NAMED,4)
 
 #define ASSERT_EQ_QUOTED(A,B) ASSERT_EQ_NAMED(#A,A,#B,B)
 #define EXPECT_EQ_QUOTED(A,B) EXPECT_EQ_NAMED(#A,A,#B,B)
+//@+node:gcross.20110130203213.1497: *3* GE
+#define GE_EXPRESSION(expected_value,actual_value) (expected_value) >= (actual_value)
+#define GE_MESSAGE(expected_value,actual_value) (boost::format("%1% < %2%") % (actual_value) % (expected_value)).str()
+DEFINE_CHECKS(GE,2)
+#define ASSERT_GE(A,B) DO_CHECK_WITH_2_ARGUMENTS(ASSERT,GE,A,B)
+#define EXPECT_GE(A,B) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,GE,A,B)
+
+#define GE_NAMED_EXPRESSION(name_1,value_1,name_2,value_2) GE_EXPRESSION(value_1,value_2)
+#define GE_NAMED_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is less than %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
+DEFINE_CHECKS(GE_NAMED,4)
+#define ASSERT_GE_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,GE_NAMED,A,B,C,D)
+#define EXPECT_GE_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,GE_NAMED,A,B,C,D)
+
+#define ASSERT_GE_QUOTED(A,B) ASSERT_GE_NAMED(#A,A,#B,B)
+#define EXPECT_GE_QUOTED(A,B) EXPECT_GE_NAMED(#A,A,#B,B)
+//@+node:gcross.20110130203213.1501: *3* GT
+#define GT_EXPRESSION(expected_value,actual_value) (expected_value) > (actual_value)
+#define GT_MESSAGE(expected_value,actual_value) (boost::format("%1% <= %2%") % (actual_value) % (expected_value)).str()
+DEFINE_CHECKS(GT,2)
+#define ASSERT_GT(A,B) DO_CHECK_WITH_2_ARGUMENTS(ASSERT,GT,A,B)
+#define EXPECT_GT(A,B) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,GT,A,B)
+
+#define GT_NAMED_EXPRESSION(name_1,value_1,name_2,value_2) GT_EXPRESSION(value_1,value_2)
+#define GT_NAMED_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is not greater than %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
+DEFINE_CHECKS(GT_NAMED,4)
+#define ASSERT_GT_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,GT_NAMED,A,B,C,D)
+#define EXPECT_GT_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,GT_NAMED,A,B,C,D)
+
+#define ASSERT_GT_QUOTED(A,B) ASSERT_GT_NAMED(#A,A,#B,B)
+#define EXPECT_GT_QUOTED(A,B) EXPECT_GT_NAMED(#A,A,#B,B)
+//@+node:gcross.20110130203213.1499: *3* LE
+#define LE_EXPRESSION(expected_value,actual_value) (expected_value) <= (actual_value)
+#define LE_MESSAGE(expected_value,actual_value) (boost::format("%1% > %2%") % (actual_value) % (expected_value)).str()
+DEFINE_CHECKS(LE,2)
+#define ASSERT_LE(A,B) DO_CHECK_WITH_2_ARGUMENTS(ASSERT,LE,A,B)
+#define EXPECT_LE(A,B) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,LE,A,B)
+
+#define LE_NAMED_EXPRESSION(name_1,value_1,name_2,value_2) LE_EXPRESSION(value_1,value_2)
+#define LE_NAMED_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is greater than %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
+DEFINE_CHECKS(LE_NAMED,4)
+#define ASSERT_LE_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,LE_NAMED,A,B,C,D)
+#define EXPECT_LE_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,LE_NAMED,A,B,C,D)
+
+#define ASSERT_LE_QUOTED(A,B) ASSERT_LE_NAMED(#A,A,#B,B)
+#define EXPECT_LE_QUOTED(A,B) EXPECT_LE_NAMED(#A,A,#B,B)
+//@+node:gcross.20110130203213.1503: *3* LT
+#define LT_EXPRESSION(expected_value,actual_value) (expected_value) < (actual_value)
+#define LT_MESSAGE(expected_value,actual_value) (boost::format("%1% >= %2%") % (actual_value) % (expected_value)).str()
+DEFINE_CHECKS(LT,2)
+#define ASSERT_LT(A,B) DO_CHECK_WITH_2_ARGUMENTS(ASSERT,LT,A,B)
+#define EXPECT_LT(A,B) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,LT,A,B)
+
+#define LT_NAMED_EXPRESSION(name_1,value_1,name_2,value_2) LT_EXPRESSION(value_1,value_2)
+#define LT_NAMED_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is not less than %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
+DEFINE_CHECKS(LT_NAMED,4)
+#define ASSERT_LT_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,LT_NAMED,A,B,C,D)
+#define EXPECT_LT_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,LT_NAMED,A,B,C,D)
+
+#define ASSERT_LT_QUOTED(A,B) ASSERT_LT_NAMED(#A,A,#B,B)
+#define EXPECT_LT_QUOTED(A,B) EXPECT_LT_NAMED(#A,A,#B,B)
+//@+node:gcross.20110130204958.1501: *3* NE
+#define NE_EXPRESSION(expected_value,actual_value) (expected_value) != (actual_value)
+#define NE_MESSAGE(expected_value,actual_value) (boost::format("%1% > %2%") % (actual_value) % (expected_value)).str()
+DEFINE_CHECKS(NE,2)
+#define ASSERT_NE(A,B) DO_CHECK_WITH_2_ARGUMENTS(ASSERT,NE,A,B)
+#define EXPECT_NE(A,B) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,NE,A,B)
+
+#define NE_NAMED_EXPRESSION(name_1,value_1,name_2,value_2) NE_EXPRESSION(value_1,value_2)
+#define NE_NAMED_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is greater than %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
+DEFINE_CHECKS(NE_NAMED,4)
+#define ASSERT_NE_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,NE_NAMED,A,B,C,D)
+#define EXPECT_NE_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,NE_NAMED,A,B,C,D)
+
+#define ASSERT_NE_QUOTED(A,B) ASSERT_NE_NAMED(#A,A,#B,B)
+#define EXPECT_NE_QUOTED(A,B) EXPECT_NE_NAMED(#A,A,#B,B)
 //@+node:gcross.20101206161648.1814: *3* NEAR
 #define NEAR_EXPRESSION(expected_value,actual_value,absolute_error) abs((expected_value) - (actual_value)) <= absolute_error
 #define NEAR_MESSAGE(expected_value,actual_value,absolute_error) (boost::format("Actual value <%1%> does not match the expected value <%2%> within an absolute tolerance of <%3%>") % (actual_value) % (expected_value) % (absolute_error)).str()
@@ -116,6 +191,10 @@ DEFINE_CHECKS(TRUE,2)
 #define FAIL(message) Illuminate::Test::registerFailure(__FILE__,__LINE__,(message))
 //@+node:gcross.20101206161648.1601: *3* FATALLY_FAIL
 #define FATALLY_FAIL(message) Illuminate::Test::registerFatalFailure(__FILE__,__LINE__,(message))
+//@+node:gcross.20110114113432.1703: ** Nothrow
+//@+node:gcross.20110114113432.1704: *3* TEST_NOTHROW
+#define TEST_NOTHROW try
+#define END_TEST_NOTHROW(label) catch(const std::exception e) { FAIL((boost::format("%1%: %2%") % label % e.what()).str()); }
 //@-others
 
 #endif
