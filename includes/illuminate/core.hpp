@@ -122,6 +122,13 @@ protected:
     virtual void exit(const Suite& suite) = 0;
     virtual void test(const Test& test) = 0;
 };
+//@+node:gcross.20110203224841.1945: *3* ResultVisitor
+class ResultVisitor : public virtual Visitor {
+protected:
+    virtual void testStarted(const Test& test) = 0;
+    virtual void testPassed(const Test& test) = 0;
+    virtual void testFailed(const Test& test,const vector<string>& failures) = 0;
+};
 //@-others
 //@+node:gcross.20101205182001.2588: ** Functions
 //@+node:gcross.20101205214942.2483: *3* getRoot

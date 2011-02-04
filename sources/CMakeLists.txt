@@ -1,17 +1,21 @@
 #@+leo-ver=5-thin
 #@+node:gcross.20101205182001.1278: * @thin CMakeLists.txt
 add_library(illuminate
-    node.cpp
-    suite.cpp
-    root.cpp
-    test.cpp
-    test_printers.cpp
-    test_worker.cpp
-    test_worker_group.cpp
-    utils.cpp
-    visitors/indented_output.cpp
-    visitors/test_future.cpp
-    visitors/test_queue.cpp
+    color_codes
+    node
+    suite
+    root
+    runners
+    test
+    test_worker
+    test_worker_group
+    utils
+    visitors/result/future
+    visitors/result/printer
+    visitors/result/runner
+    visitors/indented_output
+    visitors/printer
+    visitors/queuer
 )
 
 add_library(illuminate-main

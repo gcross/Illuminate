@@ -4,7 +4,7 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101206161648.1563: ** << Includes >>
-#include <iostream>
+#include <ostream>
 
 #include "illuminate/visitors/indented_output.hpp"
 //@-<< Includes >>
@@ -36,11 +36,13 @@ void IndentedOutputVisitor::exit(const Suite& suite) {
 void IndentedOutputVisitor::writeIndented(const string& s) {
     for(int i = 0; i < indentation; ++i) out << ' ';
     out << s;
+    out.flush();
 }
 //@+node:gcross.20101206161648.1573: *3* writeIndentedLine
 void IndentedOutputVisitor::writeIndentedLine(const string& s) {
     writeIndented(s);
     out << endl;
+    out.flush();
 }
 //@-others
 
