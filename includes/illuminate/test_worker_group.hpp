@@ -12,7 +12,7 @@
 
 #include "illuminate/core.hpp"
 #include "illuminate/test_worker.hpp"
-#include "illuminate/visitors/test_queue.hpp"
+#include "illuminate/visitors/queuer.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {
