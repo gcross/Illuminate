@@ -25,7 +25,8 @@ using namespace std;
 //@+node:gcross.20101208142631.1667: ** Functions
 void printTestList(const ColorCodes& color_codes=ColorCodes::ANSI, ostream& out=cout);
 void printTestFutures(const TestFutures& futures, const ColorCodes& color_codes=ColorCodes::ANSI, ostream& out=cout);
-void runTestsAndPrintFutures(unsigned int number_of_workers=max(thread::hardware_concurrency(),(unsigned int)1), const ColorCodes& color_codes=ColorCodes::ANSI, ostream& out=cout);
+void runTestsAndPrintResults(const ColorCodes& color_codes=ColorCodes::ANSI, ostream& out=cout);
+void runTestsInThreadsAndPrintResults(unsigned int number_of_workers=max(thread::hardware_concurrency(),(unsigned int)1), const ColorCodes& color_codes=ColorCodes::ANSI, ostream& out=cout);
 //@-others
 
 }

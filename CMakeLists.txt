@@ -3,7 +3,7 @@
 cmake_minimum_required (VERSION 2.6 FATAL_ERROR)
 project (Illuminate)
 
-find_package( Boost 1.40 COMPONENTS thread )
+find_package( Boost 1.40 COMPONENTS thread program_options REQUIRED )
 link_directories ( ${Boost_LIBRARY_DIRS} )
 include_directories ( ${Boost_INCLUDE_DIRS} )
 
