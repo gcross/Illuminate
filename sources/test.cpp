@@ -4,6 +4,12 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101205182001.1419: ** << Includes >>
+#include <boost/algorithm/string/case_conv.hpp>
+#include <boost/algorithm/string/predicate.hpp>
+#include <boost/any.hpp>
+#include <boost/program_options.hpp>
+#include <exception>
+#include <iostream>
 #include <sstream>
 
 #include "illuminate/core.hpp"
@@ -13,6 +19,9 @@ namespace Illuminate {
 
 //@+<< Usings >>
 //@+node:gcross.20101205182001.1420: ** << Usings >>
+using namespace boost;
+using namespace boost::program_options;
+using namespace std;
 //@-<< Usings >>
 
 //@+others
@@ -31,6 +40,7 @@ const char* Test::FailureRegisteredOutsideTestContext::what() const throw() {
 }
 //@+node:gcross.20101206142257.1467: *3* (static fields)
 thread_specific_ptr<vector<string> > Test::current_failures;
+enum FatalityMode Test::fatality_mode = NONE_FATAL;
 //@+node:gcross.20101206161648.1525: *3* annotateFailureMessage
 string Test::annotateFailureMessage(const char* filename, int line_number, const string& message) {
     stringstream annotated_message;
@@ -44,14 +54,18 @@ void Test::die() {
 //@+node:gcross.20101206142257.1395: *3* operator()
 TestResult Test::operator()() const {
     current_failures.reset(new vector<string>());
-    try {
+    if(fatality_mode >= EXCEPTIONS_FATAL) {
         runner();
-    } catch(FatalTestFailure) {
-        // Nothing to do in this case.
-    } catch(std::exception& e) {
-        registerFailure("Exception thrown: " + string(e.what()));
-    } catch(...) {
-        registerFailure("Unknown exception type thrown");
+    } else {
+        try {
+            runner();
+        } catch(FatalTestFailure) {
+            // Nothing to do in this case.
+        } catch(std::exception& e) {
+            registerFailure("Exception thrown: " + string(e.what()));
+        } catch(...) {
+            registerFailure("Unknown exception type thrown");
+        }
     }
     TestResult failures(current_failures.get());
     current_failures.release();
@@ -59,6 +73,9 @@ TestResult Test::operator()() const {
 }
 //@+node:gcross.20101206161648.1513: *3* registerFailure
 void Test::registerFailure(const string& message) {
+    if(fatality_mode >= ALL_FATAL) {
+        throw FatalError(message);
+    }
     vector<string>* failures = current_failures.get();
     if(failures == NULL) {
         throw FailureRegisteredOutsideTestContext();
@@ -77,6 +94,30 @@ void Test::registerFatalFailure(const string& message) {
 //@+node:gcross.20101206161648.1533: *3* registerFatalFailure
 void Test::registerFatalFailure(const char* filename, int line_number, const string& message) {
     registerFatalFailure(annotateFailureMessage(filename,line_number,message));
+}
+//@+node:gcross.20110204202041.1556: ** function validate
+void validate(any& v,
+              const vector<std::string>& values,
+              FatalityMode* target_type, int)
+{
+    // Make sure no previous assignment to 'a' was made.
+    validators::check_first_occurrence(v);
+
+    // Extract the first string from 'values'. If there is more than
+    // one string, it's an error, and exception will be thrown.
+    string s = validators::get_single_string(values);
+    to_lower(s);
+
+    static string const none("none"), exceptions("exceptions"), all("all");
+    if(equals(s,none)) {
+        v = any(NONE_FATAL);
+    } else if(equals(s,exceptions)) {
+        v = any(EXCEPTIONS_FATAL);
+    } else if(equals(s,all)) {
+        v = any(ALL_FATAL);
+    } else {
+        throw invalid_option_value(s);
+    }
 }
 //@-others
 

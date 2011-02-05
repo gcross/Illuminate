@@ -7,7 +7,9 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101205182001.2569: ** << Includes >>
+#include <boost/any.hpp>
 #include <boost/function.hpp>
+#include <boost/program_options.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/thread.hpp>
 #include <exception>
@@ -26,12 +28,21 @@ using namespace std;
 //@-<< Usings >>
 
 //@+others
+//@+node:gcross.20110204202041.1562: ** exception FatalError
+struct FatalError : public std::exception {
+    string const message;
+    FatalError(string const& message) : message(message) {}
+    virtual ~FatalError() throw() {}
+    char const* what() const throw() { return message.c_str(); }
+};
 //@+node:gcross.20101206161648.1861: ** Type aliases
 typedef shared_ptr<vector<string> > TestResult;
 typedef shared_ptr<packaged_task<TestResult> > TestTask;
 typedef shared_ptr<queue<TestTask> > TestQueue;
 typedef shared_ptr<unique_future<TestResult> > TestFuture;
 typedef shared_ptr<vector<TestFuture> > TestFutures;
+//@+node:gcross.20110204202041.1558: ** Enums
+enum FatalityMode {NONE_FATAL, EXCEPTIONS_FATAL, ALL_FATAL};
 //@+node:gcross.20101205182001.2570: ** Classes
 //@+<< Forward declarations >>
 //@+node:gcross.20101205182001.2577: *3* << Forward declarations >>
@@ -97,6 +108,7 @@ class Test : public Node {
         const int id;
         const function<void ()> runner;
         static thread_specific_ptr<vector<string> > current_failures;
+        static FatalityMode fatality_mode;
     //@+node:gcross.20101206161648.1514: *4* (exceptions)
     struct FailureRegisteredOutsideTestContext : public std::exception { virtual const char* what() const throw(); };
     struct FatalTestFailure { };
@@ -135,6 +147,13 @@ protected:
 Root& getRoot();
 //@+node:gcross.20101206104532.1371: *3* underscoresToSpaces
 string underscoresToSpaces(const string& old_string);
+//@+node:gcross.20110204202041.1559: *3* validate
+void validate(
+      any& v
+    , const vector<std::string>& values
+    , FatalityMode* target_type
+    , int
+);
 //@-others
 
 }
