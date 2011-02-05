@@ -28,7 +28,7 @@ void PrinterVisitor::suite(const Suite& suite) {
     writeIndentedLine(color_codes.suite + suite.name + ":" + color_codes.reset);
 }
 //@+node:gcross.20110203233241.1597: *3* test
-void PrinterVisitor::test(const Test& test) { writeIndentedLine(color_codes.test + test.name); }
+void PrinterVisitor::test(const Test& test) { writeIndentedLine(color_codes.test + test.name + color_codes.reset); }
 //@-others
 
 }

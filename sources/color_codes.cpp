@@ -23,7 +23,7 @@ ColorCodes::ColorCodes(const string& suite, const string& test, const string& pa
     , reset(reset)
 { }
 
-const ColorCodes ColorCodes::plain("","","","",""), ColorCodes::ANSI("\033[0m","\033[1;33m","\033[1;32m","\033[1;31m","");
+const ColorCodes ColorCodes::plain("","","","",""), ColorCodes::ANSI("\033[0m","\033[1;33m","\033[1;32m","\033[1;31m","\033[0;0m");
 //@-others
 
 }
