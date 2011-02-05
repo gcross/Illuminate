@@ -17,10 +17,12 @@ add_library(illuminate
     visitors/printer
     visitors/queuer
 )
+target_link_libraries(illuminate ${Boost_LIBRARIES})
 
 add_library(illuminate-main
     main.cpp
 )
+target_link_libraries(illuminate-main illuminate)
 
 install (
     TARGETS
