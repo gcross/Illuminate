@@ -5,6 +5,7 @@
 //@+<< Includes >>
 //@+node:gcross.20101206161648.1607: ** << Includes >>
 #include <boost/program_options.hpp>
+#include <fstream>
 #include <iostream>
 
 #include "illuminate.hpp"
@@ -46,13 +47,17 @@ int main(int argc, char** argv) {
     po::variables_map vm;
     try {
         po::store(po::parse_command_line(argc, argv, desc), vm);
+        ifstream config_file("test.cfg");
+        po::store(po::parse_config_file(config_file, desc), vm);
     } catch(...) {
         cout << desc << "\n";
+        cout << "Options may also be specified in 'test.cfg'" << endl;
         return 1;
     }
 
     if (vm.count("help")) {
         cout << desc << "\n";
+        cout << "Options may also be specified in 'test.cfg'" << endl;
         return 1;
     }
 
