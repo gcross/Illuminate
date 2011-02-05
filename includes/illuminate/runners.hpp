@@ -7,6 +7,7 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101208142631.1624: ** << Includes >>
+#include <boost/optional.hpp>
 #include <algorithm>
 #include <iostream>
 
@@ -18,6 +19,7 @@ namespace Illuminate {
 
 //@+<< Usings >>
 //@+node:gcross.20101208142631.1625: ** << Usings >>
+using namespace boost;
 using namespace std;
 //@-<< Usings >>
 
@@ -26,7 +28,7 @@ using namespace std;
 void printTestList(const ColorCodes& color_codes=ColorCodes::ANSI, ostream& out=cout);
 void printTestFutures(const TestFutures& futures, const ColorCodes& color_codes=ColorCodes::ANSI, ostream& out=cout);
 void runTestsAndPrintResults(const ColorCodes& color_codes=ColorCodes::ANSI, ostream& out=cout);
-void runTestsInThreadsAndPrintResults(unsigned int number_of_workers=max(thread::hardware_concurrency(),(unsigned int)1), const ColorCodes& color_codes=ColorCodes::ANSI, ostream& out=cout);
+void runTestsInThreadsAndPrintResults(optional<unsigned int> const requested_number_of_workers=none, const ColorCodes& color_codes=ColorCodes::ANSI, ostream& out=cout);
 //@-others
 
 }

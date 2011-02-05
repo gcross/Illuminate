@@ -27,6 +27,14 @@ int main(int argc, char** argv) {
     po::options_description desc("Allowed options");
     desc.add_options()
         ("help", "produce help message\n")
+        ("color,c", po::value<Coloring>(),
+            "coloring style\n"
+            "\n"
+            "The possible values of this option are:\n"
+            "    ansi:  ansi color codes (default)\n"
+            "    plain: no coloring, plain text\n"
+            "\n"
+        )
         ("fatal,f", po::value<FatalityMode>(),
             "fatality mode\n"
             "\n"
@@ -61,6 +69,13 @@ int main(int argc, char** argv) {
         return 1;
     }
 
+    ColorCodes const& color_codes
+        = (vm.count("color") == 0
+        || vm      ["color"].as<Coloring>() == ANSI_COLORING
+          ) ? ColorCodes::ANSI
+            : ColorCodes::plain
+        ;
+
     if (vm.count("fatal")) {
         Test::fatality_mode = vm["fatal"].as<FatalityMode>();
     }
@@ -68,9 +83,9 @@ int main(int argc, char** argv) {
     unsigned int const number_of_threads = vm["threads"].as<unsigned int>();
 
     switch(number_of_threads) {
-        case 0:  runTestsInThreadsAndPrintResults(); break;
-        case 1:  runTestsAndPrintResults(); break;
-        default: runTestsInThreadsAndPrintResults(number_of_threads); break;
+        case 0:  runTestsInThreadsAndPrintResults(none,color_codes); break;
+        case 1:  runTestsAndPrintResults(color_codes); break;
+        default: runTestsInThreadsAndPrintResults(number_of_threads,color_codes); break;
     }
 
     return 0;

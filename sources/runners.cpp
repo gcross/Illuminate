@@ -60,7 +60,12 @@ void runTestsAndPrintResults(const ColorCodes& color_codes, ostream& out) {
     }
 }
 //@+node:gcross.20101208142631.1684: *3* runTestsInThreadsAndPrintResults
-void runTestsInThreadsAndPrintResults(unsigned int number_of_workers, const ColorCodes& color_codes, ostream& out) {
+void runTestsInThreadsAndPrintResults(optional<unsigned int> const requested_number_of_workers, const ColorCodes& color_codes, ostream& out) {
+    unsigned int const number_of_workers = 
+        requested_number_of_workers
+            ? *requested_number_of_workers
+            : max(thread::hardware_concurrency(),(unsigned int)1)
+            ;
     TestWorkerGroup workers(number_of_workers);
     printTestFutures(workers.futures,color_codes,out);
 }
