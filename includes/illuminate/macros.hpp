@@ -186,6 +186,12 @@ DEFINE_CHECKS(NEAR_NAMED,5)
 DEFINE_CHECKS(TRUE,2)
 #define ASSERT_TRUE(A) DO_CHECK_WITH_2_ARGUMENTS(ASSERT,TRUE,A,#A)
 #define EXPECT_TRUE(A) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,TRUE,A,#A)
+//@+node:gcross.20110204201608.2058: *3* FALSE
+#define FALSE_EXPRESSION(expression,_) (!expression)
+#define FALSE_MESSAGE(_,expression) (boost::format("Anti-assertion failed: %1%") % expression).str()
+DEFINE_CHECKS(FALSE,2)
+#define ASSERT_FALSE(A) DO_CHECK_WITH_2_ARGUMENTS(ASSERT,FALSE,A,#A)
+#define EXPECT_FALSE(A) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,FALSE,A,#A)
 //@+node:gcross.20101206161648.1598: ** Failures
 //@+node:gcross.20101206161648.1599: *3* FAIL
 #define FAIL(message) Illuminate::Test::registerFailure(__FILE__,__LINE__,(message))
