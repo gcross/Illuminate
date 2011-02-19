@@ -167,13 +167,13 @@ DEFINE_CHECKS(NE_NAMED,4)
 #define EXPECT_NE_QUOTED(A,B) EXPECT_NE_NAMED(#A,A,#B,B)
 //@+node:gcross.20101206161648.1814: *3* NEAR
 #define NEAR_EXPRESSION(expected_value,actual_value,absolute_error) abs((expected_value) - (actual_value)) <= absolute_error
-#define NEAR_MESSAGE(expected_value,actual_value,absolute_error) (boost::format("Actual value <%1%> does not match the expected value <%2%> within an absolute tolerance of <%3%>") % (actual_value) % (expected_value) % (absolute_error)).str()
+#define NEAR_MESSAGE(expected_value,actual_value,absolute_error) (boost::format("Actual value %|.15| does not match the expected value %|.15| within an absolute tolerance of %||") % (actual_value) % (expected_value) % (absolute_error)).str()
 DEFINE_CHECKS(NEAR,3)
 #define ASSERT_NEAR(A,B,C) DO_CHECK_WITH_3_ARGUMENTS(ASSERT,NEAR,A,B,C)
 #define EXPECT_NEAR(A,B,C) DO_CHECK_WITH_3_ARGUMENTS(EXPECT,NEAR,A,B,C)
 
 #define NEAR_NAMED_EXPRESSION(name_1,value_1,name_2,value_2,absolute_error) abs((value_2) - (value_1)) <= absolute_error
-#define NEAR_NAMED_MESSAGE(name_1,value_1,name_2,value_2,absolute_error) (boost::format("%1% <%2%> does not match %3% <%4%> within an absolute tolerance of <%5%>") % (name_1) % (value_1) % (name_2) % (value_2) % (absolute_error)).str()
+#define NEAR_NAMED_MESSAGE(name_1,value_1,name_2,value_2,absolute_error) (boost::format("%|| %|.15| does not match %|| %|.15| within an absolute tolerance of %||") % (name_1) % (value_1) % (name_2) % (value_2) % (absolute_error)).str()
 DEFINE_CHECKS(NEAR_NAMED,5)
 #define ASSERT_NEAR_NAMED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(ASSERT,NEAR_NAMED,A,B,C,D,E)
 #define EXPECT_NEAR_NAMED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(EXPECT,NEAR_NAMED,A,B,C,D,E)
