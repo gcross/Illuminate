@@ -243,16 +243,42 @@ DEFINE_CHECKS(FALSE,2)
 #define END_EXPECT_FAIL \
         _ILLUMINATE_END_KNOWN_FAIL \
     }
+
+#define _ILLUMINATE_BEGIN_THROWS \
+        { \
+            bool _ILLUMINATE_THROWS_exception_thrown = false; \
+            unsigned int const _ILLUMINATE_THROWS_line_number = __LINE__; \
+            try {
+
+#define _ILLUMINATE_END_THROWS(exception_type) \
+            } catch(exception_type const& e) { _ILLUMINATE_THROWS_exception_thrown = true; } \
+            if(!_ILLUMINATE_THROWS_exception_thrown) { \
+                Illuminate::Test::registerFailure(__FILE__,_ILLUMINATE_THROWS_line_number,"Exception " #exception_type " was not thrown.",_ILLUMINATE_THROWS_fatal); \
+            } \
+        }
+
+#define BEGIN_ASSERT_THROWS \
+    { \
+        bool _ILLUMINATE_THROWS_fatal = true; \
+        _ILLUMINATE_BEGIN_THROWS
+
+#define END_ASSERT_THROWS(exception_type) \
+        _ILLUMINATE_END_THROWS(exception_type) \
+    }
+
+#define BEGIN_EXPECT_THROWS \
+    { \
+        bool _ILLUMINATE_THROWS_fatal = false; \
+        _ILLUMINATE_BEGIN_THROWS
+
+#define END_EXPECT_THROWS(exception_type) \
+        _ILLUMINATE_END_THROWS(exception_type) \
     }
 //@+node:gcross.20101206161648.1598: ** Failures
 //@+node:gcross.20101206161648.1599: *3* FAIL
 #define FAIL(message) Illuminate::Test::registerFailure(__FILE__,__LINE__,(message),false)
 //@+node:gcross.20101206161648.1601: *3* FATALLY_FAIL
 #define FATALLY_FAIL(message) Illuminate::Test::registerFailure(__FILE__,__LINE__,(message),true)
-//@+node:gcross.20110114113432.1703: ** Nothrow
-//@+node:gcross.20110114113432.1704: *3* TEST_NOTHROW
-#define TEST_NOTHROW try
-#define END_TEST_NOTHROW(label) catch(const std::exception e) { FAIL((boost::format("%1%: %2%") % label % e.what()).str()); }
 //@-others
 
 #endif

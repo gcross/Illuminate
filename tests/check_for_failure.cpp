@@ -124,5 +124,26 @@ TEST_CASE(nested_four_times)
     } END_EXPECT_FAIL
 }
 
+TEST_CASE(exceptions)
+{
+    BEGIN_ASSERT_THROWS {
+        throw 0;
+    } END_ASSERT_THROWS(int)
+
+    BEGIN_EXPECT_FAIL {
+        BEGIN_ASSERT_THROWS {
+        } END_ASSERT_THROWS(int)
+    } END_EXPECT_FAIL
+
+    BEGIN_EXPECT_THROWS {
+        throw 0;
+    } END_EXPECT_THROWS(int)
+
+    BEGIN_EXPECT_FAIL {
+        BEGIN_EXPECT_THROWS {
+        } END_EXPECT_THROWS(int)
+    } END_EXPECT_FAIL
+}
+
 } // suite
 //@-leo
