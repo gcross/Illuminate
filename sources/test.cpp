@@ -72,7 +72,7 @@ TestResult Test::operator()() const {
     return failures;
 }
 //@+node:gcross.20101206161648.1513: *3* registerFailure
-void Test::registerFailure(const string& message) {
+void Test::registerFailure(const string& message, bool const fatal) {
     if(fatality_mode >= ALL_FATAL) {
         throw FatalError(message);
     }
@@ -81,19 +81,11 @@ void Test::registerFailure(const string& message) {
         throw FailureRegisteredOutsideTestContext();
     }
     failures->push_back(message);
+    if(fatal) die();
 }
 //@+node:gcross.20101206161648.1527: *3* registerFailure
-void Test::registerFailure(const char* filename, int line_number, const string& message) {
-    registerFailure(annotateFailureMessage(filename,line_number,message));
-}
-//@+node:gcross.20101206161648.1531: *3* registerFatalFailure
-void Test::registerFatalFailure(const string& message) {
-    registerFailure(message);
-    die();
-}
-//@+node:gcross.20101206161648.1533: *3* registerFatalFailure
-void Test::registerFatalFailure(const char* filename, int line_number, const string& message) {
-    registerFatalFailure(annotateFailureMessage(filename,line_number,message));
+void Test::registerFailure(const char* filename, unsigned int const line_number, const string& message, bool const fatal) {
+    registerFailure(annotateFailureMessage(filename,line_number,message),fatal);
 }
 //@+node:gcross.20110204202041.1556: ** function validate
 void validate(any& v,

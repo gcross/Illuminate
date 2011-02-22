@@ -71,9 +71,9 @@
 #define DO_CHECK_WITH_4_ARGUMENTS(K,F,A,B,C,D) Illuminate::DO_##F##_##K(__FILE__,__LINE__,A,B,C,D);
 #define DO_CHECK_WITH_5_ARGUMENTS(K,F,A,B,C,D,E) Illuminate::DO_##F##_##K(__FILE__,__LINE__,A,B,C,D,E);
 //@+node:gcross.20101206161648.1615: *3* DO_TEST_X
-#define DO_TEST_OF_KIND(FILE,LINE,expression,message,doRegisterFailure) { if(not (expression)) { Illuminate::Test::doRegisterFailure(FILE,LINE,message); } }
-#define DO_TEST_ASSERT(FILE,LINE,expression,message) DO_TEST_OF_KIND(FILE,LINE,expression,message,registerFatalFailure)
-#define DO_TEST_EXPECT(FILE,LINE,expression,message) DO_TEST_OF_KIND(FILE,LINE,expression,message,registerFailure)
+#define DO_TEST_OF_KIND(FILE,LINE,expression,message,fatal) { if(not (expression)) { Illuminate::Test::registerFailure(FILE,LINE,message,fatal); } }
+#define DO_TEST_ASSERT(FILE,LINE,expression,message) DO_TEST_OF_KIND(FILE,LINE,expression,message,true)
+#define DO_TEST_EXPECT(FILE,LINE,expression,message) DO_TEST_OF_KIND(FILE,LINE,expression,message,false)
 //@+node:gcross.20101206161648.1520: ** Checks
 //@+node:gcross.20101206161648.1618: *3* EQ
 #define EQ_EXPRESSION(expected_value,actual_value) (expected_value) == (actual_value)
@@ -209,9 +209,9 @@ DEFINE_CHECKS(FALSE,2)
 #define EXPECT_FALSE(A) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,FALSE,A,#A)
 //@+node:gcross.20101206161648.1598: ** Failures
 //@+node:gcross.20101206161648.1599: *3* FAIL
-#define FAIL(message) Illuminate::Test::registerFailure(__FILE__,__LINE__,(message))
+#define FAIL(message) Illuminate::Test::registerFailure(__FILE__,__LINE__,(message),false)
 //@+node:gcross.20101206161648.1601: *3* FATALLY_FAIL
-#define FATALLY_FAIL(message) Illuminate::Test::registerFatalFailure(__FILE__,__LINE__,(message))
+#define FATALLY_FAIL(message) Illuminate::Test::registerFailure(__FILE__,__LINE__,(message),true)
 //@+node:gcross.20110114113432.1703: ** Nothrow
 //@+node:gcross.20110114113432.1704: *3* TEST_NOTHROW
 #define TEST_NOTHROW try
