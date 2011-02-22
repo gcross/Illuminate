@@ -2,6 +2,10 @@
 //@+node:gcross.20101206142257.1399: * @thin macros.hpp
 //@@language cplusplus
 
+/*! \file macros.hpp
+    \brief Macros for defining test suite/cases and performing checks.
+*/
+
 #ifndef ILLUMINATE_MACROS_HPP
 #define ILLUMINATE_MACROS_HPP
 
@@ -12,7 +16,44 @@
 
 //@+others
 //@+node:gcross.20101206142257.1405: ** Test declarations
+/*! \brief These macros define tests and test suites.
+    \defgroup DECLARATIONS Test declarations
+    \details Note that in the name displayed to the user all the underscores will be replaced with spaces and then leading and trailing whitespace will be trimmed.
+*/
+//@+node:gcross.20101206142257.1407: *3* TEST_CASE
+/*! \brief Defines a test case named \a caseName.
+    \ingroup DECLARATIONS
+*/
+/*! The contents of the test should be supplied within curly brackets ({}'s) immediately following the macro as in the following example:
+
+    \code
+    TEST_CASE(MyTest) {
+        ...
+        ASSERT_TRUE(expression);
+    }
+    \endcode
+*/
+#define TEST_CASE(caseName) \
+    static void TEST_CASE_RUNNER_##caseName(); \
+    static Illuminate::Test TEST_CASE_##caseName(Illuminate::underscoresToSpaces(#caseName),getParentSuite(),TEST_CASE_RUNNER_##caseName); \
+    static void TEST_CASE_RUNNER_##caseName()
 //@+node:gcross.20101206142257.1406: *3* TEST_SUITE
+/*! \brief Defines a test suite named \a suiteName.
+    \ingroup DECLARATIONS
+*/
+/*! Suites may contain a mixture of test cases and nested test suites in any order.  The contents of the suite should be supplied within curly brackets ({}'s) immediately following the macro as in the following example:
+
+    \code
+    TEST_SUITE(Suite) {
+        TEST_SUITE(NestedSuite1) { ... }
+        TEST_SUITE(NestedSuite2) { ... }
+        ...
+        TEST_CASE(Test1) { ... }
+        TEST_CASE(Test2) { ... }
+        ...
+    }
+    \endcode
+*/
 #define TEST_SUITE(suiteName) \
     namespace SUITE_##suiteName { \
         static Illuminate::Suite& _getParentSuite() { \
@@ -22,11 +63,6 @@
         static Illuminate::Suite& getParentSuite() { return _getParentSuite(); } \
     } \
     namespace SUITE_##suiteName
-//@+node:gcross.20101206142257.1407: *3* TEST_CASE
-#define TEST_CASE(caseName) \
-    static void TEST_CASE_RUNNER_##caseName(); \
-    static Illuminate::Test TEST_CASE_##caseName(Illuminate::underscoresToSpaces(#caseName),getParentSuite(),TEST_CASE_RUNNER_##caseName); \
-    static void TEST_CASE_RUNNER_##caseName()
 //@+node:gcross.20101206161648.1614: ** Helpers
 //@+node:gcross.20101206161648.1620: *3* DEFINE_CHECK_WITH_X_ARGUMENTS
 #define DEFINE_CHECK_WITH_1_ARGUMENTS(K,F) \
@@ -75,137 +111,359 @@
 #define DO_TEST_ASSERT(FILE,LINE,expression,message) DO_TEST_OF_KIND(FILE,LINE,expression,message,true)
 #define DO_TEST_EXPECT(FILE,LINE,expression,message) DO_TEST_OF_KIND(FILE,LINE,expression,message,false)
 //@+node:gcross.20101206161648.1520: ** Checks
-//@+node:gcross.20101206161648.1618: *3* EQ
-#define EQ_EXPRESSION(expected_value,actual_value) (expected_value) == (actual_value)
-#define EQ_MESSAGE(expected_value,actual_value) (boost::format("Actual value <%1%> does not match the expected value <%2%>") % (actual_value) % (expected_value)).str()
-DEFINE_CHECKS(EQ,2)
-#define ASSERT_EQ(A,B) DO_CHECK_WITH_2_ARGUMENTS(ASSERT,EQ,A,B)
-#define EXPECT_EQ(A,B) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,EQ,A,B)
+/*! \defgroup CHECKS Checks
 
-#define EQ_NAMED_EXPRESSION(name_1,value_1,name_2,value_2) EQ_EXPRESSION(value_1,value_2)
-#define EQ_NAMED_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> does not match %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
-DEFINE_CHECKS(EQ_NAMED,4)
-#define ASSERT_EQ_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,EQ_NAMED,A,B,C,D)
-#define EXPECT_EQ_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,EQ_NAMED,A,B,C,D)
+    These macros perform various checks within test cases.  For every kind of check there is an ASSERT and an EXPECT variant;  the difference is that the former treats failure as being fatal and immediately terminates the test, whereas the latter merely logs the failure and allows the test to proceed.
+*/
+//@+node:gcross.20110221195111.1565: *3* Relation
+/*! \defgroup RELATION_CHECKS Relation checks
+    \brief These macros check that two expressions are equal in value.
+    \ingroup CHECKS
+*/
+//@+node:gcross.20101206161648.1618: *4* EQ
+/*! \defgroup EQ_CHECKS EQ [=] (equality)
+    \brief These macros check that two expressions are equal in value.
+    \ingroup RELATION_CHECKS
+*/
+#define EQ_EXPRESSION(name_1,value_1,name_2,value_2) (value_1) == (value_2)
+#define EQ_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> does not match %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
+DEFINE_CHECKS(EQ,4)
 
-#define ASSERT_EQ_QUOTED(A,B) ASSERT_EQ_NAMED(#A,A,#B,B)
-#define EXPECT_EQ_QUOTED(A,B) EXPECT_EQ_NAMED(#A,A,#B,B)
-//@+node:gcross.20110130203213.1497: *3* GE
-#define GE_EXPRESSION(expected_value,actual_value) (expected_value) >= (actual_value)
-#define GE_MESSAGE(expected_value,actual_value) (boost::format("%1% < %2%") % (actual_value) % (expected_value)).str()
-DEFINE_CHECKS(GE,2)
-#define ASSERT_GE(A,B) DO_CHECK_WITH_2_ARGUMENTS(ASSERT,GE,A,B)
-#define EXPECT_GE(A,B) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,GE,A,B)
+/*! \brief Checks that \a A and \a B are equal; registers a fatal failure otherwise.
+    \ingroup EQ_CHECKS
+*/
+#define ASSERT_EQ(A,B) ASSERT_EQ_NAMED(#A,A,#B,B)
 
-#define GE_NAMED_EXPRESSION(name_1,value_1,name_2,value_2) GE_EXPRESSION(value_1,value_2)
-#define GE_NAMED_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is less than %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
-DEFINE_CHECKS(GE_NAMED,4)
-#define ASSERT_GE_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,GE_NAMED,A,B,C,D)
-#define EXPECT_GE_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,GE_NAMED,A,B,C,D)
+/*! \brief Checks that \a A and \a B are equal; registers a non-fatal failure otherwise.
+    \ingroup EQ_CHECKS
+*/
+#define EXPECT_EQ(A,B) EXPECT_EQ_NAMED(#A,A,#B,B)
 
-#define ASSERT_GE_QUOTED(A,B) ASSERT_GE_NAMED(#A,A,#B,B)
-#define EXPECT_GE_QUOTED(A,B) EXPECT_GE_NAMED(#A,A,#B,B)
-//@+node:gcross.20110130203213.1501: *3* GT
-#define GT_EXPRESSION(expected_value,actual_value) (expected_value) > (actual_value)
-#define GT_MESSAGE(expected_value,actual_value) (boost::format("%1% <= %2%") % (actual_value) % (expected_value)).str()
-DEFINE_CHECKS(GT,2)
-#define ASSERT_GT(A,B) DO_CHECK_WITH_2_ARGUMENTS(ASSERT,GT,A,B)
-#define EXPECT_GT(A,B) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,GT,A,B)
+/*! \brief Like #ASSERT_EQ, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+    \ingroup EQ_CHECKS
+*/
+#define ASSERT_EQ_VAL(A,B) ASSERT_EQ_NAMED(#A,A,"the expected value",B)
 
-#define GT_NAMED_EXPRESSION(name_1,value_1,name_2,value_2) GT_EXPRESSION(value_1,value_2)
-#define GT_NAMED_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is not greater than %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
-DEFINE_CHECKS(GT_NAMED,4)
-#define ASSERT_GT_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,GT_NAMED,A,B,C,D)
-#define EXPECT_GT_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,GT_NAMED,A,B,C,D)
+/*! \brief Like #EXPECT_EQ, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+    \ingroup EQ_CHECKS
+*/
+#define EXPECT_EQ_VAL(A,B) EXPECT_EQ_NAMED(#A,A,"the expected value",B)
 
-#define ASSERT_GT_QUOTED(A,B) ASSERT_GT_NAMED(#A,A,#B,B)
-#define EXPECT_GT_QUOTED(A,B) EXPECT_GT_NAMED(#A,A,#B,B)
-//@+node:gcross.20110130203213.1499: *3* LE
-#define LE_EXPRESSION(expected_value,actual_value) (expected_value) <= (actual_value)
-#define LE_MESSAGE(expected_value,actual_value) (boost::format("%1% > %2%") % (actual_value) % (expected_value)).str()
-DEFINE_CHECKS(LE,2)
-#define ASSERT_LE(A,B) DO_CHECK_WITH_2_ARGUMENTS(ASSERT,LE,A,B)
-#define EXPECT_LE(A,B) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,LE,A,B)
+/*! \brief Checks that \a B and \a D are equal; registers a fatal failure labeling these values with the respective names \a A and \a C otherwise.
+    \ingroup EQ_CHECKS
+*/
+#define ASSERT_EQ_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,EQ,A,B,C,D)
 
-#define LE_NAMED_EXPRESSION(name_1,value_1,name_2,value_2) LE_EXPRESSION(value_1,value_2)
-#define LE_NAMED_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is greater than %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
-DEFINE_CHECKS(LE_NAMED,4)
-#define ASSERT_LE_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,LE_NAMED,A,B,C,D)
-#define EXPECT_LE_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,LE_NAMED,A,B,C,D)
+/*! \brief Checks that \a B and \a D are equal; registers a non-fatal failure labeling these values with the respective names \a A and \a C otherwise.
+    \ingroup EQ_CHECKS
+*/
+#define EXPECT_EQ_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,EQ,A,B,C,D)
+//@+node:gcross.20110222121027.1867: *4* NE
+/*! \defgroup NE_CHECKS NE [≠] (inequality)
+    \brief These macros check that two expressions are not equal in value.
+    \ingroup RELATION_CHECKS
+*/
+#define NE_EXPRESSION(name_1,value_1,name_2,value_2) (value_1) != (value_2)
+#define NE_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> matches %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
+DEFINE_CHECKS(NE,4)
 
-#define ASSERT_LE_QUOTED(A,B) ASSERT_LE_NAMED(#A,A,#B,B)
-#define EXPECT_LE_QUOTED(A,B) EXPECT_LE_NAMED(#A,A,#B,B)
-//@+node:gcross.20110130203213.1503: *3* LT
-#define LT_EXPRESSION(expected_value,actual_value) (expected_value) < (actual_value)
-#define LT_MESSAGE(expected_value,actual_value) (boost::format("%1% >= %2%") % (actual_value) % (expected_value)).str()
-DEFINE_CHECKS(LT,2)
-#define ASSERT_LT(A,B) DO_CHECK_WITH_2_ARGUMENTS(ASSERT,LT,A,B)
-#define EXPECT_LT(A,B) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,LT,A,B)
+/*! \brief Checks that \a A and \a B are not equal; registers a fatal failure otherwise.
+    \ingroup NE_CHECKS
+*/
+#define ASSERT_NE(A,B) ASSERT_NE_NAMED(#A,A,#B,B)
 
-#define LT_NAMED_EXPRESSION(name_1,value_1,name_2,value_2) LT_EXPRESSION(value_1,value_2)
-#define LT_NAMED_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is not less than %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
-DEFINE_CHECKS(LT_NAMED,4)
-#define ASSERT_LT_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,LT_NAMED,A,B,C,D)
-#define EXPECT_LT_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,LT_NAMED,A,B,C,D)
+/*! \brief Checks that \a A and \a B are not equal; registers a non-fatal failure otherwise.
+    \ingroup NE_CHECKS
+*/
+#define EXPECT_NE(A,B) EXPECT_NE_NAMED(#A,A,#B,B)
 
-#define ASSERT_LT_QUOTED(A,B) ASSERT_LT_NAMED(#A,A,#B,B)
-#define EXPECT_LT_QUOTED(A,B) EXPECT_LT_NAMED(#A,A,#B,B)
-//@+node:gcross.20110130204958.1501: *3* NE
-#define NE_EXPRESSION(expected_value,actual_value) (expected_value) != (actual_value)
-#define NE_MESSAGE(expected_value,actual_value) (boost::format("%1% > %2%") % (actual_value) % (expected_value)).str()
-DEFINE_CHECKS(NE,2)
-#define ASSERT_NE(A,B) DO_CHECK_WITH_2_ARGUMENTS(ASSERT,NE,A,B)
-#define EXPECT_NE(A,B) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,NE,A,B)
+/*! \brief Like #ASSERT_NE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+    \ingroup NE_CHECKS
+*/
+#define ASSERT_NE_VAL(A,B) ASSERT_NE_NAMED(#A,A,"the unexpected value",B)
 
-#define NE_NAMED_EXPRESSION(name_1,value_1,name_2,value_2) NE_EXPRESSION(value_1,value_2)
-#define NE_NAMED_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is greater than %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
-DEFINE_CHECKS(NE_NAMED,4)
-#define ASSERT_NE_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,NE_NAMED,A,B,C,D)
-#define EXPECT_NE_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,NE_NAMED,A,B,C,D)
+/*! \brief Like #EXPECT_NE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+    \ingroup NE_CHECKS
+*/
+#define EXPECT_NE_VAL(A,B) EXPECT_NE_NAMED(#A,A,"the unexpected value",B)
 
-#define ASSERT_NE_QUOTED(A,B) ASSERT_NE_NAMED(#A,A,#B,B)
-#define EXPECT_NE_QUOTED(A,B) EXPECT_NE_NAMED(#A,A,#B,B)
-//@+node:gcross.20101206161648.1814: *3* NEAR
-#define NEAR_EXPRESSION(expected_value,actual_value,absolute_error) abs((expected_value) - (actual_value)) <= absolute_error
-#define NEAR_MESSAGE(expected_value,actual_value,absolute_error) (boost::format("Actual value %|.15| does not match the expected value %|.15| within an absolute tolerance of %||") % (actual_value) % (expected_value) % (absolute_error)).str()
-DEFINE_CHECKS(NEAR,3)
-#define ASSERT_NEAR(A,B,C) DO_CHECK_WITH_3_ARGUMENTS(ASSERT,NEAR,A,B,C)
-#define EXPECT_NEAR(A,B,C) DO_CHECK_WITH_3_ARGUMENTS(EXPECT,NEAR,A,B,C)
+/*! \brief Checks that \a B and \a D are not equal; registers a fatal failure labeling these values with the respective names \a A and \a C otherwise.
+    \ingroup NE_CHECKS
+*/
+#define ASSERT_NE_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,NE,A,B,C,D)
 
-#define NEAR_NAMED_EXPRESSION(name_1,value_1,name_2,value_2,absolute_error) abs((value_2) - (value_1)) <= absolute_error
-#define NEAR_NAMED_MESSAGE(name_1,value_1,name_2,value_2,absolute_error) (boost::format("%|| %|.15| does not match %|| %|.15| within an absolute tolerance of %||") % (name_1) % (value_1) % (name_2) % (value_2) % (absolute_error)).str()
-DEFINE_CHECKS(NEAR_NAMED,5)
-#define ASSERT_NEAR_NAMED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(ASSERT,NEAR_NAMED,A,B,C,D,E)
-#define EXPECT_NEAR_NAMED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(EXPECT,NEAR_NAMED,A,B,C,D,E)
+/*! \brief Checks that \a B and \a D are not equal; registers a non-fatal failure labeling these values with the respective names \a A and \a C otherwise.
+    \ingroup NE_CHECKS
+*/
+#define EXPECT_NE_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,NE,A,B,C,D)
+//@+node:gcross.20110130203213.1497: *4* GE
+/*! \defgroup GE_CHECKS GE [≥] (greater than or equal to)
+    \brief These macros check that the first expression is greater than or equal to the second.
+    \ingroup RELATION_CHECKS
+*/
+#define GE_EXPRESSION(name_1,value_1,name_2,value_2) (value_1) >= (value_2)
+#define GE_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is less than %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
+DEFINE_CHECKS(GE,4)
 
-#define ASSERT_NEAR_QUOTED(A,B,C) ASSERT_NEAR_NAMED(#A,A,#B,B,C)
-#define EXPECT_NEAR_QUOTED(A,B,C) EXPECT_NEAR_NAMED(#A,A,#B,B,C)
-//@+node:gcross.20110219100916.1564: *3* NEAR_RELATIVE
-#define NEAR_RELATIVE_EXPRESSION(expected_value,actual_value,relative_error) ((abs(expected_value)+abs(actual_value))/2 <= relative_error) || (abs((expected_value) - (actual_value))/((abs(expected_value)+abs(actual_value))/2) <= relative_error)
-#define NEAR_RELATIVE_MESSAGE(expected_value,actual_value,relative_error) (boost::format("Actual value %|.15| does not match the expected value %|.15| within a relative tolerance of %||") % (actual_value) % (expected_value) % (relative_error)).str()
-DEFINE_CHECKS(NEAR_RELATIVE,3)
-#define ASSERT_NEAR_RELATIVE(A,B,C) DO_CHECK_WITH_3_ARGUMENTS(ASSERT,NEAR_RELATIVE,A,B,C)
-#define EXPECT_NEAR_RELATIVE(A,B,C) DO_CHECK_WITH_3_ARGUMENTS(EXPECT,NEAR_RELATIVE,A,B,C)
+/*! \brief Checks that \a A ≥ \a B; registers a fatal failure otherwise.
+    \ingroup GE_CHECKS
+*/
+#define ASSERT_GE(A,B) ASSERT_GE_NAMED(#A,A,#B,B)
 
-#define NEAR_RELATIVE_NAMED_EXPRESSION(name_1,value_1,name_2,value_2,relative_error) NEAR_RELATIVE_EXPRESSION(value_1,value_2,relative_error)
-#define NEAR_RELATIVE_NAMED_MESSAGE(name_1,value_1,name_2,value_2,relative_error) (boost::format("%|| %|.15| does not match %|| %|.15| within a relative tolerance of %||") % (name_1) % (value_1) % (name_2) % (value_2) % (relative_error)).str()
-DEFINE_CHECKS(NEAR_RELATIVE_NAMED,5)
-#define ASSERT_NEAR_RELATIVE_NAMED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(ASSERT,NEAR_RELATIVE_NAMED,A,B,C,D,E)
-#define EXPECT_NEAR_RELATIVE_NAMED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(EXPECT,NEAR_RELATIVE_NAMED,A,B,C,D,E)
+/*! \brief Checks that \a A ≥ \a B; registers a non-fatal failure otherwise.
+    \ingroup GE_CHECKS
+*/
+#define EXPECT_GE(A,B) EXPECT_GE_NAMED(#A,A,#B,B)
 
-#define ASSERT_NEAR_RELATIVE_QUOTED(A,B,C) ASSERT_NEAR_RELATIVE_NAMED(#A,A,#B,B,C)
-#define EXPECT_NEAR_RELATIVE_QUOTED(A,B,C) EXPECT_NEAR_RELATIVE_NAMED(#A,A,#B,B,C)
-//@+node:gcross.20101206161648.1622: *3* TRUE
-#define TRUE_EXPRESSION(expression,_) expression
+/*! \brief Like #ASSERT_GE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+    \ingroup GE_CHECKS
+*/
+#define ASSERT_GE_VAL(A,B) ASSERT_GE_NAMED(#A,A,"the expected lower bound",B)
+
+/*! \brief Like #EXPECT_GE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+    \ingroup GE_CHECKS
+*/
+#define EXPECT_GE_VAL(A,B) EXPECT_GE_NAMED(#A,A,"the expected lower bound",B)
+
+/*! \brief Checks that \a B ≥ \a D; registers a fatal failure labeling these values with the respective names \a A and \a C otherwise.
+    \ingroup GE_CHECKS
+*/
+#define ASSERT_GE_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,GE,A,B,C,D)
+
+/*! \brief Checks that \a B ≥ \a D; registers a non-fatal failure labeling these values with the respective names \a A and \a C otherwise.
+    \ingroup GE_CHECKS
+*/
+#define EXPECT_GE_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,GE,A,B,C,D)
+//@+node:gcross.20110222121027.1859: *4* GT
+/*! \defgroup GT_CHECKS GT [>] (greater than)
+    \brief These macros check that the first expression is greater than the second.
+    \ingroup RELATION_CHECKS
+*/
+#define GT_EXPRESSION(name_1,value_1,name_2,value_2) (value_1) > (value_2)
+#define GT_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is less than or equal to %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
+DEFINE_CHECKS(GT,4)
+
+/*! \brief Checks that \a A > \a B; registers a fatal failure otherwise.
+    \ingroup GT_CHECKS
+*/
+#define ASSERT_GT(A,B) ASSERT_GT_NAMED(#A,A,#B,B)
+
+/*! \brief Checks that \a A > \a B; registers a non-fatal failure otherwise.
+    \ingroup GT_CHECKS
+*/
+#define EXPECT_GT(A,B) EXPECT_GT_NAMED(#A,A,#B,B)
+
+/*! \brief Like #ASSERT_GT, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+    \ingroup GT_CHECKS
+*/
+#define ASSERT_GT_VAL(A,B) ASSERT_GT_NAMED(#A,A,"the expected strict lower bound",B)
+
+/*! \brief Like #EXPECT_GT, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+    \ingroup GT_CHECKS
+*/
+#define EXPECT_GT_VAL(A,B) EXPECT_GT_NAMED(#A,A,"the expected strict lower bound",B)
+
+/*! \brief Checks that \a B > \a D; registers a fatal failure labeling these values with the respective names \a A and \a C otherwise.
+    \ingroup GT_CHECKS
+*/
+#define ASSERT_GT_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,GT,A,B,C,D)
+
+/*! \brief Checks that \a B > \a D; registers a non-fatal failure labeling these values with the respective names \a A and \a C otherwise.
+    \ingroup GT_CHECKS
+*/
+#define EXPECT_GT_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,GT,A,B,C,D)
+//@+node:gcross.20110222121027.1861: *4* LE
+/*! \defgroup LE_CHECKS LE [≤] (less than or equal to)
+    \brief These macros check that the first expression is less than or equal to the second.
+    \ingroup RELATION_CHECKS
+*/
+#define LE_EXPRESSION(name_1,value_1,name_2,value_2) (value_1) <= (value_2)
+#define LE_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is greater than %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
+DEFINE_CHECKS(LE,4)
+
+/*! \brief Checks that \a A ≤ \a B; registers a fatal failure otherwise.
+    \ingroup LE_CHECKS
+*/
+#define ASSERT_LE(A,B) ASSERT_LE_NAMED(#A,A,#B,B)
+
+/*! \brief Checks that \a A ≤ \a B; registers a non-fatal failure otherwise.
+    \ingroup LE_CHECKS
+*/
+#define EXPECT_LE(A,B) EXPECT_LE_NAMED(#A,A,#B,B)
+
+/*! \brief Like #ASSERT_LE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+    \ingroup LE_CHECKS
+*/
+#define ASSERT_LE_VAL(A,B) ASSERT_LE_NAMED(#A,A,"the expected upper bound",B)
+
+/*! \brief Like #EXPECT_LE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+    \ingroup LE_CHECKS
+*/
+#define EXPECT_LE_VAL(A,B) EXPECT_LE_NAMED(#A,A,"the expected upper bound",B)
+
+/*! \brief Checks that \a B ≤ \a D; registers a fatal failure labeling these values with the respective names \a A and \a C otherwise.
+    \ingroup LE_CHECKS
+*/
+#define ASSERT_LE_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,LE,A,B,C,D)
+
+/*! \brief Checks that \a B ≤ \a D; registers a non-fatal failure labeling these values with the respective names \a A and \a C otherwise.
+    \ingroup LE_CHECKS
+*/
+#define EXPECT_LE_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,LE,A,B,C,D)
+//@+node:gcross.20110222121027.1863: *4* LT
+/*! \defgroup LT_CHECKS LT [<] (less than)
+    \brief These macros check that the first expression is less than the second.
+    \ingroup RELATION_CHECKS
+*/
+#define LT_EXPRESSION(name_1,value_1,name_2,value_2) (value_1) < (value_2)
+#define LT_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is greater than or equal to %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
+DEFINE_CHECKS(LT,4)
+
+/*! \brief Checks that \a A < \a B; registers a fatal failure otherwise.
+    \ingroup LT_CHECKS
+*/
+#define ASSERT_LT(A,B) ASSERT_LT_NAMED(#A,A,#B,B)
+
+/*! \brief Checks that \a A < \a B; registers a non-fatal failure otherwise.
+    \ingroup LT_CHECKS
+*/
+#define EXPECT_LT(A,B) EXPECT_LT_NAMED(#A,A,#B,B)
+
+/*! \brief Like #ASSERT_LT, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+    \ingroup LT_CHECKS
+*/
+#define ASSERT_LT_VAL(A,B) ASSERT_LT_NAMED(#A,A,"the expected strict upper bound",B)
+
+/*! \brief Like #EXPECT_LT, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+    \ingroup LT_CHECKS
+*/
+#define EXPECT_LT_VAL(A,B) EXPECT_LT_NAMED(#A,A,"the expected strict upper bound",B)
+
+/*! \brief Checks that \a B < \a D; registers a fatal failure labeling these values with the respective names \a A and \a C otherwise.
+    \ingroup LT_CHECKS
+*/
+#define ASSERT_LT_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,LT,A,B,C,D)
+
+/*! \brief Checks that \a B < \a D; registers a non-fatal failure labeling these values with the respective names \a A and \a C otherwise.
+    \ingroup LT_CHECKS
+*/
+#define EXPECT_LT_NAMED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,LT,A,B,C,D)
+//@+node:gcross.20110222121027.1873: *4* NEAR_ABS
+/*! \defgroup NEAR_ABS_CHECKS NEAR_ABS [≈] (absolutely approximately equal)
+    \brief These macros check that two expressions are equal in value within an absolute tolerance.
+    \ingroup RELATION_CHECKS
+*/
+#define NEAR_ABS_EXPRESSION(name_1,value_1,name_2,value_2,absolute_error) (abs((value_1)-(value_2)) <= absolute_error)
+#define NEAR_ABS_MESSAGE(name_1,value_1,name_2,value_2,absolute_error) (boost::format("%|| %|.15| does not match %|| %|.15| within an absolute tolerance of %||") % (name_1) % (value_1) % (name_2) % (value_2) % (absolute_error)).str()
+DEFINE_CHECKS(NEAR_ABS,5)
+
+/*! \brief Checks that \a A and \a B are approximately equal within an absolute tolerance of \a C; registers a fatal failure otherwise.
+    \ingroup NEAR_ABS_CHECKS
+*/
+#define ASSERT_NEAR_ABS(A,B,C) ASSERT_NEAR_ABS_NAMED(#A,A,#B,B,C)
+
+/*! \brief Checks that \a A and \a B are approximately equal within an absolute tolerance of \a C; registers a non-fatal failure otherwise.
+    \ingroup NEAR_ABS_CHECKS
+*/
+#define EXPECT_NEAR_ABS(A,B,C) EXPECT_NEAR_ABS_NAMED(#A,A,#B,B,C)
+
+/*! \brief Like #ASSERT_NEAR_ABS, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+    \ingroup NEAR_ABS_CHECKS
+*/
+#define ASSERT_NEAR_ABS_VAL(A,B,C) ASSERT_NEAR_ABS_NAMED(#A,A,"the expected value",B,C)
+
+/*! \brief Like #EXPECT_NEAR_ABS, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+    \ingroup NEAR_ABS_CHECKS
+*/
+#define EXPECT_NEAR_ABS_VAL(A,B,C) EXPECT_NEAR_ABS_NAMED(#A,A,"the expected value",B,C)
+
+/*! \brief Checks that \a B and \a D are approximately equal within an absolute tolerance of \a E; registers a fatal failure labeling these values with the respective names \a A and \a C otherwise.
+    \ingroup NEAR_ABS_CHECKS
+*/
+#define ASSERT_NEAR_ABS_NAMED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(ASSERT,NEAR_ABS,A,B,C,D,E)
+
+/*! \brief Checks that \a B and \a D are approximately equal within an absolute tolerance of \a E; registers a non-fatal failure labeling these values with the respective names \a A and \a C otherwise.
+    \ingroup NEAR_ABS_CHECKS
+*/
+#define EXPECT_NEAR_ABS_NAMED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(EXPECT,NEAR_ABS,A,B,C,D,E)
+//@+node:gcross.20110222121027.1875: *4* NEAR_REL
+/*! \defgroup NEAR_REL_CHECKS NEAR_REL [≈] (relatively approximately equal)
+    \brief These macros check that two expressions are equal in value within a relative tolerance.
+    \ingroup RELATION_CHECKS
+*/
+#define NEAR_REL_EXPRESSION(name_1,value_1,name_2,value_2,relative_error) (((abs(value_1)+abs(value_2))/2 <= relative_error) || (abs((value_1)-(value_2))/((abs(value_1)+abs(value_2))/2) <= relative_error))
+#define NEAR_REL_MESSAGE(name_1,value_1,name_2,value_2,relative_error) (boost::format("%|| %|.15| does not match %|| %|.15| within a relative tolerance of %||") % (name_1) % (value_1) % (name_2) % (value_2) % (relative_error)).str()
+DEFINE_CHECKS(NEAR_REL,5)
+
+/*! \brief Checks that \a A and \a B are approximately equal within a relative tolerance of \a C; registers a fatal failure otherwise.
+    \ingroup NEAR_REL_CHECKS
+*/
+#define ASSERT_NEAR_REL(A,B,C) ASSERT_NEAR_REL_NAMED(#A,A,#B,B,C)
+
+/*! \brief Checks that \a A and \a B are approximately equal within a relative tolerance of \a C; registers a non-fatal failure otherwise.
+    \ingroup NEAR_REL_CHECKS
+*/
+#define EXPECT_NEAR_REL(A,B,C) EXPECT_NEAR_REL_NAMED(#A,A,#B,B,C)
+
+/*! \brief Like #ASSERT_NEAR_REL, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+    \ingroup NEAR_REL_CHECKS
+*/
+#define ASSERT_NEAR_REL_VAL(A,B,C) ASSERT_NEAR_REL_NAMED(#A,A,"the expected value",B,C)
+
+/*! \brief Like #EXPECT_NEAR_REL, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+    \ingroup NEAR_REL_CHECKS
+*/
+#define EXPECT_NEAR_REL_VAL(A,B,C) EXPECT_NEAR_REL_NAMED(#A,A,"the expected value",B,C)
+
+/*! \brief Checks that \a B and \a D are approximately equal within a relative tolerance of \a E; registers a fatal failure labeling these values with the respective names \a A and \a C otherwise.
+    \ingroup NEAR_REL_CHECKS
+*/
+#define ASSERT_NEAR_REL_NAMED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(ASSERT,NEAR_REL,A,B,C,D,E)
+
+/*! \brief Checks that \a B and \a D are approximately equal within a relative tolerance of \a E; registers a non-fatal failure labeling these values with the respective names \a A and \a C otherwise.
+    \ingroup NEAR_REL_CHECKS
+*/
+#define EXPECT_NEAR_REL_NAMED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(EXPECT,NEAR_REL,A,B,C,D,E)
+//@+node:gcross.20110221195111.1566: *3* Boolean
+/*! \defgroup BOOLEAN_CHECKS Boolean checks
+    \brief These macros check for the truth or falsity of an expression.
+    \ingroup CHECKS
+*/
+//@+node:gcross.20101206161648.1622: *4* TRUE
+/*! \defgroup TRUE_CHECKS TRUE
+    \brief These macros check that the given boolean expression is true.
+    \ingroup BOOLEAN_CHECKS
+*/
+#define TRUE_EXPRESSION(expression,_) (expression)
 #define TRUE_MESSAGE(_,expression) (boost::format("Assertion failed: %1%") % expression).str()
 DEFINE_CHECKS(TRUE,2)
+
+/*! \brief Checks that \a A is true; registers a fatal failure otherwise.
+    \ingroup TRUE_CHECKS
+*/
 #define ASSERT_TRUE(A) DO_CHECK_WITH_2_ARGUMENTS(ASSERT,TRUE,A,#A)
+
+/*! \brief Checks that \a A is true; registers a non-fatal failure otherwise.
+    \ingroup TRUE_CHECKS
+*/
 #define EXPECT_TRUE(A) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,TRUE,A,#A)
-//@+node:gcross.20110204201608.2058: *3* FALSE
-#define FALSE_EXPRESSION(expression,_) (!expression)
-#define FALSE_MESSAGE(_,expression) (boost::format("Anti-assertion failed: %1%") % expression).str()
+//@+node:gcross.20110222121027.1877: *4* FALSE
+/*! \defgroup FALSE_CHECKS FALSE
+    \brief These macros check that the given boolean expression is false.
+    \ingroup BOOLEAN_CHECKS
+*/
+#define FALSE_EXPRESSION(expression,_) (!(expression))
+#define FALSE_MESSAGE(_,expression) (boost::format("Assertion failed: %1%") % expression).str()
 DEFINE_CHECKS(FALSE,2)
+
+/*! \brief Checks that \a A is false; registers a fatal failure otherwise.
+    \ingroup FALSE_CHECKS
+*/
 #define ASSERT_FALSE(A) DO_CHECK_WITH_2_ARGUMENTS(ASSERT,FALSE,A,#A)
+
+/*! \brief Checks that \a A is false; registers a non-fatal failure otherwise.
+    \ingroup FALSE_CHECKS
+*/
 #define EXPECT_FALSE(A) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,FALSE,A,#A)
 //@+node:gcross.20110222132831.1572: ** Expected failures
 #define _ILLUMINATE_BEGIN_KNOWN_FAIL \

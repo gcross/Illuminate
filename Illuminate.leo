@@ -7,6 +7,7 @@
 <find_panel_settings/>
 <vnodes>
 <v t="gcross.20101205182001.1276"><vh>@thin CMakeLists.txt</vh></v>
+<v t="gcross.20110221195111.1564"><vh>@thin Doxyfile.in</vh></v>
 <v t="gcross.20101205182001.1281"><vh>@path includes</vh>
 <v t="gcross.20101205182001.1312"><vh>@thin CMakeLists.txt</vh></v>
 <v t="gcross.20101206142257.1466"><vh>@thin illuminate.hpp</vh></v>

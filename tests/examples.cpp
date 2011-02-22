@@ -99,8 +99,8 @@ TEST_CASE(FloatingPoint)
     float errorLimit = 0.001f;
     float value = 1.03f + 0.204f;
 
-    ASSERT_NEAR(expectedValue, value, errorLimit);
-    EXPECT_NEAR(1.66666666, 5.0 / 3.0, 0.001);
+    ASSERT_NEAR_ABS(expectedValue, value, errorLimit);
+    EXPECT_NEAR_ABS(1.66666666, 5.0 / 3.0, 0.001);
 }
 
 //@+at
@@ -140,7 +140,7 @@ TEST_CASE(FixtureCase)
         factor *= 2;
     }
     // check if different algorithm get same answer
-    ASSERT_NEAR(f.y, f.x * factor, 0.01);
+    ASSERT_NEAR_ABS(f.y, f.x * factor, 0.01);
 }
 
 } // end test suite

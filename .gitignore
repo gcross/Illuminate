@@ -5,3 +5,5 @@ Makefile
 *.a
 tests/test
 install_manifest.txt
+documentation/html
+documentation/latex

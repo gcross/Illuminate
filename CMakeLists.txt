@@ -18,4 +18,15 @@ include_directories ("includes")
 add_subdirectory ("includes")
 add_subdirectory ("sources")
 add_subdirectory ("tests")
+
+# add a target to generate API documentation with Doxygen
+find_package(Doxygen)
+if(DOXYGEN_FOUND)
+configure_file(Doxyfile.in Doxyfile @ONLY)
+add_custom_target(doc
+${DOXYGEN_EXECUTABLE} Doxyfile
+WORKING_DIRECTORY .
+COMMENT "Generating API documentation with Doxygen" VERBATIM
+)
+endif(DOXYGEN_FOUND)
 #@-leo
