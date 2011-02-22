@@ -47,9 +47,20 @@ string Test::annotateFailureMessage(const char* filename, int line_number, const
     annotated_message << filename << ':' << line_number << " - " << message;
     return annotated_message.str();
 }
+//@+node:gcross.20110222132831.1570: *3* countFailures
+unsigned int Test::countFailures() {
+    return getFailures().size();
+}
 //@+node:gcross.20101206161648.1517: *3* die
 void Test::die() {
     throw FatalTestFailure();
+}
+//@+node:gcross.20110222160854.1885: *3* eraseFailuresAfter
+void Test::eraseFailuresAfter(unsigned int number_of_failures) {
+    vector<string>& failures = getFailures();
+    if(number_of_failures < failures.size()) {
+        failures.erase(failures.begin()+number_of_failures,failures.end());
+    }
 }
 //@+node:gcross.20110222132831.1568: *3* getFailures
 vector<string>& Test::getFailures() {

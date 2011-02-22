@@ -207,6 +207,43 @@ DEFINE_CHECKS(TRUE,2)
 DEFINE_CHECKS(FALSE,2)
 #define ASSERT_FALSE(A) DO_CHECK_WITH_2_ARGUMENTS(ASSERT,FALSE,A,#A)
 #define EXPECT_FALSE(A) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,FALSE,A,#A)
+//@+node:gcross.20110222132831.1572: ** Expected failures
+#define _ILLUMINATE_BEGIN_KNOWN_FAIL \
+        { \
+            bool _ILLUMINATE_KNOWN_FAIL_exception_thrown = false; \
+            unsigned int const \
+                  _ILLUMINATE_KNOWN_FAIL_line_number = __LINE__ \
+                , _ILLUMINATE_KNOWN_FAIL_old_number_of_failures = Illuminate::Test::countFailures(); \
+            try {
+
+#define _ILLUMINATE_END_KNOWN_FAIL \
+            } catch(...) { _ILLUMINATE_KNOWN_FAIL_exception_thrown = true; } \
+                unsigned int const \
+                    _ILLUMINATE_KNOWN_FAIL_new_number_of_failures = Illuminate::Test::countFailures(); \
+                Illuminate::Test::eraseFailuresAfter(_ILLUMINATE_KNOWN_FAIL_old_number_of_failures); \
+                if(!_ILLUMINATE_KNOWN_FAIL_exception_thrown && _ILLUMINATE_KNOWN_FAIL_new_number_of_failures <= _ILLUMINATE_KNOWN_FAIL_old_number_of_failures) { \
+                    Illuminate::Test::registerFailure(__FILE__,_ILLUMINATE_KNOWN_FAIL_line_number,"Expected failure(s) did not occur.",_ILLUMINATE_KNOWN_FAIL_fatal); \
+                } \
+        }
+
+#define BEGIN_ASSERT_FAIL \
+    { \
+        bool const _ILLUMINATE_KNOWN_FAIL_fatal = true; \
+        _ILLUMINATE_BEGIN_KNOWN_FAIL
+
+#define END_ASSERT_FAIL \
+        _ILLUMINATE_END_KNOWN_FAIL \
+    }
+
+#define BEGIN_EXPECT_FAIL \
+    { \
+        bool const _ILLUMINATE_KNOWN_FAIL_fatal = false; \
+        _ILLUMINATE_BEGIN_KNOWN_FAIL
+
+#define END_EXPECT_FAIL \
+        _ILLUMINATE_END_KNOWN_FAIL \
+    }
+    }
 //@+node:gcross.20101206161648.1598: ** Failures
 //@+node:gcross.20101206161648.1599: *3* FAIL
 #define FAIL(message) Illuminate::Test::registerFailure(__FILE__,__LINE__,(message),false)

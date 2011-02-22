@@ -121,7 +121,9 @@ class Test : public Node {
         static vector<string>& getFailures();
     public:
         static string annotateFailureMessage(const char* filename, int line_number, const string& message);
+        static unsigned int countFailures();
         static void die();
+        static void eraseFailuresAfter(unsigned int number_of_failures);
         static void registerFailure(const string& message, bool fatal=false);
         static void registerFailure(const char* filename, unsigned int line_number, const string& message, bool fatal=false);
         TestResult operator()() const;
