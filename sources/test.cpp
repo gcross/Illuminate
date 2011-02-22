@@ -35,7 +35,7 @@ Test::Test(const string& name, Suite& parent, function<void ()> runner)
     parent.tests.push_back(this);
 }
 //@+node:gcross.20101206161648.1515: *3* (exceptions)
-const char* Test::FailureRegisteredOutsideTestContext::what() const throw() {
+const char* Test::FailuresAccessedOutsideTestContext::what() const throw() {
     return "an attempt has been made to register a failure outside of a test context";
 }
 //@+node:gcross.20101206142257.1467: *3* (static fields)
@@ -50,6 +50,14 @@ string Test::annotateFailureMessage(const char* filename, int line_number, const
 //@+node:gcross.20101206161648.1517: *3* die
 void Test::die() {
     throw FatalTestFailure();
+}
+//@+node:gcross.20110222132831.1568: *3* getFailures
+vector<string>& Test::getFailures() {
+    vector<string>* failures = current_failures.get();
+    if(failures == NULL) {
+        throw FailuresAccessedOutsideTestContext();
+    }
+    return *failures;
 }
 //@+node:gcross.20101206142257.1395: *3* operator()
 TestResult Test::operator()() const {
@@ -76,11 +84,7 @@ void Test::registerFailure(const string& message, bool const fatal) {
     if(fatality_mode >= ALL_FATAL) {
         throw FatalError(message);
     }
-    vector<string>* failures = current_failures.get();
-    if(failures == NULL) {
-        throw FailureRegisteredOutsideTestContext();
-    }
-    failures->push_back(message);
+    getFailures().push_back(message);
     if(fatal) die();
 }
 //@+node:gcross.20101206161648.1527: *3* registerFailure

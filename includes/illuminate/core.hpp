@@ -110,12 +110,15 @@ class Test : public Node {
         static thread_specific_ptr<vector<string> > current_failures;
         static FatalityMode fatality_mode;
     //@+node:gcross.20101206161648.1514: *4* (exceptions)
-    struct FailureRegisteredOutsideTestContext : public std::exception { virtual const char* what() const throw(); };
-    struct FatalTestFailure { };
+    public:
+        struct FailuresAccessedOutsideTestContext : public std::exception { virtual const char* what() const throw(); };
+        struct FatalTestFailure { };
     //@+node:gcross.20101205182001.2593: *4* (constructors)
     public:
         Test(const string& name, Suite& parent, function<void ()> runner);
     //@+node:gcross.20101205182001.2594: *4* (methods)
+    protected:
+        static vector<string>& getFailures();
     public:
         static string annotateFailureMessage(const char* filename, int line_number, const string& message);
         static void die();
