@@ -55,6 +55,7 @@
 <v t="gcross.20101206161648.1787"><vh>@path tests</vh>
 <v t="gcross.20101206161648.1788"><vh>@thin CMakeLists.txt</vh></v>
 <v t="gcross.20110222132831.1576"><vh>@thin check_for_failure.cpp</vh></v>
+<v t="gcross.20110222154148.1568"><vh>@thin checks.cpp</vh></v>
 <v t="gcross.20101206161648.1789"><vh>@thin examples.cpp</vh></v>
 <v t="gcross.20101206161648.1791"><vh>@thin fake1.cpp</vh></v>
 <v t="gcross.20101206161648.1794"><vh>@thin fake2.cpp</vh></v>

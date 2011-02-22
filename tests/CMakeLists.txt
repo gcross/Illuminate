@@ -2,6 +2,7 @@
 #@+node:gcross.20101206161648.1788: * @thin CMakeLists.txt
 add_executable(test EXCLUDE_FROM_ALL
     check_for_failure
+    checks
     examples
     fake1
     fake2
