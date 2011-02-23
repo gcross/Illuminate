@@ -35,8 +35,8 @@ public:
     unsigned int number_of_failed_tests;
 protected:
     TestFutures futures;
-    FutureResultVisitor(const TestFutures& futures);
-    virtual void test(const Test& test);
+    FutureResultVisitor(TestFutures const& futures);
+    virtual void test(Test const& test);
 };
 //@-others
 

@@ -81,11 +81,11 @@ class Visitor;
 struct Node {
     //@+others
     //@+node:gcross.20101205182001.2575: *4* (fields)
-    const Suite* parent;
-    const string name, full_name;
-    const bool skipped;
+    Suite const* const parent;
+    string const name, full_name;
+    bool const skipped;
     //@+node:gcross.20101205182001.2576: *4* (constructors)
-    Node(const string& name, Suite* parent, optional<bool> skipped=none);
+    Node(string const& name, Suite const* parent, optional<bool> skipped=none);
     //@-others
 };
 //@+node:gcross.20101205182001.2583: *3* Suite
@@ -96,7 +96,7 @@ friend class Test;
 //@+node:gcross.20101205182001.2585: *4* (constructors)
 public:
 
-    Suite(const string& name, Suite* parent, optional<bool> skipped=none);
+    Suite(string const& name, Suite const* parent, optional<bool> skipped=none);
 //@+node:gcross.20101205182001.2586: *4* (fields)
 private:
 
@@ -105,7 +105,7 @@ private:
 //@+node:gcross.20101205182001.2587: *4* (methods)
 public:
 
-    Suite& lookupSuite(const string& name,const optional<bool> skipped=none);
+    Suite& lookupSuite(string const& name, optional<bool> skipped=none);
     void visit(Visitor& visitor) const;
 //@-others
 };
@@ -130,27 +130,27 @@ class Test : public Node {
     //@+others
     //@+node:gcross.20101206104532.1412: *4* (fields)
     public:
-        const int id;
-        const function<void ()> runner;
+        int const id;
+        function<void ()> const runner;
         static thread_specific_ptr<vector<string> > current_failures;
         static FatalityMode fatality_mode;
     //@+node:gcross.20101206161648.1514: *4* (exceptions)
     public:
-        struct FailuresAccessedOutsideTestContext : public std::exception { virtual const char* what() const throw(); };
+        struct FailuresAccessedOutsideTestContext : public std::exception { virtual char const* what() const throw(); };
         struct FatalTestFailure { };
     //@+node:gcross.20101205182001.2593: *4* (constructors)
     public:
-        Test(const string& name, Suite& parent, function<void ()> runner, optional<bool> skipped=none);
+        Test(string const& name, Suite& parent, function<void ()> runner, optional<bool> skipped=none);
     //@+node:gcross.20101205182001.2594: *4* (methods)
     protected:
         static vector<string>& getFailures();
     public:
-        static string annotateFailureMessage(const char* filename, int line_number, const string& message);
+        static string annotateFailureMessage(char const* filename, int line_number, string const& message);
         static unsigned int countFailures();
         static void die();
         static void eraseFailuresAfter(unsigned int number_of_failures);
-        static void registerFailure(const string& message, bool fatal=false);
-        static void registerFailure(const char* filename, unsigned int line_number, const string& message, bool fatal=false);
+        static void registerFailure(string const& message, bool fatal=false);
+        static void registerFailure(char const* filename, unsigned int line_number, string const& message, bool fatal=false);
         TestResult operator()() const;
     //@-others
 };
@@ -158,17 +158,17 @@ class Test : public Node {
 class Visitor {
     friend class Suite;
 protected:
-    virtual void enter(const Suite& suite) = 0;
-    virtual void exit(const Suite& suite) = 0;
-    virtual void test(const Test& test) = 0;
+    virtual void enter(Suite const& suite) = 0;
+    virtual void exit(Suite const& suite) = 0;
+    virtual void test(Test const& test) = 0;
 };
 //@+node:gcross.20110203224841.1945: *3* ResultVisitor
 class ResultVisitor : public virtual Visitor {
 protected:
-    virtual void testSkipped(const Test& test) = 0;
-    virtual void testStarted(const Test& test) = 0;
-    virtual void testPassed(const Test& test) = 0;
-    virtual void testFailed(const Test& test,const vector<string>& failures) = 0;
+    virtual void testSkipped(Test const& test) = 0;
+    virtual void testStarted(Test const& test) = 0;
+    virtual void testPassed(Test const& test) = 0;
+    virtual void testFailed(Test const& test,vector<string> const& failures) = 0;
 };
 //@-others
 //@+node:gcross.20101205182001.2588: ** Functions

@@ -30,7 +30,7 @@ namespace Illuminate {
 //@+node:gcross.20110203233241.1625: *3* (constructors)
 RunnerResultVisitor::RunnerResultVisitor() : number_of_failed_tests(0) {}
 //@+node:gcross.20110203233241.1621: *3* test
-void RunnerResultVisitor::test(const Test& test) {
+void RunnerResultVisitor::test(Test const& test) {
     if(test.skipped) {
         testSkipped(test);
     } else {

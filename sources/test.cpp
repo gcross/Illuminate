@@ -42,7 +42,7 @@ using std::stringstream;
 //@+others
 //@+node:gcross.20101205182001.1421: ** class Test
 //@+node:gcross.20101205182001.1422: *3* (constructors)
-Test::Test(const string& name, Suite& parent, function<void ()> runner, const optional<bool> skipped)
+Test::Test(string const& name, Suite& parent, function<void ()> const runner, optional<bool> const skipped)
     : Node(name,&parent,skipped)
     , id(getRoot().registerTest(this))
     , runner(runner)
@@ -50,14 +50,14 @@ Test::Test(const string& name, Suite& parent, function<void ()> runner, const op
     parent.tests.push_back(this);
 }
 //@+node:gcross.20101206161648.1515: *3* (exceptions)
-const char* Test::FailuresAccessedOutsideTestContext::what() const throw() {
+char const* Test::FailuresAccessedOutsideTestContext::what() const throw() {
     return "an attempt has been made to register a failure outside of a test context";
 }
 //@+node:gcross.20101206142257.1467: *3* (static fields)
 thread_specific_ptr<vector<string> > Test::current_failures;
 enum FatalityMode Test::fatality_mode = NONE_FATAL;
 //@+node:gcross.20101206161648.1525: *3* annotateFailureMessage
-string Test::annotateFailureMessage(const char* filename, int line_number, const string& message) {
+string Test::annotateFailureMessage(char const* filename, int const line_number, string const& message) {
     stringstream annotated_message;
     annotated_message << filename << ':' << line_number << " - " << message;
     return annotated_message.str();
@@ -71,7 +71,7 @@ void Test::die() {
     throw FatalTestFailure();
 }
 //@+node:gcross.20110222160854.1885: *3* eraseFailuresAfter
-void Test::eraseFailuresAfter(unsigned int number_of_failures) {
+void Test::eraseFailuresAfter(unsigned int const number_of_failures) {
     vector<string>& failures = getFailures();
     if(number_of_failures < failures.size()) {
         failures.erase(failures.begin()+number_of_failures,failures.end());
@@ -106,7 +106,7 @@ TestResult Test::operator()() const {
     return failures;
 }
 //@+node:gcross.20101206161648.1513: *3* registerFailure
-void Test::registerFailure(const string& message, bool const fatal) {
+void Test::registerFailure(string const& message, bool const fatal) {
     if(fatality_mode >= ALL_FATAL) {
         throw FatalError(message);
     }
@@ -114,13 +114,15 @@ void Test::registerFailure(const string& message, bool const fatal) {
     if(fatal) die();
 }
 //@+node:gcross.20101206161648.1527: *3* registerFailure
-void Test::registerFailure(const char* filename, unsigned int const line_number, const string& message, bool const fatal) {
+void Test::registerFailure(char const* filename, unsigned int const line_number, string const& message, bool const fatal) {
     registerFailure(annotateFailureMessage(filename,line_number,message),fatal);
 }
 //@+node:gcross.20110204202041.1556: ** function validate
-void validate(any& v,
-              const vector<std::string>& values,
-              FatalityMode* target_type, int)
+void validate(any& v
+             ,vector<std::string> const& values
+             ,FatalityMode* target_type
+             ,int const
+             )
 {
     // Make sure no previous assignment to 'a' was made.
     validators::check_first_occurrence(v);

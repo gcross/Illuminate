@@ -35,15 +35,15 @@ namespace Illuminate {
 //@+others
 //@+node:gcross.20101208142631.1683: ** Functions
 //@+node:gcross.20101208142631.1677: *3* printTestList
-void printTestList(const ColorCodes& color_codes,ostream& out) {
+void printTestList(ColorCodes const& color_codes,ostream& out) {
     PrinterVisitor visitor(color_codes,out);
     getRoot().visit(visitor);
 }
 //@+node:gcross.20101208142631.1680: *3* printTestFutures
-void printTestFutures(const TestFutures& futures,const ColorCodes& color_codes,ostream& out) {
+void printTestFutures(TestFutures const& futures,ColorCodes const& color_codes,ostream& out) {
     class TestVisitor : public FutureResultVisitor, public PrinterResultVisitor {
     public:
-        TestVisitor(const TestFutures& futures,const ColorCodes& color_codes,ostream& out)
+        TestVisitor(TestFutures const& futures,ColorCodes const& color_codes,ostream& out)
             : FutureResultVisitor(futures)
             , PrinterResultVisitor(color_codes,out)
         { }
@@ -56,10 +56,10 @@ void printTestFutures(const TestFutures& futures,const ColorCodes& color_codes,o
     }
 }
 //@+node:gcross.20110204143810.1552: *3* runTestsAndPrintResults
-void runTestsAndPrintResults(const ColorCodes& color_codes, ostream& out) {
+void runTestsAndPrintResults(ColorCodes const& color_codes, ostream& out) {
     class TestVisitor : public RunnerResultVisitor, public PrinterResultVisitor {
     public:
-        TestVisitor(const ColorCodes& color_codes,ostream& out)
+        TestVisitor(ColorCodes const& color_codes,ostream& out)
             : PrinterResultVisitor(color_codes,out)
         { }
     } visitor(color_codes,out);
@@ -71,7 +71,7 @@ void runTestsAndPrintResults(const ColorCodes& color_codes, ostream& out) {
     }
 }
 //@+node:gcross.20101208142631.1684: *3* runTestsInThreadsAndPrintResults
-void runTestsInThreadsAndPrintResults(optional<unsigned int> const requested_number_of_workers, const ColorCodes& color_codes, ostream& out) {
+void runTestsInThreadsAndPrintResults(optional<unsigned int> const requested_number_of_workers, ColorCodes const& color_codes, ostream& out) {
     unsigned int const number_of_workers = 
         requested_number_of_workers
             ? *requested_number_of_workers

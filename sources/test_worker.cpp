@@ -32,7 +32,7 @@ namespace this_thread = boost::this_thread;
 //@+others
 //@+node:gcross.20101208142631.1536: ** class TestWorker
 //@+node:gcross.20101208142631.1537: *3* (constructors)
-TestWorker::TestWorker(const TestQueue& queue, const shared_ptr<mutex>& queue_mutex, const shared_ptr<const bool>& stop_signal)
+TestWorker::TestWorker(TestQueue const& queue, shared_ptr<mutex> const& queue_mutex, shared_ptr<const bool> const& stop_signal)
     : queue(queue)
     , queue_mutex(queue_mutex)
     , stop_signal(stop_signal)

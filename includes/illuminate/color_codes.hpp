@@ -46,7 +46,7 @@ enum Coloring { ANSI_COLORING, PLAIN_COLORING };
 //@+node:gcross.20110204202041.1565: ** function validate
 void validate(
       any& v
-    , const vector<std::string>& values
+    , vector<std::string> const& values
     , Coloring* target_type
     , int
 );

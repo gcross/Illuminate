@@ -36,22 +36,22 @@ IndentedOutputVisitor::IndentedOutputVisitor(ostream& out)
     , out(out)
 { }
 //@+node:gcross.20101206161648.1567: *3* enter
-void IndentedOutputVisitor::enter(const Suite& suite_) {
+void IndentedOutputVisitor::enter(Suite const& suite_) {
     suite(suite_);
     indentation += 4;
 }
 //@+node:gcross.20101206161648.1568: *3* exit
-void IndentedOutputVisitor::exit(const Suite& suite) {
+void IndentedOutputVisitor::exit(Suite const& suite) {
     indentation -= 4;
 }
 //@+node:gcross.20101206161648.1571: *3* writeIndented
-void IndentedOutputVisitor::writeIndented(const string& s) {
+void IndentedOutputVisitor::writeIndented(string const& s) {
     for(int i = 0; i < indentation; ++i) out << ' ';
     out << s;
     out.flush();
 }
 //@+node:gcross.20101206161648.1573: *3* writeIndentedLine
-void IndentedOutputVisitor::writeIndentedLine(const string& s) {
+void IndentedOutputVisitor::writeIndentedLine(string const& s) {
     writeIndented(s);
     out << endl;
     out.flush();

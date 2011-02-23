@@ -37,7 +37,7 @@ public:
     unsigned int number_of_failed_tests;
 protected:
     RunnerResultVisitor();
-    virtual void test(const Test& test);
+    virtual void test(Test const& test);
 };
 //@-others
 

@@ -28,7 +28,7 @@ namespace Illuminate {
 //@+others
 //@+node:gcross.20101208142631.1550: ** class TestWorkerGroup
 //@+node:gcross.20101208142631.1551: *3* (constructors)
-TestWorkerGroup::TestWorkerGroup(const int number_of_workers)
+TestWorkerGroup::TestWorkerGroup(unsigned int const number_of_workers)
     : queue(new std::queue<TestTask>)
     , queue_mutex(new mutex)
     , futures(new vector<TestFuture>(getRoot().tests.size()))
@@ -36,7 +36,7 @@ TestWorkerGroup::TestWorkerGroup(const int number_of_workers)
 {
     *stop_signal = false;
     enqueueTests(queue,futures);
-    for(int i = 0; i < number_of_workers; ++i) {
+    for(unsigned int i = 0; i < number_of_workers; ++i) {
         workers.create_thread(TestWorker(queue,queue_mutex,stop_signal));
     }
 }

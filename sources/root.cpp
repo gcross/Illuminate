@@ -30,7 +30,7 @@ namespace Illuminate {
 //@+node:gcross.20101206104532.1399: *3* (constructors)
 Root::Root() : Suite("Root",NULL) { }
 //@+node:gcross.20101206104532.1401: *3* registerTest
-int Root::registerTest(Test* test) {
+int Root::registerTest(Test* const test) {
     int test_id = tests.size();
     tests.push_back(test);
     return test_id;

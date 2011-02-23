@@ -35,7 +35,7 @@ using boost::to_lower;
 
 //@+others
 //@+node:gcross.20110203233241.1540: ** struct ColorCodes
-ColorCodes::ColorCodes(const string& suite, const string& test, const string& skip, const string& pass, const string& fail, const string& reset)
+ColorCodes::ColorCodes(string const& suite, string const& test, string const& skip, string const& pass, string const& fail, string const& reset)
     : suite(suite)
     , test(test)
     , skip(skip)
@@ -44,11 +44,13 @@ ColorCodes::ColorCodes(const string& suite, const string& test, const string& sk
     , reset(reset)
 { }
 
-const ColorCodes ColorCodes::plain("","","","","",""), ColorCodes::ANSI("\033[0m","\033[1;33m","\033[1;35m","\033[1;32m","\033[1;31m","\033[0;0m");
+ColorCodes const ColorCodes::plain("","","","","",""), ColorCodes::ANSI("\033[0m","\033[1;33m","\033[1;35m","\033[1;32m","\033[1;31m","\033[0;0m");
 //@+node:gcross.20110204202041.1567: ** function validate
-void validate(any& v,
-              const vector<std::string>& values,
-              Coloring* target_type, int)
+void validate(any& v
+             ,vector<std::string> const& values
+             ,Coloring* target_type
+             ,int
+             )
 {
     // Make sure no previous assignment to 'a' was made.
     validators::check_first_occurrence(v);

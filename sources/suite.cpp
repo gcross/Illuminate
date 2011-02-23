@@ -30,11 +30,11 @@ namespace Illuminate {
 //@+others
 //@+node:gcross.20101205182001.1308: ** struct Suite
 //@+node:gcross.20101205182001.1313: *3* (constructors)
-Suite::Suite(const string& name, Suite* parent, optional<bool> skipped)
+Suite::Suite(string const& name, Suite const* const parent, optional<bool> const skipped)
     : Node(name,parent,skipped)
 { }
 //@+node:gcross.20101205182001.1319: *3* lookupSuite
-Suite& Suite::lookupSuite(const string& name,const optional<bool> skipped) {
+Suite& Suite::lookupSuite(string const& name,optional<bool> const skipped) {
     BOOST_FOREACH(Suite& suite, nested_suites) {
         if(suite.name == name) { return suite; }
     }

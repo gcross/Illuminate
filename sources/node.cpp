@@ -28,7 +28,7 @@ namespace Illuminate {
 //@+others
 //@+node:gcross.20101205182001.1365: ** struct Node
 //@+node:gcross.20101205182001.1366: *3* (constructors)
-Node::Node(const string& name, Suite* parent, const optional<bool> skipped)
+Node::Node(string const& name, Suite const* const parent, optional<bool> const skipped)
     : name(name)
     , parent(parent)
     , full_name(

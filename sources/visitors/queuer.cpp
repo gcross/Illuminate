@@ -30,16 +30,16 @@ namespace Illuminate {
 //@+others
 //@+node:gcross.20101206161648.1851: ** class QueuerVisitor
 //@+node:gcross.20101206161648.1852: *3* (constructors)
-QueuerVisitor::QueuerVisitor(const TestQueue& queue, const TestFutures& futures)
+QueuerVisitor::QueuerVisitor(TestQueue const& queue, TestFutures const& futures)
     : queue(queue)
     , futures(futures)
 { }
 //@+node:gcross.20101206161648.1853: *3* enter
-void QueuerVisitor::enter(const Suite& suite_) { }
+void QueuerVisitor::enter(Suite const& suite_) { }
 //@+node:gcross.20101206161648.1854: *3* exit
-void QueuerVisitor::exit(const Suite& suite) { }
+void QueuerVisitor::exit(Suite const& suite) { }
 //@+node:gcross.20101206161648.1860: *3* test
-void QueuerVisitor::test(const Test& test) {
+void QueuerVisitor::test(Test const& test) {
     if(!test.skipped) {
         TestTask task(new packaged_task<TestResult>(test));
         TestFuture future(new unique_future<TestResult>);
@@ -49,7 +49,7 @@ void QueuerVisitor::test(const Test& test) {
     }
 }
 //@+node:gcross.20101208142631.1486: ** function enqueueTests
-void enqueueTests(const TestQueue& queue, const TestFutures& futures, const Suite& suite) {
+void enqueueTests(TestQueue const& queue, TestFutures const& futures, Suite const& suite) {
     QueuerVisitor queuer(queue,futures);
     suite.visit(queuer);
 }

@@ -32,7 +32,7 @@ using boost::trim;
 //@+others
 //@+node:gcross.20101206104532.1382: ** Functions
 //@+node:gcross.20101206104532.1384: *3* underscoresToSpaces
-string underscoresToSpaces(const string& old_string) {
+string underscoresToSpaces(string const& old_string) {
     string new_string = old_string;
     BOOST_FOREACH(char& c, new_string) {
         if(c == '_') { c = ' '; }

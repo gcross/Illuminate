@@ -41,10 +41,10 @@ using std::ostream;
 
 //@+others
 //@+node:gcross.20101208142631.1667: ** Functions
-void printTestList(const ColorCodes& color_codes=ColorCodes::ANSI, ostream& out=cout);
-void printTestFutures(const TestFutures& futures, const ColorCodes& color_codes=ColorCodes::ANSI, ostream& out=cout);
-void runTestsAndPrintResults(const ColorCodes& color_codes=ColorCodes::ANSI, ostream& out=cout);
-void runTestsInThreadsAndPrintResults(optional<unsigned int> const requested_number_of_workers=none, const ColorCodes& color_codes=ColorCodes::ANSI, ostream& out=cout);
+void printTestList(ColorCodes const& color_codes=ColorCodes::ANSI, ostream& out=cout);
+void printTestFutures(TestFutures const& futures, ColorCodes const& color_codes=ColorCodes::ANSI, ostream& out=cout);
+void runTestsAndPrintResults(ColorCodes const& color_codes=ColorCodes::ANSI, ostream& out=cout);
+void runTestsInThreadsAndPrintResults(optional<unsigned int> const requested_number_of_workers=none, ColorCodes const& color_codes=ColorCodes::ANSI, ostream& out=cout);
 //@-others
 
 }

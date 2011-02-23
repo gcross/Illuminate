@@ -31,28 +31,28 @@ using std::endl;
 //@+others
 //@+node:gcross.20110203224841.1963: ** class PrinterResultVisitor
 //@+node:gcross.20110203224841.1964: *3* (constructors)
-PrinterResultVisitor::PrinterResultVisitor(const ColorCodes& color_codes,ostream& out)
+PrinterResultVisitor::PrinterResultVisitor(ColorCodes const& color_codes,ostream& out)
     : IndentedOutputVisitor(out)
     , color_codes(color_codes)
 { }
 //@+node:gcross.20110203224841.1965: *3* suite
-void PrinterResultVisitor::suite(const Suite& suite) {
+void PrinterResultVisitor::suite(Suite const& suite) {
     writeIndentedLine(color_codes.suite + suite.name + ":" + color_codes.reset);
 }
 //@+node:gcross.20110222194651.1593: *3* testSkipped
-void PrinterResultVisitor::testSkipped(const Test& test) {
+void PrinterResultVisitor::testSkipped(Test const& test) {
     writeIndentedLine(color_codes.test + test.name + "... " + color_codes.skip + "(skipped)" + color_codes.reset);
 }
 //@+node:gcross.20110203224841.1966: *3* testStarted
-void PrinterResultVisitor::testStarted(const Test& test) {
+void PrinterResultVisitor::testStarted(Test const& test) {
     writeIndented(color_codes.test + test.name + "... " + color_codes.reset);
 }
 //@+node:gcross.20110203224841.1967: *3* testPassed
-void PrinterResultVisitor::testPassed(const Test& test) {
+void PrinterResultVisitor::testPassed(Test const& test) {
     out << color_codes.pass << "PASSED :-)" << color_codes.reset << endl;  out.flush();
 }
 //@+node:gcross.20110203224841.1968: *3* testFailed
-void PrinterResultVisitor::testFailed(const Test& test, const vector<string>& failures) { 
+void PrinterResultVisitor::testFailed(Test const& test, vector<string> const& failures) { 
     out << color_codes.fail << "FAILED :-(" << color_codes.reset << endl;
     BOOST_FOREACH(const string& m, failures) {
         writeIndentedLine(color_codes.fail + "    * " + m + color_codes.reset);

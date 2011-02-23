@@ -36,7 +36,7 @@ using boost::mutex;
 //@+node:gcross.20101208142631.1502: ** class TestWorker
 class TestWorker {
 public:
-    TestWorker(const TestQueue& queue, const shared_ptr<mutex>& queue_mutex, const shared_ptr<const bool>& stop_signal);
+    TestWorker(TestQueue const& queue, shared_ptr<mutex> const& queue_mutex, shared_ptr<const bool> const& stop_signal);
     void operator()();
 protected:
     TestQueue queue;

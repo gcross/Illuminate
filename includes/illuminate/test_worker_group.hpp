@@ -45,7 +45,7 @@ public:
     TestFutures futures;
     thread_group workers;
 
-    TestWorkerGroup(const int number_of_workers);
+    TestWorkerGroup(unsigned int number_of_workers);
     ~TestWorkerGroup();
 };
 //@-others

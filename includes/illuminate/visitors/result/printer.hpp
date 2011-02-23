@@ -37,13 +37,13 @@ class PrinterResultVisitor : public IndentedOutputVisitor, public virtual Result
 public:
     PrinterResultVisitor(const ColorCodes& color_codes,ostream& out);
 protected:
-    virtual void suite(const Suite& suite);
-    virtual void testSkipped(const Test& test);
-    virtual void testStarted(const Test& test);
-    virtual void testPassed(const Test& test);
-    virtual void testFailed(const Test& test, const vector<string>& failures);
+    virtual void suite(Suite const& suite);
+    virtual void testSkipped(Test const& test);
+    virtual void testStarted(Test const& test);
+    virtual void testPassed(Test const& test);
+    virtual void testFailed(Test const& test, vector<string> const& failures);
 private:
-    const ColorCodes& color_codes;
+    ColorCodes const& color_codes;
 };
 //@-others
 

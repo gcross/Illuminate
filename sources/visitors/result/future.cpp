@@ -28,12 +28,12 @@ namespace Illuminate {
 //@+others
 //@+node:gcross.20101208142631.1590: ** class FutureResultVisitor
 //@+node:gcross.20101208142631.1591: *3* (constructors)
-FutureResultVisitor::FutureResultVisitor(const TestFutures& futures)
+FutureResultVisitor::FutureResultVisitor(TestFutures const& futures)
     : futures(futures)
     , number_of_failed_tests(0)
 { }
 //@+node:gcross.20101208142631.1593: *3* test
-void FutureResultVisitor::test(const Test& test) {
+void FutureResultVisitor::test(Test const& test) {
     if(test.skipped) {
         testSkipped(test);
     } else {

@@ -34,18 +34,18 @@ namespace Illuminate {
 //@+others
 //@+node:gcross.20101206161648.1838: ** class Queuer
 class QueuerVisitor : public Visitor {
-    friend void enqueueTests(const TestQueue& queue, const TestFutures& futures, const Suite& suite);
+    friend void enqueueTests(TestQueue const& queue, TestFutures const& futures, Suite const& suite);
 protected:
     TestQueue queue;
     TestFutures futures;
-    virtual void enter(const Suite& suite);
-    virtual void exit(const Suite& suite);
-    virtual void test(const Test& test);
+    virtual void enter(Suite const& suite);
+    virtual void exit(Suite const& suite);
+    virtual void test(Test const& test);
 private:
-    QueuerVisitor(const TestQueue& queue, const TestFutures& futures);
+    QueuerVisitor(TestQueue const& queue, TestFutures const& futures);
 };
 //@+node:gcross.20101206161648.1858: ** function enqueueTests
-void enqueueTests(const TestQueue& queue, const TestFutures& futures, const Suite& suite=getRoot());
+void enqueueTests(TestQueue const& queue, TestFutures const& futures, Suite const& suite=getRoot());
 //@-others
 
 }

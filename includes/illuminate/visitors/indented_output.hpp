@@ -38,11 +38,11 @@ protected:
     int indentation;
     ostream& out;
     IndentedOutputVisitor(ostream& out);
-    void writeIndented(const string& s);
-    void writeIndentedLine(const string& s);
-    virtual void enter(const Suite& suite);
-    virtual void exit(const Suite& suite);
-    virtual void suite(const Suite& suite) = 0;
+    void writeIndented(string const& s);
+    void writeIndentedLine(string const& s);
+    virtual void enter(Suite const& suite);
+    virtual void exit(Suite const& suite);
+    virtual void suite(Suite const& suite) = 0;
 };
 //@-others
 

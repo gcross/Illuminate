@@ -30,16 +30,18 @@ namespace Illuminate {
 //@+others
 //@+node:gcross.20110203233241.1591: ** class PrinterVisitor
 //@+node:gcross.20110203233241.1592: *3* (constructors)
-PrinterVisitor::PrinterVisitor(const ColorCodes& color_codes,ostream& out)
+PrinterVisitor::PrinterVisitor(ColorCodes const& color_codes,ostream& out)
     : IndentedOutputVisitor(out)
     , color_codes(color_codes)
 { }
 //@+node:gcross.20110203233241.1593: *3* suite
-void PrinterVisitor::suite(const Suite& suite) {
+void PrinterVisitor::suite(Suite const& suite) {
     writeIndentedLine(color_codes.suite + suite.name + ":" + color_codes.reset);
 }
 //@+node:gcross.20110203233241.1597: *3* test
-void PrinterVisitor::test(const Test& test) { writeIndentedLine(color_codes.test + test.name + (test.skipped ? " (skipped)" : "") + color_codes.reset); }
+void PrinterVisitor::test(Test const& test) {
+    writeIndentedLine(color_codes.test + test.name + (test.skipped ? " (skipped)" : "") + color_codes.reset);
+}
 //@-others
 
 }
