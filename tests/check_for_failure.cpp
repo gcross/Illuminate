@@ -29,8 +29,12 @@
 #include "illuminate.hpp"
 //@-<< Includes >>
 
+//@+others
+//@+node:gcross.20110222154148.1571: ** Tests
 TEST_SUITE(CheckForFailure) {
 
+//@+others
+//@+node:gcross.20110222154148.1572: *3* detects_failed_checks
 TEST_CASE(detects_failed_checks)
 {
     BEGIN_ASSERT_FAIL {
@@ -49,7 +53,7 @@ TEST_CASE(detects_failed_checks)
         EXPECT_FALSE(true);
     } END_EXPECT_FAIL
 }
-
+//@+node:gcross.20110222154148.1573: *3* detects_thrown_exception
 TEST_CASE(detects_thrown_exception)
 {
     BEGIN_ASSERT_FAIL {
@@ -60,7 +64,68 @@ TEST_CASE(detects_thrown_exception)
         throw "exception";
     } END_EXPECT_FAIL
 }
+//@+node:gcross.20110222154148.1577: *3* exceptions
+TEST_CASE(exceptions)
+{
+    BEGIN_ASSERT_THROWS {
+        throw 0;
+    } END_ASSERT_THROWS(int)
 
+    BEGIN_EXPECT_FAIL {
+        BEGIN_ASSERT_THROWS {
+        } END_ASSERT_THROWS(int)
+    } END_EXPECT_FAIL
+
+    BEGIN_EXPECT_THROWS {
+        throw 0;
+    } END_EXPECT_THROWS(int)
+
+    BEGIN_EXPECT_FAIL {
+        BEGIN_EXPECT_THROWS {
+        } END_EXPECT_THROWS(int)
+    } END_EXPECT_FAIL
+}
+//@+node:gcross.20110222154148.1576: *3* nested_four_times
+TEST_CASE(nested_four_times)
+{
+    BEGIN_ASSERT_FAIL {
+        BEGIN_ASSERT_FAIL {
+            BEGIN_ASSERT_FAIL {
+                BEGIN_ASSERT_FAIL {
+                } END_ASSERT_FAIL
+            } END_ASSERT_FAIL
+        } END_ASSERT_FAIL
+    } END_ASSERT_FAIL
+
+    BEGIN_EXPECT_FAIL {
+        BEGIN_EXPECT_FAIL {
+            BEGIN_EXPECT_FAIL {
+                BEGIN_EXPECT_FAIL {
+                } END_EXPECT_FAIL
+            } END_EXPECT_FAIL
+        } END_EXPECT_FAIL
+    } END_EXPECT_FAIL
+}
+//@+node:gcross.20110222154148.1575: *3* nested_thrice
+TEST_CASE(nested_thrice)
+{
+    BEGIN_ASSERT_FAIL {
+        BEGIN_ASSERT_FAIL {
+            BEGIN_ASSERT_FAIL {
+                throw "exception";
+            } END_ASSERT_FAIL
+        } END_ASSERT_FAIL
+    } END_ASSERT_FAIL
+
+    BEGIN_EXPECT_FAIL {
+        BEGIN_EXPECT_FAIL {
+            BEGIN_EXPECT_FAIL {
+                throw "exception";
+            } END_EXPECT_FAIL
+        } END_EXPECT_FAIL
+    } END_EXPECT_FAIL
+}
+//@+node:gcross.20110222154148.1574: *3* nested_twice
 TEST_CASE(nested_twice)
 {
     BEGIN_ASSERT_FAIL {
@@ -83,67 +148,8 @@ TEST_CASE(nested_twice)
         } END_EXPECT_FAIL
     } END_EXPECT_FAIL
 }
+//@-others
 
-TEST_CASE(nested_thrice)
-{
-    BEGIN_ASSERT_FAIL {
-        BEGIN_ASSERT_FAIL {
-            BEGIN_ASSERT_FAIL {
-                throw "exception";
-            } END_ASSERT_FAIL
-        } END_ASSERT_FAIL
-    } END_ASSERT_FAIL
-
-    BEGIN_EXPECT_FAIL {
-        BEGIN_EXPECT_FAIL {
-            BEGIN_EXPECT_FAIL {
-                throw "exception";
-            } END_EXPECT_FAIL
-        } END_EXPECT_FAIL
-    } END_EXPECT_FAIL
 }
-
-TEST_CASE(nested_four_times)
-{
-    BEGIN_ASSERT_FAIL {
-        BEGIN_ASSERT_FAIL {
-            BEGIN_ASSERT_FAIL {
-                BEGIN_ASSERT_FAIL {
-                } END_ASSERT_FAIL
-            } END_ASSERT_FAIL
-        } END_ASSERT_FAIL
-    } END_ASSERT_FAIL
-
-    BEGIN_EXPECT_FAIL {
-        BEGIN_EXPECT_FAIL {
-            BEGIN_EXPECT_FAIL {
-                BEGIN_EXPECT_FAIL {
-                } END_EXPECT_FAIL
-            } END_EXPECT_FAIL
-        } END_EXPECT_FAIL
-    } END_EXPECT_FAIL
-}
-
-TEST_CASE(exceptions)
-{
-    BEGIN_ASSERT_THROWS {
-        throw 0;
-    } END_ASSERT_THROWS(int)
-
-    BEGIN_EXPECT_FAIL {
-        BEGIN_ASSERT_THROWS {
-        } END_ASSERT_THROWS(int)
-    } END_EXPECT_FAIL
-
-    BEGIN_EXPECT_THROWS {
-        throw 0;
-    } END_EXPECT_THROWS(int)
-
-    BEGIN_EXPECT_FAIL {
-        BEGIN_EXPECT_THROWS {
-        } END_EXPECT_THROWS(int)
-    } END_EXPECT_FAIL
-}
-
-} // suite
+//@-others
 //@-leo
