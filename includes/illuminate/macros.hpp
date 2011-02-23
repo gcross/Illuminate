@@ -181,7 +181,7 @@ DEFINE_CHECKS(NEAR_NAMED,5)
 #define ASSERT_NEAR_QUOTED(A,B,C) ASSERT_NEAR_NAMED(#A,A,#B,B,C)
 #define EXPECT_NEAR_QUOTED(A,B,C) EXPECT_NEAR_NAMED(#A,A,#B,B,C)
 //@+node:gcross.20110219100916.1564: *3* NEAR_RELATIVE
-#define NEAR_RELATIVE_EXPRESSION(expected_value,actual_value,relative_error) ((abs(expected_value)+abs(actual_value))/2 <= relative_error) || (abs((expected_value) - (actual_value))/(abs(expected_value)+abs(actual_value)+relative_error) <= relative_error)
+#define NEAR_RELATIVE_EXPRESSION(expected_value,actual_value,relative_error) ((abs(expected_value)+abs(actual_value))/2 <= relative_error) || (abs((expected_value) - (actual_value))/((abs(expected_value)+abs(actual_value))/2) <= relative_error)
 #define NEAR_RELATIVE_MESSAGE(expected_value,actual_value,relative_error) (boost::format("Actual value %|.15| does not match the expected value %|.15| within a relative tolerance of %||") % (actual_value) % (expected_value) % (relative_error)).str()
 DEFINE_CHECKS(NEAR_RELATIVE,3)
 #define ASSERT_NEAR_RELATIVE(A,B,C) DO_CHECK_WITH_3_ARGUMENTS(ASSERT,NEAR_RELATIVE,A,B,C)
