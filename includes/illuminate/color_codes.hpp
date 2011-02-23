@@ -39,8 +39,8 @@ using namespace std;
 //@+others
 //@+node:gcross.20110203233241.1531: ** struct ColorCodes
 struct ColorCodes {
-    ColorCodes(const string& suite, const string& test, const string& pass, const string& fail, const string& reset);
-    string suite, test, pass, fail, reset;
+    ColorCodes(const string& suite, const string& test, const string& skip, const string& pass, const string& fail, const string& reset);
+    string suite, test, skip, pass, fail, reset;
     static const ColorCodes plain, ANSI;
 };
 //@+node:gcross.20110204202041.1563: ** enum Coloring

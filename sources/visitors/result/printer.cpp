@@ -39,6 +39,10 @@ PrinterResultVisitor::PrinterResultVisitor(const ColorCodes& color_codes,ostream
 void PrinterResultVisitor::suite(const Suite& suite) {
     writeIndentedLine(color_codes.suite + suite.name + ":" + color_codes.reset);
 }
+//@+node:gcross.20110222194651.1593: *3* testSkipped
+void PrinterResultVisitor::testSkipped(const Test& test) {
+    writeIndentedLine(color_codes.test + test.name + "... " + color_codes.skip + "(skipped)" + color_codes.reset);
+}
 //@+node:gcross.20110203224841.1966: *3* testStarted
 void PrinterResultVisitor::testStarted(const Test& test) {
     writeIndented(color_codes.test + test.name + "... " + color_codes.reset);

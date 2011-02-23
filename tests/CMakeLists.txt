@@ -6,6 +6,7 @@ add_executable(test EXCLUDE_FROM_ALL
     examples
     fake1
     fake2
+    skip
     template
 )
 target_link_libraries(test illuminate-main)

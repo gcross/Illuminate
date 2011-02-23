@@ -39,6 +39,7 @@ public:
     PrinterResultVisitor(const ColorCodes& color_codes,ostream& out);
 protected:
     virtual void suite(const Suite& suite);
+    virtual void testSkipped(const Test& test);
     virtual void testStarted(const Test& test);
     virtual void testPassed(const Test& test);
     virtual void testFailed(const Test& test, const vector<string>& failures);

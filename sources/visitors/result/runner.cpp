@@ -32,13 +32,17 @@ using namespace std;
 RunnerResultVisitor::RunnerResultVisitor() : number_of_failed_tests(0) {}
 //@+node:gcross.20110203233241.1621: *3* test
 void RunnerResultVisitor::test(const Test& test) {
-    testStarted(test);
-    TestResult result = test();
-    if(result->size() == 0) {
-        testPassed(test);
+    if(test.skipped) {
+        testSkipped(test);
     } else {
-        ++number_of_failed_tests;
-        testFailed(test,*result);
+        testStarted(test);
+        TestResult result = test();
+        if(result->size() == 0) {
+            testPassed(test);
+        } else {
+            ++number_of_failed_tests;
+            testFailed(test,*result);
+        }
     }
 }
 //@-others

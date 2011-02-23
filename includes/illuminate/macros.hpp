@@ -33,6 +33,11 @@
     \details Note that in the name displayed to the user all the underscores will be replaced with spaces and then leading and trailing whitespace will be trimmed.
 */
 //@+node:gcross.20101206142257.1407: *3* TEST_CASE
+#define DEFINE_TEST_CASE(caseName,skipped) \
+    static void TEST_CASE_RUNNER_##caseName(); \
+    static Illuminate::Test TEST_CASE_##caseName(Illuminate::underscoresToSpaces(#caseName),getParentSuite(),TEST_CASE_RUNNER_##caseName,skipped); \
+    static void TEST_CASE_RUNNER_##caseName()
+
 /*! \brief Defines a test case named \a caseName.
     \ingroup DECLARATIONS
 */
@@ -45,11 +50,32 @@
     }
     \endcode
 */
-#define TEST_CASE(caseName) \
-    static void TEST_CASE_RUNNER_##caseName(); \
-    static Illuminate::Test TEST_CASE_##caseName(Illuminate::underscoresToSpaces(#caseName),getParentSuite(),TEST_CASE_RUNNER_##caseName); \
-    static void TEST_CASE_RUNNER_##caseName()
+#define TEST_CASE(caseName) DEFINE_TEST_CASE(caseName,boost::none)
+
+/*! \brief Defines a test case named \a caseName, but indicates that the test should be skipped.
+    \ingroup DECLARATIONS
+*/
+/*! This macro is like #TEST_CASE, but the test body is ignored and the test is tagged as being skipped.
+*/
+#define SKIP_TEST_CASE(caseName) DEFINE_TEST_CASE(caseName,boost::make_optional(true))
+
+/*! \brief Defines a test case named \a caseName, and runs it even if its parent is flagged to be skipped.
+    \ingroup DECLARATIONS
+*/
+/*! This macro is like #TEST_CASE, but it overrides the skip flag of its parent to make sure the test body is run.
+*/
+#define UNSKIP_TEST_CASE(caseName) DEFINE_TEST_CASE(caseName,boost::make_optional(false))
 //@+node:gcross.20101206142257.1406: *3* TEST_SUITE
+#define DEFINE_TEST_SUITE(suiteName,skipped) \
+    namespace SUITE_##suiteName { \
+        static Illuminate::Suite& _getParentSuite() { \
+            static Illuminate::Suite& suite = getParentSuite().lookupSuite(Illuminate::underscoresToSpaces(#suiteName),skipped); \
+            return suite; \
+        } \
+        static Illuminate::Suite& getParentSuite() { return _getParentSuite(); } \
+    } \
+    namespace SUITE_##suiteName
+
 /*! \brief Defines a test suite named \a suiteName.
     \ingroup DECLARATIONS
 */
@@ -66,15 +92,21 @@
     }
     \endcode
 */
-#define TEST_SUITE(suiteName) \
-    namespace SUITE_##suiteName { \
-        static Illuminate::Suite& _getParentSuite() { \
-            static Illuminate::Suite& suite = getParentSuite().lookupSuite(Illuminate::underscoresToSpaces(#suiteName)); \
-            return suite; \
-        } \
-        static Illuminate::Suite& getParentSuite() { return _getParentSuite(); } \
-    } \
-    namespace SUITE_##suiteName
+#define TEST_SUITE(suiteName) DEFINE_TEST_SUITE(suiteName,boost::none)
+
+/*! \brief Defines a test suite named \a suiteName, but indicates that the suite should be skipped.
+    \ingroup DECLARATIONS
+*/
+/*! This macro is like #TEST_SUITE, but all of the children will be skipped (unless individually UNSKIPped).
+*/
+#define SKIP_TEST_SUITE(suiteName) DEFINE_TEST_SUITE(suiteName,boost::make_optional(true))
+
+/*! \brief Defines a test suite named \a suiteName, and runs it even if its parent is flagged to be skipped.
+    \ingroup DECLARATIONS
+*/
+/*! This macro is like #TEST_SUITE, but it overrides the skip flag of its parent to make sure the test suite is run.
+*/
+#define UNSKIP_TEST_SUITE(suiteName) DEFINE_TEST_SUITE(suiteName,boost::make_optional(false))
 //@+node:gcross.20101206161648.1614: ** Helpers
 //@+node:gcross.20101206161648.1620: *3* DEFINE_CHECK_WITH_X_ARGUMENTS
 #define DEFINE_CHECK_WITH_1_ARGUMENTS(K,F) \

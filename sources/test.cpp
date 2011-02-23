@@ -39,8 +39,8 @@ using namespace std;
 //@+others
 //@+node:gcross.20101205182001.1421: ** class Test
 //@+node:gcross.20101205182001.1422: *3* (constructors)
-Test::Test(const string& name, Suite& parent, function<void ()> runner)
-    : Node(name,&parent)
+Test::Test(const string& name, Suite& parent, function<void ()> runner, const optional<bool> skipped)
+    : Node(name,&parent,skipped)
     , id(getRoot().registerTest(this))
     , runner(runner)
 {

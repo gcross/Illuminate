@@ -21,6 +21,7 @@
 //@+node:gcross.20101205182001.2569: ** << Includes >>
 #include <boost/any.hpp>
 #include <boost/function.hpp>
+#include <boost/optional.hpp>
 #include <boost/program_options.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/thread.hpp>
@@ -71,8 +72,9 @@ struct Node {
     //@+node:gcross.20101205182001.2575: *4* (fields)
     const Suite* parent;
     const string name, full_name;
+    const bool skipped;
     //@+node:gcross.20101205182001.2576: *4* (constructors)
-    Node(const string& name, const Suite* parent);
+    Node(const string& name, Suite* parent, optional<bool> skipped=none);
     //@-others
 };
 //@+node:gcross.20101205182001.2583: *3* Suite
@@ -83,7 +85,7 @@ friend class Test;
 //@+node:gcross.20101205182001.2585: *4* (constructors)
 public:
 
-    Suite(const string& name, const Suite* parent);
+    Suite(const string& name, Suite* parent, optional<bool> skipped=none);
 //@+node:gcross.20101205182001.2586: *4* (fields)
 private:
 
@@ -92,7 +94,7 @@ private:
 //@+node:gcross.20101205182001.2587: *4* (methods)
 public:
 
-    Suite& lookupSuite(const string& name);
+    Suite& lookupSuite(const string& name,const optional<bool> skipped=none);
     void visit(Visitor& visitor) const;
 //@-others
 };
@@ -127,7 +129,7 @@ class Test : public Node {
         struct FatalTestFailure { };
     //@+node:gcross.20101205182001.2593: *4* (constructors)
     public:
-        Test(const string& name, Suite& parent, function<void ()> runner);
+        Test(const string& name, Suite& parent, function<void ()> runner, optional<bool> skipped=none);
     //@+node:gcross.20101205182001.2594: *4* (methods)
     protected:
         static vector<string>& getFailures();
@@ -152,6 +154,7 @@ protected:
 //@+node:gcross.20110203224841.1945: *3* ResultVisitor
 class ResultVisitor : public virtual Visitor {
 protected:
+    virtual void testSkipped(const Test& test) = 0;
     virtual void testStarted(const Test& test) = 0;
     virtual void testPassed(const Test& test) = 0;
     virtual void testFailed(const Test& test,const vector<string>& failures) = 0;

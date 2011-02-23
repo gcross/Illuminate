@@ -42,11 +42,13 @@ void QueuerVisitor::enter(const Suite& suite_) { }
 void QueuerVisitor::exit(const Suite& suite) { }
 //@+node:gcross.20101206161648.1860: *3* test
 void QueuerVisitor::test(const Test& test) {
-    TestTask task(new packaged_task<TestResult>(test));
-    TestFuture future(new unique_future<TestResult>);
-    (*future) = task->get_future();
-    (*futures)[test.id] = future;
-    queue->push(task);
+    if(!test.skipped) {
+        TestTask task(new packaged_task<TestResult>(test));
+        TestFuture future(new unique_future<TestResult>);
+        (*future) = task->get_future();
+        (*futures)[test.id] = future;
+        queue->push(task);
+    }
 }
 //@+node:gcross.20101208142631.1486: ** function enqueueTests
 void enqueueTests(const TestQueue& queue, const TestFutures& futures, const Suite& suite) {

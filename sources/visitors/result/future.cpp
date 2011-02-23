@@ -35,13 +35,17 @@ FutureResultVisitor::FutureResultVisitor(const TestFutures& futures)
 { }
 //@+node:gcross.20101208142631.1593: *3* test
 void FutureResultVisitor::test(const Test& test) {
-    testStarted(test);
-    TestResult result = (*futures)[test.id]->get();
-    if(result->size() == 0) {
-        testPassed(test);
+    if(test.skipped) {
+        testSkipped(test);
     } else {
-        ++number_of_failed_tests;
-        testFailed(test,*result);
+        testStarted(test);
+        TestResult result = (*futures)[test.id]->get();
+        if(result->size() == 0) {
+            testPassed(test);
+        } else {
+            ++number_of_failed_tests;
+            testFailed(test,*result);
+        }
     }
 }
 //@-others
