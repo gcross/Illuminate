@@ -16,6 +16,10 @@
 
 //@+<< Includes >>
 //@+node:gcross.20110203233241.1537: ** << Includes >>
+#include <boost/algorithm/string/case_conv.hpp>
+#include <boost/algorithm/string/predicate.hpp>
+#include <boost/program_options.hpp>
+
 #include "illuminate/color_codes.hpp"
 //@-<< Includes >>
 
@@ -23,6 +27,10 @@ namespace Illuminate {
 
 //@+<< Usings >>
 //@+node:gcross.20110203233241.1624: ** << Usings >>
+using boost::equals;
+using boost::program_options::invalid_option_value;
+namespace validators = boost::program_options::validators;
+using boost::to_lower;
 //@-<< Usings >>
 
 //@+others

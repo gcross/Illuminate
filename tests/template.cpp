@@ -33,11 +33,13 @@
 //@-<< Licence >>
 //@+<< Includes >>
 //@+node:gcross.20101206161648.1802: ** << Includes >>
-#include <vector>
-#include <numeric>
 #include <algorithm>
+#include <numeric>
+#include <vector>
 
 #include "illuminate.hpp"
+
+using std::vector;
 //@-<< Includes >>
 
 TEST_SUITE(TemplateSuite) {
@@ -45,7 +47,7 @@ TEST_SUITE(TemplateSuite) {
 template <typename T>
 void testAlgorithms()
 {
-    using namespace std;
+
     vector<T> ve(100, 1);
     partial_sum(ve.begin(), ve.end(), ve.begin());
 

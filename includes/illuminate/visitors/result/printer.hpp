@@ -29,7 +29,6 @@ namespace Illuminate {
 
 //@+<< Usings >>
 //@+node:gcross.20110203224841.1952: ** << Usings >>
-using namespace std;
 //@-<< Usings >>
 
 //@+others

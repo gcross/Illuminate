@@ -28,6 +28,7 @@ namespace po = boost::program_options;
 using std::cerr;
 using std::cout;
 using std::endl;
+using std::ifstream;
 
 using namespace Illuminate;
 //@-<< Includes >>

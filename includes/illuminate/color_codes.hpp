@@ -19,10 +19,7 @@
 
 //@+<< Includes >>
 //@+node:gcross.20110203233241.1529: ** << Includes >>
-#include <boost/algorithm/string/case_conv.hpp>
-#include <boost/algorithm/string/predicate.hpp>
 #include <boost/any.hpp>
-#include <boost/program_options.hpp>
 #include <string>
 #include <vector>
 //@-<< Includes >>
@@ -31,9 +28,10 @@ namespace Illuminate {
 
 //@+<< Usings >>
 //@+node:gcross.20110203233241.1530: ** << Usings >>
-using namespace boost;
-using namespace boost::program_options;
-using namespace std;
+using boost::any;
+
+using std::string;
+using std::vector;
 //@-<< Usings >>
 
 //@+others

@@ -26,7 +26,7 @@ namespace Illuminate {
 
 //@+<< Usings >>
 //@+node:gcross.20101206104532.1379: ** << Usings >>
-using namespace boost::algorithm;
+using boost::trim;
 //@-<< Usings >>
 
 //@+others

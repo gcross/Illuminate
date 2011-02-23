@@ -29,7 +29,7 @@ namespace Illuminate {
 
 //@+<< Usings >>
 //@+node:gcross.20101208142631.1501: ** << Usings >>
-using namespace std;
+using boost::mutex;
 //@-<< Usings >>
 
 //@+others

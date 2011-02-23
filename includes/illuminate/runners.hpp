@@ -19,8 +19,8 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101208142631.1624: ** << Includes >>
-#include <boost/optional.hpp>
 #include <algorithm>
+#include <boost/optional.hpp>
 #include <iostream>
 
 #include "illuminate/core.hpp"
@@ -31,8 +31,12 @@ namespace Illuminate {
 
 //@+<< Usings >>
 //@+node:gcross.20101208142631.1625: ** << Usings >>
-using namespace boost;
-using namespace std;
+using boost::thread;
+
+using std::cout;
+using std::endl;
+using std::max;
+using std::ostream;
 //@-<< Usings >>
 
 //@+others

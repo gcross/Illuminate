@@ -36,8 +36,19 @@ namespace Illuminate {
 
 //@+<< Usings >>
 //@+node:gcross.20101205182001.1315: ** << Usings >>
-using namespace boost;
-using namespace std;
+using boost::any;
+using boost::function;
+using boost::none;
+using boost::optional;
+using boost::packaged_task;
+using boost::shared_ptr;
+using boost::thread_specific_ptr;
+using boost::unique_future;
+
+using std::list;
+using std::queue;
+using std::string;
+using std::vector;
 //@-<< Usings >>
 
 //@+others

@@ -31,7 +31,7 @@ namespace Illuminate {
 
 //@+<< Usings >>
 //@+node:gcross.20101208142631.1493: ** << Usings >>
-using namespace std;
+using boost::thread_group;
 //@-<< Usings >>
 
 //@+others
