@@ -10,5 +10,5 @@ add_executable(test EXCLUDE_FROM_ALL
     template
 )
 target_link_libraries(test illuminate-main)
-set_property(TARGET test PROPERTY RUNTIME_OUTPUT_DIRECTORY .)
+set_property(TARGET test PROPERTY RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
 #@-leo
