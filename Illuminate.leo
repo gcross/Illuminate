@@ -8,6 +8,11 @@
 <vnodes>
 <v t="gcross.20101205182001.1276"><vh>@thin CMakeLists.txt</vh></v>
 <v t="gcross.20110221195111.1564"><vh>@thin Doxyfile.in</vh></v>
+<v t="gcross.20110527192131.2325"><vh>@path package</vh>
+<v t="gcross.20110527192131.2326"><vh>@file CMakeLists.txt</vh></v>
+<v t="gcross.20110527192131.2327"><vh>@file Illuminate-config-version.cmake.in</vh></v>
+<v t="gcross.20110527192131.2328"><vh>@file Illuminate-config.cmake.in</vh></v>
+</v>
 <v t="gcross.20101205182001.1281"><vh>@path includes</vh>
 <v t="gcross.20101205182001.1312"><vh>@thin CMakeLists.txt</vh></v>
 <v t="gcross.20101206142257.1466"><vh>@thin illuminate.hpp</vh></v>
@@ -73,5 +78,6 @@
 <t tx="gcross.20101206161648.1787"></t>
 <t tx="gcross.20110203224841.1969"></t>
 <t tx="gcross.20110203224841.1970"></t>
+<t tx="gcross.20110527192131.2325"></t>
 </tnodes>
 </leo_file>

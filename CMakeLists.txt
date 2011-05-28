@@ -1,7 +1,8 @@
 #@+leo-ver=5-thin
 #@+node:gcross.20101205182001.1276: * @thin CMakeLists.txt
 cmake_minimum_required (VERSION 2.6 FATAL_ERROR)
-project (Illuminate)
+project (Illuminate CXX)
+set (version 1.0)
 
 #@+<< Configure target output paths >>
 #@+node:gcross.20110430202346.1607: ** << Configure target output paths >>
@@ -38,7 +39,9 @@ endif ()
 message (STATUS "Build type is " ${CMAKE_BUILD_TYPE})
 
 include_directories ("includes")
+
 add_subdirectory ("includes")
+add_subdirectory ("package")
 add_subdirectory ("sources")
 add_subdirectory ("tests")
 

@@ -1,0 +1,9 @@
+#@+leo-ver=5-thin
+#@+node:gcross.20110527192131.2328: * @file Illuminate-config.cmake.in
+get_filename_component(_dir "${CMAKE_CURRENT_LIST_FILE}" PATH)
+get_filename_component(_prefix "${_dir}/../.." ABSOLUTE)
+
+include("${_prefix}/lib/Illuminate-@version@/Illuminate-targets.cmake")
+
+set (Illuminate_INCLUDE_DIRS "${_prefix}/include/illuminate-@version@" @BOOST_INCLUDE_DIRS@)
+#@-leo

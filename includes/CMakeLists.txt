@@ -3,7 +3,7 @@
 install (
     FILES
         illuminate.hpp
-    DESTINATION include
+    DESTINATION include/illuminate-${version}
 )
 
 install (
@@ -14,7 +14,7 @@ install (
         illuminate/runners.hpp
         illuminate/test_worker.hpp
         illuminate/test_worker_group.hpp
-    DESTINATION include/illuminate
+    DESTINATION include/illuminate-${version}/illuminate
 )
 
 install (
@@ -22,7 +22,7 @@ install (
         illuminate/visitors/indented_output.hpp
         illuminate/visitors/printer.hpp
         illuminate/visitors/queuer.hpp
-    DESTINATION include/illuminate/visitors
+    DESTINATION include/illuminate-${version}/illuminate/visitors
 )
 
 
@@ -31,6 +31,6 @@ install (
         illuminate/visitors/result/future.hpp
         illuminate/visitors/result/printer.hpp
         illuminate/visitors/result/runner.hpp
-    DESTINATION include/illuminate/visitors/result
+    DESTINATION include/illuminate-${version}/illuminate/visitors/result
 )
 #@-leo
