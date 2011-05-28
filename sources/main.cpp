@@ -58,10 +58,11 @@ int main(int argc, char** argv) {
             "\n"
             "The purpose of this option is to allow you cause the test program to die when it encounters a particular type of problem so that you can more easily examine the stack trace in a debugger.\n"
         )
-        ("threads,n", po::value<unsigned int>()->default_value(0),
+        ("threads,n", po::value<unsigned int>()->default_value(1),
             "number of threads\n\n"
-            "If this value is zero (the default), then the number of threads is equal to the detected number of hardware capabilities.\n\n"
-            "If this value is one, then the no threads are spawned but rather the tests are run in the main thread (which might make it easier to analyze stack traces).\n"
+            "If this value is zero, then the number of threads is equal to the detected number of hardware capabilities.\n\n"
+            "If this value is one (the default), then no threads are spawned but rather the tests are run in the main thread (which can make it easier to analyze stack traces).\n\n"
+            "Note that using multiple threads can cause problems if your code (or a library on which it relies) is not thread-safe.\n"
         )
     ;
 
