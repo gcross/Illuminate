@@ -24,7 +24,6 @@
 
 #include "future.hpp"
 #include "test_worker.hpp"
-#include "visitors/queuer.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {

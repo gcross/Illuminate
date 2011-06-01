@@ -29,6 +29,7 @@
 
 #include "color_codes.hpp"
 #include "future.hpp"
+#include "task.hpp"
 #include "test_tree.hpp"
 //@-<< Includes >>
 
@@ -37,13 +38,15 @@ namespace Illuminate {
 //@+others
 //@+node:gcross.20101208142631.1667: ** Functions
 //@+others
-//@+node:gcross.20110601121230.1625: *3* printTestTree
-//! Print the test tree.
-void printTestTree(
-    //! the color code escape sequences to use when printing the test tree
-    ColorCodes const& color_codes=ColorCodes::ANSI,
-    //! the output device to which the test tree should be printed
-    std::ostream& out=std::cout
+//@+node:gcross.20101206161648.1858: *3* enqueueTests
+//! Populates a test queue and test futures with the tests in a given suite.
+void enqueueTests(
+    //! reference to the output test queue (which in turn is a shared_ptr)
+    TestQueue const& queue,
+    //! reference to the output test futures (which in turn is a shared_ptr)
+    TestFutures const& futures,
+    //! reference to the input test suite (which defaults to the root)
+    Suite const& suite=getRoot()
 );
 //@+node:gcross.20110601121230.1626: *3* printTestFutures
 //! Prints the test results given the test futures
@@ -53,6 +56,14 @@ void printTestFutures(
     //! the color code escape sequences to use when printing the test results
     ColorCodes const& color_codes=ColorCodes::ANSI,
     //! the output device to which the test results should be printed
+    std::ostream& out=std::cout
+);
+//@+node:gcross.20110601121230.1625: *3* printTestTree
+//! Print the test tree.
+void printTestTree(
+    //! the color code escape sequences to use when printing the test tree
+    ColorCodes const& color_codes=ColorCodes::ANSI,
+    //! the output device to which the test tree should be printed
     std::ostream& out=std::cout
 );
 //@+node:gcross.20110601121230.1633: *3* runTestsAndPrintResults

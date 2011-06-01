@@ -16,6 +16,7 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101208142631.1548: ** << Includes >>
+#include "illuminate/runners.hpp"
 #include "illuminate/test_worker_group.hpp"
 //@-<< Includes >>
 

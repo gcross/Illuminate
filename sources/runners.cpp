@@ -31,7 +31,9 @@ namespace Illuminate {
 //@+<< Usings >>
 //@+node:gcross.20101208142631.1637: ** << Usings >>
 using boost::optional;
+using boost::packaged_task;
 using boost::thread;
+using boost::unique_future;
 
 using std::endl;
 using std::max;
@@ -40,6 +42,27 @@ using std::ostream;
 
 //@+others
 //@+node:gcross.20101208142631.1683: ** Functions
+//@+node:gcross.20101208142631.1486: *3* enqueueTests
+void enqueueTests(TestQueue const& queue, TestFutures const& futures, Suite const& suite) {
+    struct : public Visitor {
+        TestQueue queue;
+        TestFutures futures;
+        virtual void enter(Suite const& _) {}
+        virtual void exit(Suite const& _) {}
+        virtual void test(Test const& test) {
+            if(!test.skipped) {
+                TestTask task(new packaged_task<TestResult>(test));
+                TestFuture future(new unique_future<TestResult>);
+                (*future) = task->get_future();
+                (*futures)[test.id] = future;
+                queue->push(task);
+            }
+        }
+    } queuer;
+    queuer.queue = queue;
+    queuer.futures = futures;
+    suite.visit(queuer);
+}
 //@+node:gcross.20101208142631.1677: *3* printTestTree
 void printTestTree(ColorCodes const& color_codes,ostream& out) {
     PrinterVisitor visitor(color_codes,out);
