@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
             "    plain: no coloring, plain text\n"
             "\n"
         )
-        ("fatal,f", po::value<FatalityMode>(),
+        ("fatal,f", po::value<AbortMode>(),
             "fatality mode\n"
             "\n"
             "The possible values of this option are:\n"
@@ -92,7 +92,7 @@ int main(int argc, char** argv) {
         ;
 
     if (vm.count("fatal")) {
-        Test::fatality_mode = vm["fatal"].as<FatalityMode>();
+        Test::abort_mode = vm["fatal"].as<AbortMode>();
     }
 
     unsigned int const number_of_threads = vm["threads"].as<unsigned int>();

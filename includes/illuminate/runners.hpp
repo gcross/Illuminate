@@ -14,6 +14,10 @@
 //@@c
 //@-<< License >>
 
+/*! \file runners.hpp
+    \brief Standard test runners supplied by Illuminate.
+*/
+
 #ifndef ILLUMINATE_RUNNERS_HPP
 #define ILLUMINATE_RUNNERS_HPP
 
@@ -23,18 +27,53 @@
 #include <boost/optional.hpp>
 #include <iostream>
 
-#include "illuminate/test_tree.hpp"
-#include "illuminate/color_codes.hpp"
+#include "color_codes.hpp"
+#include "future.hpp"
+#include "test_tree.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {
 
 //@+others
 //@+node:gcross.20101208142631.1667: ** Functions
-void printTestList(ColorCodes const& color_codes=ColorCodes::ANSI, std::ostream& out=std::cout);
-void printTestFutures(TestFutures const& futures, ColorCodes const& color_codes=ColorCodes::ANSI, std::ostream& out=std::cout);
-void runTestsAndPrintResults(ColorCodes const& color_codes=ColorCodes::ANSI, std::ostream& out=std::cout);
-void runTestsInThreadsAndPrintResults(boost::optional<unsigned int> const requested_number_of_workers=boost::none, ColorCodes const& color_codes=ColorCodes::ANSI, std::ostream& out=std::cout);
+//@+others
+//@+node:gcross.20110601121230.1625: *3* printTestTree
+//! Print the test tree.
+void printTestTree(
+    //! the color code escape sequences to use when printing the test tree
+    ColorCodes const& color_codes=ColorCodes::ANSI,
+    //! the output device to which the test tree should be printed
+    std::ostream& out=std::cout
+);
+//@+node:gcross.20110601121230.1626: *3* printTestFutures
+//! Prints the test results given the test futures
+void printTestFutures(
+    //! the futures providing the test results
+    TestFutures const& futures,
+    //! the color code escape sequences to use when printing the test results
+    ColorCodes const& color_codes=ColorCodes::ANSI,
+    //! the output device to which the test results should be printed
+    std::ostream& out=std::cout
+);
+//@+node:gcross.20110601121230.1633: *3* runTestsAndPrintResults
+//! Runs the test suite (in the main thread) and prints the results
+void runTestsAndPrintResults(
+    //! the color code escape sequences to use when printing the test results
+    ColorCodes const& color_codes=ColorCodes::ANSI,
+    //! the output device to which the test results should be printed
+    std::ostream& out=std::cout
+);
+//@+node:gcross.20110601121230.1634: *3* runTestsInThreadsAndPrintResults
+//! Runs the test suite in possibly multiple threads and prints the results
+void runTestsInThreadsAndPrintResults(
+    //! The (optional) number of worker threads to spawn;  if none, then the main thread is used.
+    boost::optional<unsigned int> const requested_number_of_workers=boost::none,
+    //! the color code escape sequences to use when printing the test results
+    ColorCodes const& color_codes=ColorCodes::ANSI,
+    //! the output device to which the test results should be printed
+    std::ostream& out=std::cout
+);
+//@-others
 //@-others
 
 }

@@ -14,13 +14,17 @@
 //@@c
 //@-<< License >>
 
+/*! \file visitors/printer.hpp
+    \brief Illuminate::PrinterVisitor class
+*/
+
 #ifndef ILLUMINATE_VISITORS_PRINTER_HPP
 #define ILLUMINATE_VISITORS_PRINTER_HPP
 
 //@+<< Includes >>
 //@+node:gcross.20110203233241.1547: ** << Includes >>
-#include "illuminate/color_codes.hpp"
-#include "illuminate/visitors/indented_output.hpp"
+#include "../color_codes.hpp"
+#include "indented_output.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {

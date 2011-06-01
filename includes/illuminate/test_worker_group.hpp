@@ -22,9 +22,9 @@
 #include <boost/thread.hpp>
 #include <iostream>
 
-#include "illuminate/test_tree.hpp"
-#include "illuminate/test_worker.hpp"
-#include "illuminate/visitors/queuer.hpp"
+#include "future.hpp"
+#include "test_worker.hpp"
+#include "visitors/queuer.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {

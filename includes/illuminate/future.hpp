@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20101206142257.1466: * @file illuminate.hpp
+//@+node:gcross.20110601121230.1627: * @file future.hpp
 //@@language cplusplus
 //@+<< License >>
 //@+node:gcross.20110222175650.1654: ** << License >>
@@ -14,17 +14,36 @@
 //@@c
 //@-<< License >>
 
-/*! \file illuminate.hpp
-    \brief User front-end header file --- i.e. what you probably want to include if you are just writing tests.
+/*! \file future.hpp
+    \brief Type aliases for futures containing test results.
 */
 
-/*! \namespace Illuminate */
+#ifndef ILLUMINATE_FUTURE_HPP
+#define ILLUMINATE_FUTURE_HPP
 
-#ifndef ILLUMINATE_HPP
-#define ILLUMINATE_HPP
+//@+<< Includes >>
+//@+node:gcross.20110601121230.1629: ** << Includes >>
+#include <boost/shared_ptr.hpp>
+#include <boost/thread.hpp>
 
-#include "illuminate/test_tree.hpp"
-#include "illuminate/macros.hpp"
+#include "test_tree.hpp"
+//@-<< Includes >>
+
+namespace Illuminate {
+
+//@+others
+//@+node:gcross.20110601121230.1628: ** Type aliases
+//! A future with a test result
+typedef boost::shared_ptr<boost::unique_future<TestResult> > TestFuture;
+
+//! A vector mapping tests to futures with their results
+/*!
+\note This scheme works because tests are assigned sequential unique identifiers from a global pool as they are created.
+*/
+typedef boost::shared_ptr<std::vector<TestFuture> > TestFutures;
+//@-others
+
+}
 
 #endif
 //@-leo

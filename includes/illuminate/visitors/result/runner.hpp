@@ -14,6 +14,10 @@
 //@@c
 //@-<< License >>
 
+/*! \file runner.hpp
+    \brief Illuminate::RunnerResultVisitor class
+*/
+
 #ifndef ILLUMINATE_VISITORS_RESULT_RUNNER_HPP
 #define ILLUMINATE_VISITORS_RESULT_RUNNER_HPP
 
@@ -21,15 +25,17 @@
 //@+node:gcross.20110203233241.1603: ** << Includes >>
 #include <ostream>
 
-#include "illuminate/visitors/result.hpp"
+#include "../result.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {
 
 //@+others
 //@+node:gcross.20110203233241.1605: ** class RunnerResultVisitor
+//! A result visitor that runs each test it visits in the current thread and calls the methods in ResultVisitor to process the results.
 class RunnerResultVisitor : public virtual ResultVisitor {
 public:
+    //! A counter that tracks the number of tests that have failed.
     unsigned int number_of_failed_tests;
 protected:
     RunnerResultVisitor();

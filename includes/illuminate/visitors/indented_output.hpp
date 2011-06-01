@@ -14,6 +14,10 @@
 //@@c
 //@-<< License >>
 
+/*! \file indented_output.hpp
+    \brief Illuminate::IndentedOutputVisitor class
+*/
+
 #ifndef ILLUMINATE_VISITORS_INDENTED_OUTPUT_HPP
 #define ILLUMINATE_VISITORS_INDENTED_OUTPUT_HPP
 
@@ -21,7 +25,7 @@
 //@+node:gcross.20101206161648.1549: ** << Includes >>
 #include <iostream>
 
-#include "illuminate/visitor.hpp"
+#include "../visitor.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {

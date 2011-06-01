@@ -14,6 +14,10 @@
 //@@c
 //@-<< License >>
 
+/*! \file result/printer.hpp
+    \brief Illuminate::PrinterResultVisitor class
+*/
+
 #ifndef ILLUMINATE_VISITORS_RESULT_PRINTER_HPP
 #define ILLUMINATE_VISITORS_RESULT_PRINTER_HPP
 
@@ -21,9 +25,9 @@
 //@+node:gcross.20110203224841.1951: ** << Includes >>
 #include <ostream>
 
-#include "illuminate/color_codes.hpp"
-#include "illuminate/visitors/indented_output.hpp"
-#include "illuminate/visitors/result.hpp"
+#include "../../color_codes.hpp"
+#include "../indented_output.hpp"
+#include "../result.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {

@@ -40,8 +40,8 @@ using std::ostream;
 
 //@+others
 //@+node:gcross.20101208142631.1683: ** Functions
-//@+node:gcross.20101208142631.1677: *3* printTestList
-void printTestList(ColorCodes const& color_codes,ostream& out) {
+//@+node:gcross.20101208142631.1677: *3* printTestTree
+void printTestTree(ColorCodes const& color_codes,ostream& out) {
     PrinterVisitor visitor(color_codes,out);
     getRoot().visit(visitor);
 }

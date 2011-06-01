@@ -14,6 +14,10 @@
 //@@c
 //@-<< License >>
 
+/*! \file queuer.hpp
+    \brief test queuer classes and functions
+*/
+
 #ifndef ILLUMINATE_VISITORS_QUEUER_HPP
 #define ILLUMINATE_VISITORS_QUEUER_HPP
 
@@ -22,7 +26,9 @@
 #include <boost/thread.hpp>
 #include <iostream>
 
-#include "illuminate/visitor.hpp"
+#include "../future.hpp"
+#include "../task.hpp"
+#include "../visitor.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {

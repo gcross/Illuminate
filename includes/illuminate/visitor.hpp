@@ -14,6 +14,10 @@
 //@@c
 //@-<< License >>
 
+/*! \file visitor.hpp
+    \brief Illuminate::Visitor class
+*/
+
 #ifndef ILLUMINATE_VISITOR_HPP
 #define ILLUMINATE_VISITOR_HPP
 
@@ -26,11 +30,15 @@ namespace Illuminate {
 
 //@+others
 //@+node:gcross.20101205182001.2596: ** class Visitor
+//! Test tree visitor.
 class Visitor {
     friend class Suite;
 protected:
+    //! Called when a suite has been entered.
     virtual void enter(Suite const& suite) = 0;
+    //! Called when a suite has been exited.
     virtual void exit(Suite const& suite) = 0;
+    //! Called to visit a test.
     virtual void test(Test const& test) = 0;
 };
 //@-others

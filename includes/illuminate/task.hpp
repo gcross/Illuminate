@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20101206142257.1466: * @file illuminate.hpp
+//@+node:gcross.20110601121230.1630: * @file task.hpp
 //@@language cplusplus
 //@+<< License >>
 //@+node:gcross.20110222175650.1654: ** << License >>
@@ -14,17 +14,33 @@
 //@@c
 //@-<< License >>
 
-/*! \file illuminate.hpp
-    \brief User front-end header file --- i.e. what you probably want to include if you are just writing tests.
+/*! \file task.hpp
+    \brief Type aliases for tasks that run tests.
 */
 
-/*! \namespace Illuminate */
+#ifndef ILLUMINATE_TASK_HPP
+#define ILLUMINATE_TASK_HPP
 
-#ifndef ILLUMINATE_HPP
-#define ILLUMINATE_HPP
+//@+<< Includes >>
+//@+node:gcross.20110601121230.1631: ** << Includes >>
+#include <boost/shared_ptr.hpp>
+#include <boost/thread.hpp>
 
-#include "illuminate/test_tree.hpp"
-#include "illuminate/macros.hpp"
+#include "test_tree.hpp"
+//@-<< Includes >>
+
+namespace Illuminate {
+
+//@+others
+//@+node:gcross.20110601121230.1632: ** Type aliases
+//! A task that runs a test to obtain its result.
+typedef boost::shared_ptr<boost::packaged_task<TestResult> > TestTask;
+
+//! A queue of test tasks.
+typedef boost::shared_ptr<std::queue<TestTask> > TestQueue;
+//@-others
+
+}
 
 #endif
 //@-leo

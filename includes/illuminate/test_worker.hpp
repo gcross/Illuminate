@@ -22,7 +22,7 @@
 #include <boost/thread.hpp>
 #include <iostream>
 
-#include "illuminate.hpp"
+#include "task.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {

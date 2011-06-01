@@ -14,12 +14,17 @@
 //@@c
 //@-<< License >>
 
+/*! \file future.hpp
+    \brief Illuminate::FutureResultVisitor class
+*/
+
 #ifndef ILLUMINATE_VISITORS_RESULT_FUTURE_HPP
 #define ILLUMINATE_VISITORS_RESULT_FUTURE_HPP
 
 //@+<< Includes >>
 //@+node:gcross.20101208142631.1574: ** << Includes >>
-#include "illuminate/visitors/result.hpp"
+#include "../../future.hpp"
+#include "../result.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {

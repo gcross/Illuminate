@@ -61,7 +61,7 @@ char const* Test::FailuresAccessedOutsideTestContext::what() const throw() {
 }
 //@+node:gcross.20101206142257.1467: *3* (static fields)
 thread_specific_ptr<vector<string> > Test::current_failures;
-enum FatalityMode Test::fatality_mode = NONE_FATAL;
+enum AbortMode Test::abort_mode = NEVER_ABORT;
 //@+node:gcross.20101206161648.1525: *3* annotateFailureMessage
 string Test::annotateFailureMessage(char const* filename, int const line_number, string const& message) {
     stringstream annotated_message;
@@ -94,7 +94,7 @@ vector<string>& Test::getFailures() {
 //@+node:gcross.20101206142257.1395: *3* operator()
 TestResult Test::operator()() const {
     current_failures.reset(new vector<string>());
-    if(fatality_mode >= EXCEPTIONS_FATAL) {
+    if(abort_mode >= ABORT_ON_EXCEPTION) {
         runner();
     } else {
         try {
@@ -116,7 +116,7 @@ TestResult Test::operator()() const {
 }
 //@+node:gcross.20101206161648.1513: *3* registerFailure
 void Test::registerFailure(string const& message, bool const fatal) {
-    if(fatality_mode >= ALL_FATAL) {
+    if(abort_mode >= ABORT_ON_ANY_FAILURE) {
         throw FatalError(message);
     }
     getFailures().push_back(message);
@@ -129,7 +129,7 @@ void Test::registerFailure(char const* filename, unsigned int const line_number,
 //@+node:gcross.20110204202041.1556: ** function validate
 void validate(any& v
              ,vector<std::string> const& values
-             ,FatalityMode* target_type
+             ,AbortMode* target_type
              ,int const
              )
 {
@@ -143,11 +143,11 @@ void validate(any& v
 
     static string const none("none"), exceptions("exceptions"), all("all");
     if(equals(s,none)) {
-        v = any(NONE_FATAL);
+        v = any(NEVER_ABORT);
     } else if(equals(s,exceptions)) {
-        v = any(EXCEPTIONS_FATAL);
+        v = any(ABORT_ON_EXCEPTION);
     } else if(equals(s,all)) {
-        v = any(ALL_FATAL);
+        v = any(ABORT_ON_ANY_FAILURE);
     } else {
         throw invalid_option_value(s);
     }
