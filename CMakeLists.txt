@@ -1,5 +1,5 @@
 #@+leo-ver=5-thin
-#@+node:gcross.20101205182001.1276: * @thin CMakeLists.txt
+#@+node:gcross.20101205182001.1276: * @file CMakeLists.txt
 cmake_minimum_required (VERSION 2.6 FATAL_ERROR)
 project (Illuminate CXX)
 set (version 1.0)

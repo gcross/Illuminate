@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20101206161648.1848: * @thin queuer.cpp
+//@+node:gcross.20101206161648.1848: * @file queuer.cpp
 //@@language cplusplus
 //@+<< License >>
 //@+node:gcross.20110222175650.1654: ** << License >>

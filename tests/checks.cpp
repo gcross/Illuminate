@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20110222154148.1568: * @thin checks.cpp
+//@+node:gcross.20110222154148.1568: * @file checks.cpp
 //@@language cplusplus
 //@@tabwidth -4
 //@+<< License >>

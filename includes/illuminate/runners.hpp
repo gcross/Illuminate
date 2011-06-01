@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20101208142631.1623: * @thin runners.hpp
+//@+node:gcross.20101208142631.1623: * @file runners.hpp
 //@@language cplusplus
 //@+<< License >>
 //@+node:gcross.20110222175650.1654: ** << License >>

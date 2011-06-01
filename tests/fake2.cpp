@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20101206161648.1794: * @thin fake2.cpp
+//@+node:gcross.20101206161648.1794: * @file fake2.cpp
 //@@language cplusplus
 //@@tabwidth -4
 //@+<< Licence >>

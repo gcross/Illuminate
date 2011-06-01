@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20101206142257.1399: * @thin macros.hpp
+//@+node:gcross.20101206142257.1399: * @file macros.hpp
 //@@language cplusplus
 //@+<< License >>
 //@+node:gcross.20110222175650.1654: ** << License >>

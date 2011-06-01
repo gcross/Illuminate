@@ -1,5 +1,5 @@
 #@+leo-ver=5-thin
-#@+node:gcross.20101205182001.1278: * @thin CMakeLists.txt
+#@+node:gcross.20101205182001.1278: * @file CMakeLists.txt
 add_library(illuminate
     color_codes
     node

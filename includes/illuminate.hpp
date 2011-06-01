@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20101206142257.1466: * @thin illuminate.hpp
+//@+node:gcross.20101206142257.1466: * @file illuminate.hpp
 //@@language cplusplus
 //@+<< License >>
 //@+node:gcross.20110222175650.1654: ** << License >>

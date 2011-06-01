@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20110203233241.1528: * @thin color_codes.hpp
+//@+node:gcross.20110203233241.1528: * @file color_codes.hpp
 //@@language cplusplus
 //@+<< License >>
 //@+node:gcross.20110222175650.1654: ** << License >>

@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20110601121230.1617: * @thin visitor.hpp
+//@+node:gcross.20110601121230.1617: * @file visitor.hpp
 //@@language cplusplus
 //@+<< License >>
 //@+node:gcross.20110222175650.1654: ** << License >>

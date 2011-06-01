@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20110203224841.1950: * @thin printer.hpp
+//@+node:gcross.20110203224841.1950: * @file printer.hpp
 //@@language cplusplus
 //@+<< License >>
 //@+node:gcross.20110222175650.1654: ** << License >>

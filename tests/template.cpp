@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20101206161648.1800: * @thin template.cpp
+//@+node:gcross.20101206161648.1800: * @file template.cpp
 //@@language cplusplus
 //@@tabwidth -4
 //@+<< Licence >>

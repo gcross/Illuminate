@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20110222132831.1576: * @thin check_for_failure.cpp
+//@+node:gcross.20110222132831.1576: * @file check_for_failure.cpp
 //@@language cplusplus
 //@@tabwidth -4
 //@+<< License >>

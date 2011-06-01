@@ -1,5 +1,5 @@
 #@+leo-ver=5-thin
-#@+node:gcross.20101205182001.1312: * @thin CMakeLists.txt
+#@+node:gcross.20101205182001.1312: * @file CMakeLists.txt
 install (
     FILES
         illuminate.hpp

@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20110222194651.1610: * @thin skip.cpp
+//@+node:gcross.20110222194651.1610: * @file skip.cpp
 //@@language cplusplus
 //@@tabwidth -4
 //@+<< License >>
