@@ -27,6 +27,8 @@ namespace Illuminate {
 //@+<< Usings >>
 //@+node:gcross.20101206104532.1379: ** << Usings >>
 using boost::trim;
+
+using std::string;
 //@-<< Usings >>
 
 //@+others

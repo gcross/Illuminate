@@ -27,21 +27,16 @@
 
 namespace Illuminate {
 
-//@+<< Usings >>
-//@+node:gcross.20101208142631.1501: ** << Usings >>
-using boost::mutex;
-//@-<< Usings >>
-
 //@+others
 //@+node:gcross.20101208142631.1502: ** class TestWorker
 class TestWorker {
 public:
-    TestWorker(TestQueue const& queue, shared_ptr<mutex> const& queue_mutex, shared_ptr<const bool> const& stop_signal);
+    TestWorker(TestQueue const& queue,boost::shared_ptr<boost::mutex> const& queue_mutex, boost::shared_ptr<const bool> const& stop_signal);
     void operator()();
 protected:
     TestQueue queue;
-    shared_ptr<mutex> queue_mutex;
-    shared_ptr<const bool> stop_signal;
+    boost::shared_ptr<boost::mutex> queue_mutex;
+    boost::shared_ptr<const bool> stop_signal;
 };
 //@-others
 

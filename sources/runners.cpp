@@ -30,6 +30,12 @@ namespace Illuminate {
 
 //@+<< Usings >>
 //@+node:gcross.20101208142631.1637: ** << Usings >>
+using boost::optional;
+using boost::thread;
+
+using std::endl;
+using std::max;
+using std::ostream;
 //@-<< Usings >>
 
 //@+others

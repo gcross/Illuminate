@@ -25,15 +25,11 @@
 
 namespace Illuminate {
 
-//@+<< Usings >>
-//@+node:gcross.20110203233241.1548: ** << Usings >>
-//@-<< Usings >>
-
 //@+others
 //@+node:gcross.20110203233241.1549: ** class PrinterVisitor
 class PrinterVisitor : public IndentedOutputVisitor {
 public:
-    PrinterVisitor(ColorCodes const& color_codes,ostream& out);
+    PrinterVisitor(ColorCodes const& color_codes,std::ostream& out);
 protected:
     virtual void suite(Suite const& suite);
     virtual void test(Test const& test);

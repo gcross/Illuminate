@@ -26,7 +26,9 @@ namespace Illuminate {
 //@+<< Usings >>
 //@+node:gcross.20101208142631.1519: ** << Usings >>
 using boost::lock_guard;
+using boost::mutex;
 namespace this_thread = boost::this_thread;
+using boost::shared_ptr;
 //@-<< Usings >>
 
 //@+others

@@ -29,21 +29,16 @@
 
 namespace Illuminate {
 
-//@+<< Usings >>
-//@+node:gcross.20101208142631.1493: ** << Usings >>
-using boost::thread_group;
-//@-<< Usings >>
-
 //@+others
 //@+node:gcross.20101208142631.1494: ** class TestWorkerGroup
 class TestWorkerGroup {
 protected:
     TestQueue queue;
-    shared_ptr<mutex> queue_mutex;
-    shared_ptr<bool> stop_signal;
+    boost::shared_ptr<boost::mutex> queue_mutex;
+    boost::shared_ptr<bool> stop_signal;
 public:
     TestFutures futures;
-    thread_group workers;
+    boost::thread_group workers;
 
     TestWorkerGroup(unsigned int number_of_workers);
     ~TestWorkerGroup();

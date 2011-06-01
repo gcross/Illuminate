@@ -29,22 +29,12 @@
 
 namespace Illuminate {
 
-//@+<< Usings >>
-//@+node:gcross.20101208142631.1625: ** << Usings >>
-using boost::thread;
-
-using std::cout;
-using std::endl;
-using std::max;
-using std::ostream;
-//@-<< Usings >>
-
 //@+others
 //@+node:gcross.20101208142631.1667: ** Functions
-void printTestList(ColorCodes const& color_codes=ColorCodes::ANSI, ostream& out=cout);
-void printTestFutures(TestFutures const& futures, ColorCodes const& color_codes=ColorCodes::ANSI, ostream& out=cout);
-void runTestsAndPrintResults(ColorCodes const& color_codes=ColorCodes::ANSI, ostream& out=cout);
-void runTestsInThreadsAndPrintResults(optional<unsigned int> const requested_number_of_workers=none, ColorCodes const& color_codes=ColorCodes::ANSI, ostream& out=cout);
+void printTestList(ColorCodes const& color_codes=ColorCodes::ANSI, std::ostream& out=std::cout);
+void printTestFutures(TestFutures const& futures, ColorCodes const& color_codes=ColorCodes::ANSI, std::ostream& out=std::cout);
+void runTestsAndPrintResults(ColorCodes const& color_codes=ColorCodes::ANSI, std::ostream& out=std::cout);
+void runTestsInThreadsAndPrintResults(boost::optional<unsigned int> const requested_number_of_workers=boost::none, ColorCodes const& color_codes=ColorCodes::ANSI, std::ostream& out=std::cout);
 //@-others
 
 }

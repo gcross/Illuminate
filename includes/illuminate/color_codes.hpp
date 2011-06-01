@@ -26,27 +26,19 @@
 
 namespace Illuminate {
 
-//@+<< Usings >>
-//@+node:gcross.20110203233241.1530: ** << Usings >>
-using boost::any;
-
-using std::string;
-using std::vector;
-//@-<< Usings >>
-
 //@+others
 //@+node:gcross.20110203233241.1531: ** struct ColorCodes
 struct ColorCodes {
-    ColorCodes(const string& suite, const string& test, const string& skip, const string& pass, const string& fail, const string& reset);
-    string suite, test, skip, pass, fail, reset;
+    ColorCodes(const std::string& suite, const std::string& test, const std::string& skip, const std::string& pass, const std::string& fail, const std::string& reset);
+    std::string suite, test, skip, pass, fail, reset;
     static const ColorCodes plain, ANSI;
 };
 //@+node:gcross.20110204202041.1563: ** enum Coloring
 enum Coloring { ANSI_COLORING, PLAIN_COLORING };
 //@+node:gcross.20110204202041.1565: ** function validate
 void validate(
-      any& v
-    , vector<std::string> const& values
+      boost::any& v
+    , std::vector<std::string> const& values
     , Coloring* target_type
     , int
 );

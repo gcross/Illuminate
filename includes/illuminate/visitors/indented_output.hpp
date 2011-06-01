@@ -26,20 +26,15 @@
 
 namespace Illuminate {
 
-//@+<< Usings >>
-//@+node:gcross.20101206161648.1550: ** << Usings >>
-using std::ostream;
-//@-<< Usings >>
-
 //@+others
 //@+node:gcross.20101206161648.1551: ** class IndentedOutputVisitor
 class IndentedOutputVisitor : public virtual Visitor {
 protected:
     int indentation;
-    ostream& out;
-    IndentedOutputVisitor(ostream& out);
-    void writeIndented(string const& s);
-    void writeIndentedLine(string const& s);
+    std::ostream& out;
+    IndentedOutputVisitor(std::ostream& out);
+    void writeIndented(std::string const& s);
+    void writeIndentedLine(std::string const& s);
     virtual void enter(Suite const& suite);
     virtual void exit(Suite const& suite);
     virtual void suite(Suite const& suite) = 0;

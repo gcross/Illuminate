@@ -27,10 +27,6 @@
 
 namespace Illuminate {
 
-//@+<< Usings >>
-//@+node:gcross.20101206161648.1837: ** << Usings >>
-//@-<< Usings >>
-
 //@+others
 //@+node:gcross.20101206161648.1838: ** class Queuer
 class QueuerVisitor : public Visitor {

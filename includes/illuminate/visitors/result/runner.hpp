@@ -26,10 +26,6 @@
 
 namespace Illuminate {
 
-//@+<< Usings >>
-//@+node:gcross.20110203233241.1604: ** << Usings >>
-//@-<< Usings >>
-
 //@+others
 //@+node:gcross.20110203233241.1605: ** class RunnerResultVisitor
 class RunnerResultVisitor : public virtual ResultVisitor {

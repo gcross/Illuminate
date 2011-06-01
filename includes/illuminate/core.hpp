@@ -34,37 +34,20 @@
 
 namespace Illuminate {
 
-//@+<< Usings >>
-//@+node:gcross.20101205182001.1315: ** << Usings >>
-using boost::any;
-using boost::function;
-using boost::none;
-using boost::optional;
-using boost::packaged_task;
-using boost::shared_ptr;
-using boost::thread_specific_ptr;
-using boost::unique_future;
-
-using std::list;
-using std::queue;
-using std::string;
-using std::vector;
-//@-<< Usings >>
-
 //@+others
 //@+node:gcross.20110204202041.1562: ** exception FatalError
 struct FatalError : public std::exception {
-    string const message;
-    FatalError(string const& message) : message(message) {}
+    std::string const message;
+    FatalError(std::string const& message) : message(message) {}
     virtual ~FatalError() throw() {}
     char const* what() const throw() { return message.c_str(); }
 };
 //@+node:gcross.20101206161648.1861: ** Type aliases
-typedef shared_ptr<vector<string> > TestResult;
-typedef shared_ptr<packaged_task<TestResult> > TestTask;
-typedef shared_ptr<queue<TestTask> > TestQueue;
-typedef shared_ptr<unique_future<TestResult> > TestFuture;
-typedef shared_ptr<vector<TestFuture> > TestFutures;
+typedef boost::shared_ptr<std::vector<std::string> > TestResult;
+typedef boost::shared_ptr<boost::packaged_task<TestResult> > TestTask;
+typedef boost::shared_ptr<std::queue<TestTask> > TestQueue;
+typedef boost::shared_ptr<boost::unique_future<TestResult> > TestFuture;
+typedef boost::shared_ptr<std::vector<TestFuture> > TestFutures;
 //@+node:gcross.20110204202041.1558: ** Enums
 enum FatalityMode {NONE_FATAL, EXCEPTIONS_FATAL, ALL_FATAL};
 //@+node:gcross.20101205182001.2570: ** Classes
@@ -88,10 +71,10 @@ struct Node {
     //@+others
     //@+node:gcross.20101205182001.2575: *5* (fields)
     //! The parent of this node (may be null).
-    optional<Suite const&> const parent;
+    boost::optional<Suite const&> const parent;
 
     //! The name of this node.
-    string const name;
+    std::string const name;
 
     //! Whether to skip this node.
     bool const skipped;
@@ -101,7 +84,7 @@ struct Node {
     \param parent the (optional) parent of this node
     \param skipped whether to skip this node;  if not specified, this setting is copied from the \c skipped field of \c parent
     */
-    Node(string const& name, optional<Suite const&> parent, optional<bool> skipped=none);
+    Node(std::string const& name, boost::optional<Suite const&> parent, boost::optional<bool> skipped=boost::none);
     //@-others
 };
 //@+node:gcross.20101205182001.2583: *4* Suite
@@ -118,15 +101,15 @@ class Suite : public Node {
     \param parent the (optional) parent of this suite
     \param skipped whether to skip this suite;  if not specified, this setting is copied from the \c skipped field of \c parent
     */
-    Suite(string const& name, optional<Suite const&> parent, optional<bool> skipped=none);
+    Suite(std::string const& name, boost::optional<Suite const&> parent, boost::optional<bool> skipped=boost::none);
     //@+node:gcross.20101205182001.2586: *5* (fields)
     private:
 
     //! List of child suites.
-    list<Suite> nested_suites;
+    std::list<Suite> nested_suites;
 
     //! List of child tests.
-    vector<Test*> tests;
+    std::vector<Test*> tests;
     //@+node:gcross.20101205182001.2587: *5* (methods)
     public:
 
@@ -137,7 +120,7 @@ class Suite : public Node {
     \param skipped the value of \c skipped to use if a new suite is created
     \return the (possibly freshly created) child of this suite with the given name
     */
-    Suite& lookupSuite(string const& name, optional<bool> skipped=none);
+    Suite& lookupSuite(std::string const& name, boost::optional<bool> skipped=boost::none);
 
     //! Apply the visitor to this suite.
     /*!
@@ -161,7 +144,7 @@ class Root : public Suite {
     public:
 
     //! A vector containing all registered tests.
-    vector<Test*> tests;
+    std::vector<Test*> tests;
     //@+node:gcross.20101206104532.1409: *5* (constructors)
     private:
 
@@ -189,10 +172,10 @@ class Test : public Node {
     int const id;
 
     //! The code that performs the test.
-    function<void ()> const runner;
+    boost::function<void ()> const runner;
 
     //! The list of failures that have been recorded in this thread for the current test being run.
-    static thread_specific_ptr<vector<string> > current_failures;
+    static boost::thread_specific_ptr<std::vector<std::string> > current_failures;
 
     //! The "fatality mode", which specifies the types of errors that will be turned into fatal errors.
     static FatalityMode fatality_mode;
@@ -215,12 +198,12 @@ class Test : public Node {
     \param runner the code of the test
     \param skipped whether to skip this suite;  if not specified, this setting is copied from the \c skipped field of \c parent
     */
-    Test(string const& name, Suite& parent, function<void ()> runner, optional<bool> skipped=none);
+    Test(std::string const& name, Suite& parent, boost::function<void ()> runner, boost::optional<bool> skipped=boost::none);
     //@+node:gcross.20101205182001.2594: *5* (methods)
     protected:
 
     //! Get the (thread-local) current list of failures.
-    static vector<string>& getFailures();
+    static std::vector<std::string>& getFailures();
 
     public:
 
@@ -231,7 +214,7 @@ class Test : public Node {
     \param message the message describing the failure
     \return \c message annotated with the information supplied in \c filename and \c line_number
     */
-    static string annotateFailureMessage(char const* filename, int line_number, string const& message);
+    static std::string annotateFailureMessage(char const* filename, int line_number, std::string const& message);
 
     //! Returns the (thread-local) current number of failures recorded.
     static unsigned int countFailures();
@@ -247,7 +230,7 @@ class Test : public Node {
     \param message a message describing the nature of the failure
     \param whether the failure is fatal;  if true, then the test is terminated, if false then the test is allowed to proceed
     */
-    static void registerFailure(string const& message, bool fatal=false);
+    static void registerFailure(std::string const& message, bool fatal=false);
 
     //! Adds a failure with an annotated message to the (thread-local) current failure list.
     /*!
@@ -257,7 +240,7 @@ class Test : public Node {
     \param message a message describing the nature of the failure
     \param whether the failure is fatal;  if true, then the test is terminated, if false then the test is allowed to proceed
     */
-    static void registerFailure(char const* filename, unsigned int line_number, string const& message, bool fatal=false);
+    static void registerFailure(char const* filename, unsigned int line_number, std::string const& message, bool fatal=false);
 
     //! Run this test and return the result.
     /*!
@@ -284,18 +267,18 @@ protected:
     virtual void testSkipped(Test const& test) = 0;
     virtual void testStarted(Test const& test) = 0;
     virtual void testPassed(Test const& test) = 0;
-    virtual void testFailed(Test const& test,vector<string> const& failures) = 0;
+    virtual void testFailed(Test const& test,std::vector<std::string> const& failures) = 0;
 };
 //@-others
 //@+node:gcross.20101205182001.2588: ** Functions
 //@+node:gcross.20101205214942.2483: *3* getRoot
 Root& getRoot();
 //@+node:gcross.20101206104532.1371: *3* underscoresToSpaces
-string underscoresToSpaces(const string& old_string);
+std::string underscoresToSpaces(const std::string& old_string);
 //@+node:gcross.20110204202041.1559: *3* validate
 void validate(
-      any& v
-    , const vector<std::string>& values
+      boost::any& v
+    , const std::vector<std::string>& values
     , FatalityMode* target_type
     , int
 );

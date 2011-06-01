@@ -23,6 +23,9 @@ namespace Illuminate {
 
 //@+<< Usings >>
 //@+node:gcross.20101208142631.1549: ** << Usings >>
+using boost::mutex;
+
+using std::vector;
 //@-<< Usings >>
 
 //@+others

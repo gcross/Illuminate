@@ -25,6 +25,8 @@ namespace Illuminate {
 
 //@+<< Usings >>
 //@+node:gcross.20101206161648.1850: ** << Usings >>
+using boost::packaged_task;
+using boost::unique_future;
 //@-<< Usings >>
 
 //@+others

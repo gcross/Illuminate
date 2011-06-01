@@ -31,12 +31,18 @@ namespace Illuminate {
 
 //@+<< Usings >>
 //@+node:gcross.20101205182001.1420: ** << Usings >>
+using boost::any;
 using boost::equals;
+using boost::function;
+using boost::optional;
 using boost::program_options::invalid_option_value;
 namespace validators = boost::program_options::validators;
+using boost::thread_specific_ptr;
 using boost::to_lower;
 
+using std::string;
 using std::stringstream;
+using std::vector;
 //@-<< Usings >>
 
 //@+others

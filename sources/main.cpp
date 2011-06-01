@@ -23,6 +23,7 @@
 #include "illuminate.hpp"
 #include "illuminate/runners.hpp"
 
+using boost::none;
 namespace po = boost::program_options;
 
 using std::cerr;

@@ -26,6 +26,8 @@ namespace Illuminate {
 //@+<< Usings >>
 //@+node:gcross.20101206161648.1564: ** << Usings >>
 using std::endl;
+using std::ostream;
+using std::string;
 //@-<< Usings >>
 
 //@+others
