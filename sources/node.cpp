@@ -28,15 +28,15 @@ namespace Illuminate {
 //@+others
 //@+node:gcross.20101205182001.1365: ** struct Node
 //@+node:gcross.20101205182001.1366: *3* (constructors)
-Node::Node(string const& name, Suite const* const parent, optional<bool> const skipped)
+Node::Node(string const& name, optional<Suite const&> const parent, optional<bool> const skipped)
     : name(name)
     , parent(parent)
     , skipped(
         skipped
             ? *skipped
-            : parent == NULL
-                ? false
-                : parent->skipped
+            : parent
+                ? parent->skipped
+                : false
       )
 { }
 //@-others

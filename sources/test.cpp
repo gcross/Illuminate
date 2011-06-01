@@ -43,7 +43,7 @@ using std::stringstream;
 //@+node:gcross.20101205182001.1421: ** class Test
 //@+node:gcross.20101205182001.1422: *3* (constructors)
 Test::Test(string const& name, Suite& parent, function<void ()> const runner, optional<bool> const skipped)
-    : Node(name,&parent,skipped)
+    : Node(name,parent,skipped)
     , id(getRoot().registerTest(this))
     , runner(runner)
 {

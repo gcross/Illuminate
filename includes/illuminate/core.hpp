@@ -88,7 +88,7 @@ struct Node {
     //@+others
     //@+node:gcross.20101205182001.2575: *5* (fields)
     //! The parent of this node (may be null).
-    Suite const* const parent;
+    optional<Suite const&> const parent;
 
     //! The name of this node.
     string const name;
@@ -101,7 +101,7 @@ struct Node {
     \param parent the (optional) parent of this node
     \param skipped whether to skip this node;  if not specified, this setting is copied from the \c skipped field of \c parent
     */
-    Node(string const& name, Suite const* parent, optional<bool> skipped=none);
+    Node(string const& name, optional<Suite const&> parent, optional<bool> skipped=none);
     //@-others
 };
 //@+node:gcross.20101205182001.2583: *4* Suite
@@ -118,7 +118,7 @@ class Suite : public Node {
     \param parent the (optional) parent of this suite
     \param skipped whether to skip this suite;  if not specified, this setting is copied from the \c skipped field of \c parent
     */
-    Suite(string const& name, Suite const* parent, optional<bool> skipped=none);
+    Suite(string const& name, optional<Suite const&> parent, optional<bool> skipped=none);
     //@+node:gcross.20101205182001.2586: *5* (fields)
     private:
 
