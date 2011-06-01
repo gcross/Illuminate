@@ -1,5 +1,5 @@
 #@+leo-ver=5-thin
-#@+node:gcross.20110527192131.2327: * @file Illuminate-config-version.cmake.in
+#@+node:gcross.20110527192131.2327: * @file IlluminateConfig-version.cmake.in
 set(PACKAGE_VERSION "@version@")
 if(NOT ${PACKAGE_FIND_VERSION} VERSION_GREATER ${PACKAGE_VERSION})
   set(PACKAGE_VERSION_COMPATIBLE 1)
