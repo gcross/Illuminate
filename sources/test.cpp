@@ -95,8 +95,11 @@ TestResult Test::operator()() const {
             runner();
         } catch(FatalTestFailure) {
             // Nothing to do in this case.
-        } catch(std::exception& e) {
+        } catch(std::exception const& e) {
             registerFailure("Exception thrown: " + string(e.what()));
+        } catch(std::exception* e) { // in case exception is thrown by pointer.
+            registerFailure("Exception thrown: " + string(e->what()));
+            delete e;
         } catch(...) {
             registerFailure("Unknown exception type thrown");
         }
