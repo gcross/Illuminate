@@ -22,7 +22,7 @@
 #include <boost/thread.hpp>
 #include <iostream>
 
-#include "illuminate/core.hpp"
+#include "illuminate/visitor.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {

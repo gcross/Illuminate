@@ -18,7 +18,8 @@
 //@+node:gcross.20101205182001.1307: ** << Includes >>
 #include <boost/foreach.hpp>
 
-#include "illuminate/core.hpp"
+#include "illuminate/test_tree.hpp"
+#include "illuminate/visitor.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {

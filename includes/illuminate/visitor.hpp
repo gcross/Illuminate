@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20101208142631.1491: * @thin test_worker_group.hpp
+//@+node:gcross.20110601121230.1617: * @thin visitor.hpp
 //@@language cplusplus
 //@+<< License >>
 //@+node:gcross.20110222175650.1654: ** << License >>
@@ -14,34 +14,24 @@
 //@@c
 //@-<< License >>
 
-#ifndef ILLUMINATE_TEST_WORKER_GROUP_HPP
-#define ILLUMINATE_TEST_WORKER_GROUP_HPP
+#ifndef ILLUMINATE_VISITOR_HPP
+#define ILLUMINATE_VISITOR_HPP
 
 //@+<< Includes >>
-//@+node:gcross.20101208142631.1492: ** << Includes >>
-#include <boost/thread.hpp>
-#include <iostream>
-
-#include "illuminate/test_tree.hpp"
-#include "illuminate/test_worker.hpp"
-#include "illuminate/visitors/queuer.hpp"
+//@+node:gcross.20110601121230.1618: ** << Includes >>
+#include "test_tree.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {
 
 //@+others
-//@+node:gcross.20101208142631.1494: ** class TestWorkerGroup
-class TestWorkerGroup {
+//@+node:gcross.20101205182001.2596: ** class Visitor
+class Visitor {
+    friend class Suite;
 protected:
-    TestQueue queue;
-    boost::shared_ptr<boost::mutex> queue_mutex;
-    boost::shared_ptr<bool> stop_signal;
-public:
-    TestFutures futures;
-    boost::thread_group workers;
-
-    TestWorkerGroup(unsigned int number_of_workers);
-    ~TestWorkerGroup();
+    virtual void enter(Suite const& suite) = 0;
+    virtual void exit(Suite const& suite) = 0;
+    virtual void test(Test const& test) = 0;
 };
 //@-others
 

@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20101205182001.2567: * @thin core.hpp
+//@+node:gcross.20101205182001.2567: * @thin test_tree.hpp
 //@@language cplusplus
 //@+<< License >>
 //@+node:gcross.20110222175650.1654: ** << License >>
@@ -14,8 +14,8 @@
 //@@c
 //@-<< License >>
 
-#ifndef ILLUMINATE_CORE_HPP
-#define ILLUMINATE_CORE_HPP
+#ifndef ILLUMINATE_TEST_TREE_HPP
+#define ILLUMINATE_TEST_TREE_HPP
 
 //@+<< Includes >>
 //@+node:gcross.20101205182001.2569: ** << Includes >>
@@ -53,23 +53,20 @@ enum FatalityMode {NONE_FATAL, EXCEPTIONS_FATAL, ALL_FATAL};
 //@+node:gcross.20101205182001.2570: ** Classes
 //@+<< Forward declarations >>
 //@+node:gcross.20101205182001.2577: *3* << Forward declarations >>
-class Node;
 class Suite;
 class Test;
 class Visitor;
 //@-<< Forward declarations >>
 
-//@+others
-//@+node:gcross.20110531213958.2792: *3* Test tree
 //! \defgroup TestTree Test tree
 //! @{
 
 //@+others
-//@+node:gcross.20101205182001.2574: *4* Node
+//@+node:gcross.20101205182001.2574: *3* Node
 //! A node in the test tree.
 struct Node {
     //@+others
-    //@+node:gcross.20101205182001.2575: *5* (fields)
+    //@+node:gcross.20101205182001.2575: *4* (fields)
     //! The parent of this node (may be null).
     boost::optional<Suite const&> const parent;
 
@@ -78,7 +75,7 @@ struct Node {
 
     //! Whether to skip this node.
     bool const skipped;
-    //@+node:gcross.20101205182001.2576: *5* (constructors)
+    //@+node:gcross.20101205182001.2576: *4* (constructors)
     /*!
     \param name the name of this node
     \param parent the (optional) parent of this node
@@ -87,13 +84,13 @@ struct Node {
     Node(std::string const& name, boost::optional<Suite const&> parent, boost::optional<bool> skipped=boost::none);
     //@-others
 };
-//@+node:gcross.20101205182001.2583: *4* Suite
+//@+node:gcross.20101205182001.2583: *3* Suite
 //! A test suite.
 class Suite : public Node {
     //@+others
-    //@+node:gcross.20101205182001.2584: *5* (friends)
+    //@+node:gcross.20101205182001.2584: *4* (friends)
     friend class Test;
-    //@+node:gcross.20101205182001.2585: *5* (constructors)
+    //@+node:gcross.20101205182001.2585: *4* (constructors)
     public:
 
     /*!
@@ -102,7 +99,7 @@ class Suite : public Node {
     \param skipped whether to skip this suite;  if not specified, this setting is copied from the \c skipped field of \c parent
     */
     Suite(std::string const& name, boost::optional<Suite const&> parent, boost::optional<bool> skipped=boost::none);
-    //@+node:gcross.20101205182001.2586: *5* (fields)
+    //@+node:gcross.20101205182001.2586: *4* (fields)
     private:
 
     //! List of child suites.
@@ -110,7 +107,7 @@ class Suite : public Node {
 
     //! List of child tests.
     std::vector<Test*> tests;
-    //@+node:gcross.20101205182001.2587: *5* (methods)
+    //@+node:gcross.20101205182001.2587: *4* (methods)
     public:
 
     //! Look up (or possibly create) the child suite with the given \c name.
@@ -129,7 +126,7 @@ class Suite : public Node {
     void visit(Visitor& visitor) const;
     //@-others
 };
-//@+node:gcross.20101206104532.1407: *4* Root
+//@+node:gcross.20101206104532.1407: *3* Root
 //! The root of the test tree.
 /*!
 This class is a singleton that can be access by calling getRoot. 
@@ -138,19 +135,19 @@ This class is a singleton that can be access by calling getRoot.
 */
 class Root : public Suite {
     //@+others
-    //@+node:gcross.20101206104532.1411: *5* (friends)
+    //@+node:gcross.20101206104532.1411: *4* (friends)
     friend Root& getRoot();
-    //@+node:gcross.20101206104532.1408: *5* (fields)
+    //@+node:gcross.20101206104532.1408: *4* (fields)
     public:
 
     //! A vector containing all registered tests.
     std::vector<Test*> tests;
-    //@+node:gcross.20101206104532.1409: *5* (constructors)
+    //@+node:gcross.20101206104532.1409: *4* (constructors)
     private:
 
     //! The private constructor --- private because this class is a singleton.
     Root();
-    //@+node:gcross.20101206104532.1410: *5* (methods)
+    //@+node:gcross.20101206104532.1410: *4* (methods)
     public:
 
     //! Registers a test case in the global list.
@@ -161,11 +158,11 @@ class Root : public Suite {
     int registerTest(Test* test);
     //@-others
 };
-//@+node:gcross.20101205182001.2592: *4* Test
+//@+node:gcross.20101205182001.2592: *3* Test
 //! A test case.
 class Test : public Node {
     //@+others
-    //@+node:gcross.20101206104532.1412: *5* (fields)
+    //@+node:gcross.20101206104532.1412: *4* (fields)
     public:
 
     //! The unique identifier of the test.
@@ -179,7 +176,7 @@ class Test : public Node {
 
     //! The "fatality mode", which specifies the types of errors that will be turned into fatal errors.
     static FatalityMode fatality_mode;
-    //@+node:gcross.20101206161648.1514: *5* (exceptions)
+    //@+node:gcross.20101206161648.1514: *4* (exceptions)
     public:
 
     //! An exception thrown if the failure list is accessed outside the context of running a test.
@@ -189,7 +186,7 @@ class Test : public Node {
 
     //! An exception thrown when an error is a fatal error (as determined by Test::fatality_mode).
     struct FatalTestFailure { };
-    //@+node:gcross.20101205182001.2593: *5* (constructors)
+    //@+node:gcross.20101205182001.2593: *4* (constructors)
     public:
 
     /*!
@@ -199,7 +196,7 @@ class Test : public Node {
     \param skipped whether to skip this suite;  if not specified, this setting is copied from the \c skipped field of \c parent
     */
     Test(std::string const& name, Suite& parent, boost::function<void ()> runner, boost::optional<bool> skipped=boost::none);
-    //@+node:gcross.20101205182001.2594: *5* (methods)
+    //@+node:gcross.20101205182001.2594: *4* (methods)
     protected:
 
     //! Get the (thread-local) current list of failures.
@@ -252,24 +249,6 @@ class Test : public Node {
 //@-others
 
 //! @}
-//@+node:gcross.20110531213958.2793: *3* Visitor
-//@+node:gcross.20101205182001.2596: *4* Visitor
-class Visitor {
-    friend class Suite;
-protected:
-    virtual void enter(Suite const& suite) = 0;
-    virtual void exit(Suite const& suite) = 0;
-    virtual void test(Test const& test) = 0;
-};
-//@+node:gcross.20110203224841.1945: *4* ResultVisitor
-class ResultVisitor : public virtual Visitor {
-protected:
-    virtual void testSkipped(Test const& test) = 0;
-    virtual void testStarted(Test const& test) = 0;
-    virtual void testPassed(Test const& test) = 0;
-    virtual void testFailed(Test const& test,std::vector<std::string> const& failures) = 0;
-};
-//@-others
 //@+node:gcross.20101205182001.2588: ** Functions
 //@+node:gcross.20101205214942.2483: *3* getRoot
 Root& getRoot();

@@ -23,7 +23,7 @@
 #include <boost/optional.hpp>
 #include <iostream>
 
-#include "illuminate/core.hpp"
+#include "illuminate/test_tree.hpp"
 #include "illuminate/color_codes.hpp"
 //@-<< Includes >>
 

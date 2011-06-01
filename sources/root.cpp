@@ -16,7 +16,7 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101206104532.1396: ** << Includes >>
-#include "illuminate/core.hpp"
+#include "illuminate/test_tree.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {

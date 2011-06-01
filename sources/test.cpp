@@ -24,7 +24,7 @@
 #include <iostream>
 #include <sstream>
 
-#include "illuminate/core.hpp"
+#include "illuminate/test_tree.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {

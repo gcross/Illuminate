@@ -9,9 +9,9 @@ install (
 install (
     FILES
         illuminate/color_codes.hpp
-        illuminate/core.hpp
         illuminate/macros.hpp
         illuminate/runners.hpp
+        illuminate/test_tree.hpp
         illuminate/test_worker.hpp
         illuminate/test_worker_group.hpp
     DESTINATION include/illuminate-${version}/illuminate

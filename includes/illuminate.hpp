@@ -17,7 +17,7 @@
 #ifndef ILLUMINATE_HPP
 #define ILLUMINATE_HPP
 
-#include "illuminate/core.hpp"
+#include "illuminate/test_tree.hpp"
 #include "illuminate/macros.hpp"
 
 #endif

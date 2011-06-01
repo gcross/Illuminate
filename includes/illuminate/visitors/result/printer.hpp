@@ -23,6 +23,7 @@
 
 #include "illuminate/color_codes.hpp"
 #include "illuminate/visitors/indented_output.hpp"
+#include "illuminate/visitors/result.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {

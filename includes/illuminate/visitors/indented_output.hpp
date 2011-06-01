@@ -21,7 +21,7 @@
 //@+node:gcross.20101206161648.1549: ** << Includes >>
 #include <iostream>
 
-#include "illuminate/core.hpp"
+#include "illuminate/visitor.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {
