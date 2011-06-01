@@ -31,11 +31,6 @@ namespace Illuminate {
 Node::Node(string const& name, Suite const* const parent, optional<bool> const skipped)
     : name(name)
     , parent(parent)
-    , full_name(
-        parent == NULL
-            ? name
-            : (parent->name + "::" + name)
-      )
     , skipped(
         skipped
             ? *skipped

@@ -82,7 +82,7 @@ struct Node {
     //@+others
     //@+node:gcross.20101205182001.2575: *4* (fields)
     Suite const* const parent;
-    string const name, full_name;
+    string const name;
     bool const skipped;
     //@+node:gcross.20101205182001.2576: *4* (constructors)
     Node(string const& name, Suite const* parent, optional<bool> skipped=none);
