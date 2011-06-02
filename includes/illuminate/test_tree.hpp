@@ -99,6 +99,7 @@ struct Node {
     //! Whether to skip this node.
     bool const skipped;
     //@+node:gcross.20101205182001.2576: *4* (constructors)
+    //! Constructor
     Node(
         //! the name of this node
         std::string const& name,
@@ -118,6 +119,7 @@ class Suite : public Node {
     //@+node:gcross.20101205182001.2585: *4* (constructors)
     public:
 
+    //! Constructor
     Suite(
         //! the name of this suite
         std::string const& name,
@@ -207,7 +209,10 @@ class Test : public Node {
     public:
 
     //! An exception thrown if the failure list is accessed outside the context of running a test.
-    struct FailuresAccessedOutsideTestContext : public std::exception { virtual char const* what() const throw(); };
+    struct FailuresAccessedOutsideTestContext : public std::exception {
+        //! Returns a message describing this exception.
+        virtual char const* what() const throw();
+    };
 
     private:
 
@@ -216,6 +221,7 @@ class Test : public Node {
     //@+node:gcross.20101205182001.2593: *4* (constructors)
     public:
 
+    //! Constructor
     Test(
         //! the name of the test
         std::string const& name,
@@ -235,13 +241,18 @@ class Test : public Node {
     public:
 
     //! Construct a failure message annotated with source position infomration.
+    static std::string annotateFailureMessage(
+        //! the name of the source file
+        char const* filename,
+        //! the line number of the source file
+        int line_number,
+        //! the message describing the failure
+        std::string const& message
     /*!
-    \param filename the name of the source file
-    \param line_number the line number of the source file
-    \param message the message describing the failure
     \return \c message annotated with the information supplied in \c filename and \c line_number
     */
-    static std::string annotateFailureMessage(char const* filename, int line_number, std::string const& message);
+    );
+
 
     //! Returns the (thread-local) current number of failures recorded.
     static unsigned int countFailures();
@@ -253,21 +264,27 @@ class Test : public Node {
     static void eraseFailuresAfter(unsigned int number_of_failures);
 
     //! Adds a failure with the given message to the (thread-local) current failure list.
-    /*!
-    \param message a message describing the nature of the failure
-    \param whether the failure is fatal;  if true, then the test is terminated, if false then the test is allowed to proceed
-    */
-    static void registerFailure(std::string const& message, bool fatal=false);
+    static void registerFailure(
+        //! a message describing the nature of the failure
+        std::string const& message,
+        //! whether the failure is fatal;  if true, then the test is terminated, if false then the test is allowed to proceed
+        bool fatal=false
+    );
 
     //! Adds a failure with an annotated message to the (thread-local) current failure list.
     /*!
     This method acts like Test::registerFailure(string const&,bool), but it first annotates the message with the provided information with the location of the failure in the source file using Test::annotateFailureMessage.
-    \param filename the name of the source file
-    \param line_number the line number of the source file
-    \param message a message describing the nature of the failure
-    \param whether the failure is fatal;  if true, then the test is terminated, if false then the test is allowed to proceed
     */
-    static void registerFailure(char const* filename, unsigned int line_number, std::string const& message, bool fatal=false);
+    static void registerFailure(
+        //! the name of the source file
+        char const* filename,
+        //! the line number of the source file
+        unsigned int line_number,
+        //! a message describing the nature of the failure
+        std::string const& message,
+        //! whether the failure is fatal;  if true, then the test is terminated, if false then the test is allowed to proceed
+        bool fatal=false
+    );
 
     //! Run this test and return the result.
     /*!

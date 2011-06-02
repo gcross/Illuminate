@@ -29,13 +29,27 @@ namespace Illuminate {
 
 //@+others
 //@+node:gcross.20101208142631.1502: ** class TestWorker
+//! A worker for running tests
 class TestWorker {
 public:
-    TestWorker(TestQueue const& queue,boost::shared_ptr<boost::mutex> const& queue_mutex, boost::shared_ptr<const bool> const& stop_signal);
+    //! Constructor
+    TestWorker(
+        //! queue of test tasks
+        TestQueue const& queue,
+        //! a mutex that should be locked to access the queue
+        boost::shared_ptr<boost::mutex> const& queue_mutex,
+        //! a value that signals the worker to halt when set to true
+        boost::shared_ptr<const bool> const& stop_signal
+    );
+    
+    //! Run the worker.
     void operator()();
 protected:
+    //! queue of test tasks
     TestQueue queue;
+    //! a mutex that is locked before accessing the test queue
     boost::shared_ptr<boost::mutex> queue_mutex;
+    //! a value that signals the worker to halt when set to true
     boost::shared_ptr<const bool> stop_signal;
 };
 //@-others

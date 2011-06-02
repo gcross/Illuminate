@@ -37,24 +37,28 @@ namespace Illuminate {
 
 //@+others
 //@+node:gcross.20101208142631.1667: ** Functions
+/*! \defgroup TestRunners Test runners
+    \brief A collection of functions that operate on the global test tree.
+    @{
+*/
 //@+others
 //@+node:gcross.20101206161648.1858: *3* enqueueTests
 //! Populates a test queue and test futures with the tests in a given suite.
 void enqueueTests(
     //! reference to the output test queue (which in turn is a shared_ptr)
-    TestQueue const& queue,
+    Illuminate::TestQueue const& queue,
     //! reference to the output test futures (which in turn is a shared_ptr)
-    TestFutures const& futures,
+    Illuminate::TestFutures const& futures,
     //! reference to the input test suite (which defaults to the root)
-    Suite const& suite=getRoot()
+    Illuminate::Suite const& suite=getRoot()
 );
 //@+node:gcross.20110601121230.1626: *3* printTestFutures
 //! Prints the test results given the test futures
 void printTestFutures(
     //! the futures providing the test results
-    TestFutures const& futures,
+    Illuminate::TestFutures const& futures,
     //! the color code escape sequences to use when printing the test results
-    ColorCodes const& color_codes=ColorCodes::ANSI,
+    Illuminate::ColorCodes const& color_codes=Illuminate::ColorCodes::ANSI,
     //! the output device to which the test results should be printed
     std::ostream& out=std::cout
 );
@@ -62,7 +66,7 @@ void printTestFutures(
 //! Print the test tree.
 void printTestTree(
     //! the color code escape sequences to use when printing the test tree
-    ColorCodes const& color_codes=ColorCodes::ANSI,
+    Illuminate::ColorCodes const& color_codes=Illuminate::ColorCodes::ANSI,
     //! the output device to which the test tree should be printed
     std::ostream& out=std::cout
 );
@@ -70,7 +74,7 @@ void printTestTree(
 //! Runs the test suite (in the main thread) and prints the results
 void runTestsAndPrintResults(
     //! the color code escape sequences to use when printing the test results
-    ColorCodes const& color_codes=ColorCodes::ANSI,
+    Illuminate::ColorCodes const& color_codes=Illuminate::ColorCodes::ANSI,
     //! the output device to which the test results should be printed
     std::ostream& out=std::cout
 );
@@ -80,11 +84,13 @@ void runTestsInThreadsAndPrintResults(
     //! The (optional) number of worker threads to spawn;  if none, then the main thread is used.
     boost::optional<unsigned int> const requested_number_of_workers=boost::none,
     //! the color code escape sequences to use when printing the test results
-    ColorCodes const& color_codes=ColorCodes::ANSI,
+    Illuminate::ColorCodes const& color_codes=Illuminate::ColorCodes::ANSI,
     //! the output device to which the test results should be printed
     std::ostream& out=std::cout
 );
 //@-others
+
+//! @}
 //@-others
 
 }

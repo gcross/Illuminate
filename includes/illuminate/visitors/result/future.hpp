@@ -31,11 +31,16 @@ namespace Illuminate {
 
 //@+others
 //@+node:gcross.20101208142631.1577: ** class FutureResultVisitor
+//! Visitor that obtains the result for each visited test from futures providing the test results.
 class FutureResultVisitor : public virtual ResultVisitor {
 public:
+    //! A counter that tracks the number of tests that have failed.
     unsigned int number_of_failed_tests;
 protected:
+    //! Futures providing the test results.
     TestFutures futures;
+    //! Constructor
+    /*! \param futures futures providing the test results */
     FutureResultVisitor(TestFutures const& futures);
     virtual void test(Test const& test);
 };

@@ -23,7 +23,7 @@
 #include "illuminate/visitors/result/future.hpp"
 #include "illuminate/visitors/result/printer.hpp"
 #include "illuminate/visitors/result/runner.hpp"
-#include "illuminate/visitors/printer.hpp"
+#include "illuminate/visitors/indented_output.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {
@@ -65,7 +65,19 @@ void enqueueTests(TestQueue const& queue, TestFutures const& futures, Suite cons
 }
 //@+node:gcross.20101208142631.1677: *3* printTestTree
 void printTestTree(ColorCodes const& color_codes,ostream& out) {
-    PrinterVisitor visitor(color_codes,out);
+    struct PrinterVisitor : public IndentedOutputVisitor {
+        ColorCodes const& color_codes;
+        PrinterVisitor(ColorCodes const& color_codes,std::ostream& out)
+            : IndentedOutputVisitor(out)
+            , color_codes(color_codes)
+        { }
+        virtual void suite(Suite const& suite) {
+            writeIndentedLine(color_codes.suite + suite.name + ":" + color_codes.reset);
+        }
+        virtual void test(Test const& test) {
+            writeIndentedLine(color_codes.test + test.name + (test.skipped ? " (skipped)" : "") + color_codes.reset);
+        }
+    } visitor(color_codes,out);
     getRoot().visit(visitor);
 }
 //@+node:gcross.20101208142631.1680: *3* printTestFutures

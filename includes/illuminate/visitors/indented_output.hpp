@@ -32,15 +32,27 @@ namespace Illuminate {
 
 //@+others
 //@+node:gcross.20101206161648.1551: ** class IndentedOutputVisitor
+//! A visitor which indents the output corresponding to the nest level of the current suite.
 class IndentedOutputVisitor : public virtual Visitor {
 protected:
+    //! the current indentation level
     int indentation;
+    //! the current output stream
     std::ostream& out;
+
+    //! Constructor
+    /*! \param out the current output stream */
     IndentedOutputVisitor(std::ostream& out);
+
+    //! write \c s with the current level of indentation
     void writeIndented(std::string const& s);
+    //! write \c s with the current level of indentation and a trailing newline character
     void writeIndentedLine(std::string const& s);
+
     virtual void enter(Suite const& suite);
     virtual void exit(Suite const& suite);
+
+    //! Called for each suite (upon entrance).
     virtual void suite(Suite const& suite) = 0;
 };
 //@-others

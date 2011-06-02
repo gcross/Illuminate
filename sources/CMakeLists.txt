@@ -14,7 +14,6 @@ add_library(illuminate
     visitors/result/printer
     visitors/result/runner
     visitors/indented_output
-    visitors/printer
 )
 target_link_libraries(illuminate ${Boost_LIBRARIES})
 

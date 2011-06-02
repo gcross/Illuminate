@@ -30,16 +30,31 @@ namespace Illuminate {
 
 //@+others
 //@+node:gcross.20101208142631.1494: ** class TestWorkerGroup
+//! A group of test workers
+/*!
+This class creates a group of worker threads which immediately start executing the tests in the global test tree and storing their results in \c futures.
+
+\sa TestWorker
+*/
 class TestWorkerGroup {
 protected:
+    //! queue of test tasks
     TestQueue queue;
+    //! a mutex that must be locked before accessing the test queue
     boost::shared_ptr<boost::mutex> queue_mutex;
+    //! a value that signals the group of workers to halt when set to true
     boost::shared_ptr<bool> stop_signal;
 public:
+    //! futures providing the test results
     TestFutures futures;
+    //! the thread group of the workers
     boost::thread_group workers;
 
+    //! Constructor.
+    //! \param number_of_workers number of workers to create
     TestWorkerGroup(unsigned int number_of_workers);
+    
+    //! Destructor.
     ~TestWorkerGroup();
 };
 //@-others

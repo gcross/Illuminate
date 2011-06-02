@@ -34,9 +34,19 @@ namespace Illuminate {
 
 //@+others
 //@+node:gcross.20110203224841.1953: ** class PrinterResultVisitor
+//! Visitor that prints all of the tests as well as their results
+/*!
+\note This class does not implement the \c test method in order to allow the user to set the policy by which the test result is obtained, so you need to either implement this method yourself or mix in a class such as FutureResultVisitor or RunnerResultVisitor.
+*/
 class PrinterResultVisitor : public IndentedOutputVisitor, public virtual ResultVisitor {
 public:
-    PrinterResultVisitor(const ColorCodes& color_codes,std::ostream& out);
+    //! Constructor
+    PrinterResultVisitor(
+        //! the color code escape sequences to use when printing the test results
+        const ColorCodes& color_codes,
+        //! the output device to which the test tree should be printed
+        std::ostream& out
+    );
 protected:
     virtual void suite(Suite const& suite);
     virtual void testSkipped(Test const& test);
