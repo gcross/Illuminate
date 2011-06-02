@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20110601121230.1621: * @file result.hpp
+//@+node:gcross.20110601150226.2621: * @file test_result_callback.hpp
 //@@language cplusplus
 //@+<< License >>
 //@+node:gcross.20110222175650.1654: ** << License >>
@@ -14,39 +14,36 @@
 //@@c
 //@-<< License >>
 
-/*! \file result.hpp
-    \brief Illuminate::ResultVisitor class
+/*! \file visitor.hpp
+    \brief Illuminate::TestResultCallback class
 */
 
-#ifndef ILLUMINATE_VISITORS_RESULT_HPP
-#define ILLUMINATE_VISITORS_RESULT_HPP
+#ifndef ILLUMINATE_TEST_RESULT_CALLBACK_HPP
+#define ILLUMINATE_TEST_RESULT_CALLBACK_HPP
 
 //@+<< Includes >>
-//@+node:gcross.20110601121230.1623: ** << Includes >>
-#include <boost/function.hpp>
-
-#include "../test_result_callback.hpp"
-#include "../visitor.hpp"
+//@+node:gcross.20110601150226.2622: ** << Includes >>
+#include "test_tree.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {
 
 //@+others
-//@+node:gcross.20110203224841.1945: ** class ResultVisitor
-//! Test result visitor.
-/*!
-This class extends the Visitor interface with additional methods that are called with information about the result of running a test.
-*/
-class ResultVisitor : public virtual Visitor, public virtual TestResultCallback {
-protected:
-    //! The processor that will be used to process tests.
-    TestProcessor processTest;
-
-    //! Constructor
-    /*! \param processTest processor that should be used to process tests */
-    ResultVisitor(TestProcessor const& processTest);
-
-    virtual void test(Test const& test);
+//@+node:gcross.20110601150226.2624: ** class TestResultCallback
+//! Test result callback interface.
+struct TestResultCallback {
+    //! Called when a test has been skipped.
+    virtual void testSkipped(Test const& test) = 0;
+    //! Called when a test has been started.
+    virtual void testStarted(Test const& test) = 0;
+    //! Called when a test has been passed.
+    virtual void testPassed(Test const& test) = 0;
+    //! Called when a test has been failed.
+    /*!
+    \param test the test that failed
+    \param failures a list of descriptions of the failures that were recorded for the test
+    */
+    virtual void testFailed(Test const& test,std::vector<std::string> const& failures) = 0;
 };
 //@-others
 

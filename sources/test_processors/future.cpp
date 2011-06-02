@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20110203233241.1615: * @file runner.cpp
+//@+node:gcross.20101208142631.1587: * @file future.cpp
 //@@language cplusplus
 //@+<< License >>
 //@+node:gcross.20110222175650.1654: ** << License >>
@@ -15,32 +15,36 @@
 //@-<< License >>
 
 //@+<< Includes >>
-//@+node:gcross.20110203233241.1616: ** << Includes >>
-#include "illuminate/visitors/result/runner.hpp"
+//@+node:gcross.20101208142631.1588: ** << Includes >>
+#include "illuminate/test_processors/future.hpp"
+#include "illuminate/test_result_callback.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {
 
 //@+<< Usings >>
-//@+node:gcross.20110203233241.1617: ** << Usings >>
+//@+node:gcross.20101208142631.1589: ** << Usings >>
 //@-<< Usings >>
 
 //@+others
-//@+node:gcross.20110203233241.1618: ** class RunnerResultVisitor
-//@+node:gcross.20110203233241.1625: *3* (constructors)
-RunnerResultVisitor::RunnerResultVisitor() : number_of_failed_tests(0) {}
-//@+node:gcross.20110203233241.1621: *3* test
-void RunnerResultVisitor::test(Test const& test) {
+//@+node:gcross.20101208142631.1590: ** class FutureTestProcessor
+//@+node:gcross.20101208142631.1591: *3* (constructors)
+FutureTestProcessor::FutureTestProcessor(TestFutures const& futures)
+    : futures(futures)
+    , number_of_failed_tests(0)
+{ }
+//@+node:gcross.20101208142631.1593: *3* operator()
+void FutureTestProcessor::operator()(Test const& test, TestResultCallback& callback) {
     if(test.skipped) {
-        testSkipped(test);
+        callback.testSkipped(test);
     } else {
-        testStarted(test);
-        TestResult result = test();
+        callback.testStarted(test);
+        TestResult result = (*futures)[test.id]->get();
         if(result->size() == 0) {
-            testPassed(test);
+            callback.testPassed(test);
         } else {
             ++number_of_failed_tests;
-            testFailed(test,*result);
+            callback.testFailed(test,*result);
         }
     }
 }

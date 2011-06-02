@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20101208142631.1587: * @file future.cpp
+//@+node:gcross.20110601150226.2625: * @file result.cpp
 //@@language cplusplus
 //@+<< License >>
 //@+node:gcross.20110222175650.1654: ** << License >>
@@ -15,37 +15,25 @@
 //@-<< License >>
 
 //@+<< Includes >>
-//@+node:gcross.20101208142631.1588: ** << Includes >>
-#include "illuminate/visitors/result/future.hpp"
+//@+node:gcross.20110601150226.2626: ** << Includes >>
+#include "illuminate/visitors/result.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {
 
 //@+<< Usings >>
-//@+node:gcross.20101208142631.1589: ** << Usings >>
+//@+node:gcross.20110601150226.2633: ** << Usings >>
 //@-<< Usings >>
 
 //@+others
-//@+node:gcross.20101208142631.1590: ** class FutureResultVisitor
-//@+node:gcross.20101208142631.1591: *3* (constructors)
-FutureResultVisitor::FutureResultVisitor(TestFutures const& futures)
-    : futures(futures)
-    , number_of_failed_tests(0)
-{ }
-//@+node:gcross.20101208142631.1593: *3* test
-void FutureResultVisitor::test(Test const& test) {
-    if(test.skipped) {
-        testSkipped(test);
-    } else {
-        testStarted(test);
-        TestResult result = (*futures)[test.id]->get();
-        if(result->size() == 0) {
-            testPassed(test);
-        } else {
-            ++number_of_failed_tests;
-            testFailed(test,*result);
-        }
-    }
+//@+node:gcross.20110601150226.2628: ** class ResultVisitor
+//@+node:gcross.20110601150226.2629: *3* (constructors)
+ResultVisitor::ResultVisitor(TestProcessor const& processTest)
+  : processTest(processTest)
+{}
+//@+node:gcross.20110601150226.2630: *3* test
+void ResultVisitor::test(Test const& test) {
+    processTest(test,*this);
 }
 //@-others
 

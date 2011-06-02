@@ -52,6 +52,19 @@ void enqueueTests(
     //! reference to the input test suite (which defaults to the root)
     Illuminate::Suite const& suite=getRoot()
 );
+//@+node:gcross.20110601150226.2634: *3* printTestFailureCount
+//! Prints a message to the user displaying the number of tests that have failed
+/*!
+If no tests have failed, then it displays a message informing the user that all tests have passed.
+*/
+void printTestFailureCount(
+    //! the number of tests that failed
+    unsigned int number_of_failed_tests,
+    //! the color code escape sequences to use when printing the number of failures
+    Illuminate::ColorCodes const& color_codes=Illuminate::ColorCodes::ANSI,
+    //! the output device to which the test results should be printed
+    std::ostream& out=std::cout
+);
 //@+node:gcross.20110601121230.1626: *3* printTestFutures
 //! Prints the test results given the test futures
 void printTestFutures(

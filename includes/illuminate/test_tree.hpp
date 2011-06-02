@@ -38,6 +38,14 @@
 
 namespace Illuminate {
 
+//@+<< Forward declarations >>
+//@+node:gcross.20101205182001.2577: ** << Forward declarations >>
+class Suite;
+class Test;
+class TestResultCallback;
+class Visitor;
+//@-<< Forward declarations >>
+
 //@+others
 //@+node:gcross.20110204202041.1562: ** exception FatalError
 //! Exception thrown when a fatal error is encountered in a test
@@ -60,6 +68,7 @@ struct FatalError : public std::exception {
 If the vector is empty, then the test is deemed to have passed.  Otherwise, the test is deemed to have failed, and the vector contains a list of descriptions of the failures that were encountered and recorded.
 */
 typedef boost::shared_ptr<std::vector<std::string> > TestResult;
+typedef boost::function<void (Test const&,TestResultCallback&)> TestProcessor;
 //@+node:gcross.20110204202041.1558: ** Enums
 //! A setting that specifies what kind of failure (if any) will cause the test program to abort.
 /*!
@@ -74,13 +83,6 @@ enum AbortMode {
     ABORT_ON_ANY_FAILURE
 };
 //@+node:gcross.20101205182001.2570: ** Classes
-//@+<< Forward declarations >>
-//@+node:gcross.20101205182001.2577: *3* << Forward declarations >>
-class Suite;
-class Test;
-class Visitor;
-//@-<< Forward declarations >>
-
 //! \defgroup TestTree Test tree
 //! @{
 

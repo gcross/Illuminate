@@ -42,6 +42,8 @@ class PrinterResultVisitor : public IndentedOutputVisitor, public virtual Result
 public:
     //! Constructor
     PrinterResultVisitor(
+        //! processor that should be used to process tests */
+        TestProcessor processTest,
         //! the color code escape sequences to use when printing the test results
         const ColorCodes& color_codes,
         //! the output device to which the test tree should be printed

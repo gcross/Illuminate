@@ -15,34 +15,41 @@
 //@-<< License >>
 
 /*! \file future.hpp
-    \brief Illuminate::FutureResultVisitor class
+    \brief Illuminate::FutureTestProcessor class
 */
 
-#ifndef ILLUMINATE_VISITORS_RESULT_FUTURE_HPP
-#define ILLUMINATE_VISITORS_RESULT_FUTURE_HPP
+#ifndef ILLUMINATE_TEST_PROCESSORS_FUTURE_HPP
+#define ILLUMINATE_TEST_PROCESSORS_FUTURE_HPP
 
 //@+<< Includes >>
 //@+node:gcross.20101208142631.1574: ** << Includes >>
-#include "../../future.hpp"
-#include "../result.hpp"
+#include "../future.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {
 
 //@+others
-//@+node:gcross.20101208142631.1577: ** class FutureResultVisitor
-//! Visitor that obtains the result for each visited test from futures providing the test results.
-class FutureResultVisitor : public virtual ResultVisitor {
+//@+node:gcross.20101208142631.1577: ** class FutureTestProcessor
+//! A test processor that processes a test by fetching its result from a provided future.
+class FutureTestProcessor {
 public:
     //! A counter that tracks the number of tests that have failed.
     unsigned int number_of_failed_tests;
-protected:
+
     //! Futures providing the test results.
     TestFutures futures;
+
     //! Constructor
     /*! \param futures futures providing the test results */
-    FutureResultVisitor(TestFutures const& futures);
-    virtual void test(Test const& test);
+    FutureTestProcessor(TestFutures const& futures);
+
+    //! Process the test
+    void operator()(
+        //! test to be processed
+        Test const& test,
+        //! callback to be notified
+        TestResultCallback& callback
+    );
 };
 //@-others
 

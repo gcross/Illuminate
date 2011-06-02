@@ -1,5 +1,5 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20110203233241.1602: * @file runner.hpp
+//@+node:gcross.20110203233241.1615: * @file runner.cpp
 //@@language cplusplus
 //@+<< License >>
 //@+node:gcross.20110222175650.1654: ** << License >>
@@ -14,36 +14,38 @@
 //@@c
 //@-<< License >>
 
-/*! \file runner.hpp
-    \brief Illuminate::RunnerResultVisitor class
-*/
-
-#ifndef ILLUMINATE_VISITORS_RESULT_RUNNER_HPP
-#define ILLUMINATE_VISITORS_RESULT_RUNNER_HPP
-
 //@+<< Includes >>
-//@+node:gcross.20110203233241.1603: ** << Includes >>
-#include <ostream>
-
-#include "../result.hpp"
+//@+node:gcross.20110203233241.1616: ** << Includes >>
+#include "illuminate/test_processors/runner.hpp"
+#include "illuminate/test_result_callback.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {
 
+//@+<< Usings >>
+//@+node:gcross.20110203233241.1617: ** << Usings >>
+//@-<< Usings >>
+
 //@+others
-//@+node:gcross.20110203233241.1605: ** class RunnerResultVisitor
-//! A result visitor that runs each test it visits in the current thread and calls the methods in ResultVisitor to process the results.
-class RunnerResultVisitor : public virtual ResultVisitor {
-public:
-    //! A counter that tracks the number of tests that have failed.
-    unsigned int number_of_failed_tests;
-protected:
-    RunnerResultVisitor();
-    virtual void test(Test const& test);
-};
+//@+node:gcross.20110203233241.1618: ** class RunnerTestProcessor
+//@+node:gcross.20110203233241.1625: *3* (constructors)
+RunnerTestProcessor::RunnerTestProcessor() : number_of_failed_tests(0) {}
+//@+node:gcross.20110203233241.1621: *3* operator()
+void RunnerTestProcessor::operator()(Test const& test, TestResultCallback& callback) {
+    if(test.skipped) {
+        callback.testSkipped(test);
+    } else {
+        callback.testStarted(test);
+        TestResult result = test();
+        if(result->size() == 0) {
+            callback.testPassed(test);
+        } else {
+            ++number_of_failed_tests;
+            callback.testFailed(test,*result);
+        }
+    }
+}
 //@-others
 
 }
-
-#endif
 //@-leo

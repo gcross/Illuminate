@@ -10,10 +10,11 @@ add_library(illuminate
     test_worker
     test_worker_group
     utils
-    visitors/result/future
-    visitors/result/printer
-    visitors/result/runner
+    test_processors/future
+    test_processors/runner
     visitors/indented_output
+    visitors/result.cpp
+    visitors/result/printer
 )
 target_link_libraries(illuminate ${Boost_LIBRARIES})
 

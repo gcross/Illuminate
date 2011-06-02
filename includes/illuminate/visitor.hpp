@@ -31,9 +31,7 @@ namespace Illuminate {
 //@+others
 //@+node:gcross.20101205182001.2596: ** class Visitor
 //! Test tree visitor.
-class Visitor {
-    friend class Suite;
-protected:
+struct Visitor {
     //! Called when a suite has been entered.
     virtual void enter(Suite const& suite) = 0;
     //! Called when a suite has been exited.

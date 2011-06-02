@@ -19,11 +19,11 @@
 #include <ostream>
 
 #include "illuminate/runners.hpp"
+#include "illuminate/test_processors/future.hpp"
+#include "illuminate/test_processors/runner.hpp"
 #include "illuminate/test_worker_group.hpp"
-#include "illuminate/visitors/result/future.hpp"
-#include "illuminate/visitors/result/printer.hpp"
-#include "illuminate/visitors/result/runner.hpp"
 #include "illuminate/visitors/indented_output.hpp"
+#include "illuminate/visitors/result/printer.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {
@@ -63,6 +63,25 @@ void enqueueTests(TestQueue const& queue, TestFutures const& futures, Suite cons
     queuer.futures = futures;
     suite.visit(queuer);
 }
+//@+node:gcross.20110601150226.2636: *3* printTestFailureCount
+void printTestFailureCount(
+    unsigned int number_of_failed_tests,
+    ColorCodes const& color_codes,
+    ostream& out
+) {
+    switch(number_of_failed_tests) {
+        case 0:  out << color_codes.pass << "All tests passed!" << color_codes.reset << endl;  break;
+        case 1:  out << color_codes.fail << "1 test failed."    << color_codes.reset << endl;  break;
+        default: out << color_codes.fail << number_of_failed_tests << " tests failed." << color_codes.reset << endl;  break;
+    }
+}
+//@+node:gcross.20101208142631.1680: *3* printTestFutures
+void printTestFutures(TestFutures const& futures,ColorCodes const& color_codes,ostream& out) {
+    FutureTestProcessor processor(futures);
+    PrinterResultVisitor visitor(processor,color_codes,out);
+    getRoot().visit(visitor);
+    printTestFailureCount(processor.number_of_failed_tests,color_codes,out);
+}
 //@+node:gcross.20101208142631.1677: *3* printTestTree
 void printTestTree(ColorCodes const& color_codes,ostream& out) {
     struct PrinterVisitor : public IndentedOutputVisitor {
@@ -80,36 +99,12 @@ void printTestTree(ColorCodes const& color_codes,ostream& out) {
     } visitor(color_codes,out);
     getRoot().visit(visitor);
 }
-//@+node:gcross.20101208142631.1680: *3* printTestFutures
-void printTestFutures(TestFutures const& futures,ColorCodes const& color_codes,ostream& out) {
-    class TestVisitor : public FutureResultVisitor, public PrinterResultVisitor {
-    public:
-        TestVisitor(TestFutures const& futures,ColorCodes const& color_codes,ostream& out)
-            : FutureResultVisitor(futures)
-            , PrinterResultVisitor(color_codes,out)
-        { }
-    } visitor(futures,color_codes,out);
-    getRoot().visit(visitor);
-    switch(visitor.number_of_failed_tests) {
-        case 0:  out << color_codes.pass << "All tests passed!" << color_codes.reset << endl;  break;
-        case 1:  out << color_codes.fail << "1 test failed."    << color_codes.reset << endl;  break;
-        default: out << color_codes.fail << visitor.number_of_failed_tests << " tests failed." << color_codes.reset << endl;  break;
-    }
-}
 //@+node:gcross.20110204143810.1552: *3* runTestsAndPrintResults
 void runTestsAndPrintResults(ColorCodes const& color_codes, ostream& out) {
-    class TestVisitor : public RunnerResultVisitor, public PrinterResultVisitor {
-    public:
-        TestVisitor(ColorCodes const& color_codes,ostream& out)
-            : PrinterResultVisitor(color_codes,out)
-        { }
-    } visitor(color_codes,out);
+    RunnerTestProcessor processor;
+    PrinterResultVisitor visitor(processor,color_codes,out);
     getRoot().visit(visitor);
-    switch(visitor.number_of_failed_tests) {
-        case 0:  out << color_codes.pass << "All tests passed!" << color_codes.reset << endl;  break;
-        case 1:  out << color_codes.fail << "1 test failed."    << color_codes.reset << endl;  break;
-        default: out << color_codes.fail << visitor.number_of_failed_tests << " tests failed." << color_codes.reset << endl;  break;
-    }
+    printTestFailureCount(processor.number_of_failed_tests);
 }
 //@+node:gcross.20101208142631.1684: *3* runTestsInThreadsAndPrintResults
 void runTestsInThreadsAndPrintResults(optional<unsigned int> const requested_number_of_workers, ColorCodes const& color_codes, ostream& out) {
