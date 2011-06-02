@@ -35,12 +35,12 @@ using std::vector;
 //@+node:gcross.20110203224841.1963: ** class PrinterResultVisitor
 //@+node:gcross.20110203224841.1964: *3* (constructors)
 PrinterResultVisitor::PrinterResultVisitor(
-    TestProcessor processTest
+    TestResultFetcher fetchTestResult
   , ColorCodes const& color_codes
   , ostream& out
 )
   : IndentedOutputVisitor(out)
-  , ResultVisitor(processTest)
+  , ResultVisitor(fetchTestResult)
   , color_codes(color_codes)
 { }
 //@+node:gcross.20110203224841.1965: *3* suite

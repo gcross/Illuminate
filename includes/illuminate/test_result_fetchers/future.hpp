@@ -15,11 +15,11 @@
 //@-<< License >>
 
 /*! \file future.hpp
-    \brief Illuminate::FutureTestProcessor class
+    \brief Illuminate::FutureTestResultFetcher class
 */
 
-#ifndef ILLUMINATE_TEST_PROCESSORS_FUTURE_HPP
-#define ILLUMINATE_TEST_PROCESSORS_FUTURE_HPP
+#ifndef ILLUMINATE_TEST_RESULT_FETCHERS_FUTURE_HPP
+#define ILLUMINATE_TEST_RESULT_FETCHERS_FUTURE_HPP
 
 //@+<< Includes >>
 //@+node:gcross.20101208142631.1574: ** << Includes >>
@@ -29,27 +29,18 @@
 namespace Illuminate {
 
 //@+others
-//@+node:gcross.20101208142631.1577: ** class FutureTestProcessor
-//! A test processor that processes a test by fetching its result from a provided future.
-class FutureTestProcessor {
-public:
-    //! A counter that tracks the number of tests that have failed.
-    unsigned int number_of_failed_tests;
-
+//@+node:gcross.20101208142631.1577: ** struct FutureTestResultFetcher
+//! A test result fetcher that fetching the result from a provided future.
+struct FutureTestResultFetcher {
     //! Futures providing the test results.
     TestFutures futures;
 
     //! Constructor
     /*! \param futures futures providing the test results */
-    FutureTestProcessor(TestFutures const& futures);
+    FutureTestResultFetcher(TestFutures const& futures);
 
-    //! Process the test
-    void operator()(
-        //! test to be processed
-        Test const& test,
-        //! callback to be notified
-        TestResultCallback& callback
-    );
+    //! Fetches the result of the given test
+    TestResult operator()(Test const& test) const;
 };
 //@-others
 

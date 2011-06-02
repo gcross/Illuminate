@@ -10,8 +10,7 @@ add_library(illuminate
     test_worker
     test_worker_group
     utils
-    test_processors/future
-    test_processors/runner
+    test_result_fetchers/future
     visitors/indented_output
     visitors/result.cpp
     visitors/result/printer

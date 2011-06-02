@@ -28,12 +28,24 @@ namespace Illuminate {
 //@+others
 //@+node:gcross.20110601150226.2628: ** class ResultVisitor
 //@+node:gcross.20110601150226.2629: *3* (constructors)
-ResultVisitor::ResultVisitor(TestProcessor const& processTest)
-  : processTest(processTest)
+ResultVisitor::ResultVisitor(TestResultFetcher const& fetchTestResult)
+  : number_of_failed_tests(0)
+  , fetchTestResult(fetchTestResult)
 {}
 //@+node:gcross.20110601150226.2630: *3* test
 void ResultVisitor::test(Test const& test) {
-    processTest(test,*this);
+    if(test.skipped) {
+        testSkipped(test);
+    } else {
+        testStarted(test);
+        TestResult result = fetchTestResult(test);
+        if(result->size() == 0) {
+            testPassed(test);
+        } else {
+            ++number_of_failed_tests;
+            testFailed(test,*result);
+        }
+    }
 }
 //@-others
 

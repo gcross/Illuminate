@@ -16,8 +16,7 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101208142631.1588: ** << Includes >>
-#include "illuminate/test_processors/future.hpp"
-#include "illuminate/test_result_callback.hpp"
+#include "illuminate/test_result_fetchers/future.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {
@@ -27,26 +26,14 @@ namespace Illuminate {
 //@-<< Usings >>
 
 //@+others
-//@+node:gcross.20101208142631.1590: ** class FutureTestProcessor
+//@+node:gcross.20101208142631.1590: ** class FutureTestResultFetcher
 //@+node:gcross.20101208142631.1591: *3* (constructors)
-FutureTestProcessor::FutureTestProcessor(TestFutures const& futures)
+FutureTestResultFetcher::FutureTestResultFetcher(TestFutures const& futures)
     : futures(futures)
-    , number_of_failed_tests(0)
 { }
 //@+node:gcross.20101208142631.1593: *3* operator()
-void FutureTestProcessor::operator()(Test const& test, TestResultCallback& callback) {
-    if(test.skipped) {
-        callback.testSkipped(test);
-    } else {
-        callback.testStarted(test);
-        TestResult result = (*futures)[test.id]->get();
-        if(result->size() == 0) {
-            callback.testPassed(test);
-        } else {
-            ++number_of_failed_tests;
-            callback.testFailed(test,*result);
-        }
-    }
+TestResult FutureTestResultFetcher::operator()(Test const& test) const {
+    return (*futures)[test.id]->get();
 }
 //@-others
 

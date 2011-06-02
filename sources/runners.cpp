@@ -19,8 +19,7 @@
 #include <ostream>
 
 #include "illuminate/runners.hpp"
-#include "illuminate/test_processors/future.hpp"
-#include "illuminate/test_processors/runner.hpp"
+#include "illuminate/test_result_fetchers/future.hpp"
 #include "illuminate/test_worker_group.hpp"
 #include "illuminate/visitors/indented_output.hpp"
 #include "illuminate/visitors/result/printer.hpp"
@@ -77,10 +76,9 @@ void printTestFailureCount(
 }
 //@+node:gcross.20101208142631.1680: *3* printTestFutures
 void printTestFutures(TestFutures const& futures,ColorCodes const& color_codes,ostream& out) {
-    FutureTestProcessor processor(futures);
-    PrinterResultVisitor visitor(processor,color_codes,out);
+    PrinterResultVisitor visitor(FutureTestResultFetcher(futures),color_codes,out);
     getRoot().visit(visitor);
-    printTestFailureCount(processor.number_of_failed_tests,color_codes,out);
+    printTestFailureCount(visitor.number_of_failed_tests,color_codes,out);
 }
 //@+node:gcross.20101208142631.1677: *3* printTestTree
 void printTestTree(ColorCodes const& color_codes,ostream& out) {
@@ -101,10 +99,9 @@ void printTestTree(ColorCodes const& color_codes,ostream& out) {
 }
 //@+node:gcross.20110204143810.1552: *3* runTestsAndPrintResults
 void runTestsAndPrintResults(ColorCodes const& color_codes, ostream& out) {
-    RunnerTestProcessor processor;
-    PrinterResultVisitor visitor(processor,color_codes,out);
+    PrinterResultVisitor visitor(Test::run,color_codes,out);
     getRoot().visit(visitor);
-    printTestFailureCount(processor.number_of_failed_tests);
+    printTestFailureCount(visitor.number_of_failed_tests);
 }
 //@+node:gcross.20101208142631.1684: *3* runTestsInThreadsAndPrintResults
 void runTestsInThreadsAndPrintResults(optional<unsigned int> const requested_number_of_workers, ColorCodes const& color_codes, ostream& out) {

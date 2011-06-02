@@ -126,6 +126,10 @@ void Test::registerFailure(string const& message, bool const fatal) {
 void Test::registerFailure(char const* filename, unsigned int const line_number, string const& message, bool const fatal) {
     registerFailure(annotateFailureMessage(filename,line_number,message),fatal);
 }
+//@+node:gcross.20110601150226.2637: *3* runAndReturnResult
+TestResult Test::run(Test const& test) {
+    return test();
+}
 //@+node:gcross.20110204202041.1556: ** function validate
 void validate(any& v
              ,vector<std::string> const& values

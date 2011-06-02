@@ -42,7 +42,6 @@ namespace Illuminate {
 //@+node:gcross.20101205182001.2577: ** << Forward declarations >>
 class Suite;
 class Test;
-class TestResultCallback;
 class Visitor;
 //@-<< Forward declarations >>
 
@@ -68,7 +67,8 @@ struct FatalError : public std::exception {
 If the vector is empty, then the test is deemed to have passed.  Otherwise, the test is deemed to have failed, and the vector contains a list of descriptions of the failures that were encountered and recorded.
 */
 typedef boost::shared_ptr<std::vector<std::string> > TestResult;
-typedef boost::function<void (Test const&,TestResultCallback&)> TestProcessor;
+//! Function which fetches the result of a test.
+typedef boost::function<TestResult (Test const&)> TestResultFetcher;
 //@+node:gcross.20110204202041.1558: ** Enums
 //! A setting that specifies what kind of failure (if any) will cause the test program to abort.
 /*!
@@ -293,6 +293,9 @@ class Test : public Node {
     \return the result of running the test
     */
     TestResult operator()() const;
+
+    //! Run \c test and return the result.
+    static TestResult run(Test const& test);
     //@-others
 };
 //@-others
