@@ -34,9 +34,9 @@ namespace Illuminate {
 
 //@+others
 //@+node:gcross.20110203224841.1953: ** class PrinterResultVisitor
-//! Visitor that prints all of the tests as well as their results
+//! Result visitor that prints all tests and their test results
 /*!
-\note This class does not implement the \c test method in order to allow the user to set the policy by which the test result is obtained, so you need to either implement this method yourself or mix in a class such as FutureResultVisitor or RunnerResultVisitor.
+\note Users of this class need to subclass it and supply an implementation of ResultVisitor::test that calls the appropriate \c test___() methods of this class;  alternatively one can mix in either FutureResultVisitor or RunnerResultVisitor.
 */
 class PrinterResultVisitor : public IndentedOutputVisitor, public virtual ResultVisitor {
 public:
