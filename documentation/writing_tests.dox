@@ -5,10 +5,9 @@
 \page writing_tests Writing Tests
 
 - \ref simple_test "A simple test"
-- \ref when_tests_fail "When tests fail"
-    - \ref customizing_failure_messages "Customizing failure messages"
-        - \ref test_prefixes "Prefixes: EXPECT versus ASSERT"
-        - \ref test_suffixes "Bare versus VAL versus LABELED"
+- \ref customizing_failure_messages "Customizing failure messages"
+    - \ref test_prefixes "Prefixes: EXPECT versus ASSERT"
+    - \ref test_suffixes "Bare versus VAL versus LABELED"
 
 */
 
@@ -28,28 +27,21 @@ Line 1 includes illuminate.hpp, line 3 defines a test case named "two_plus_two_e
 
 Note that when printing out test names, underscores are converted to spaces.
 
-*/
-//@+node:gcross.20110715235201.1482: ** Failing
-/*! \page writing_tests Writing Tests
-
-\section when_tests_fail When tests fail
-
 Whenever a non-trivial test passes on the first try, I like to intentionally break the code it is testing to see if that makes the test fail in order to make sure that I am not getting a false positive.  Following this philosophy, let's make a change that breaks our simple test from the last section:
 
 \includelineno chapter1-simple-test-broken.cpp
-
 \include chapter1-simple-test-broken.out
 
 As we can see, a message is output describing the location and nature of the failure.
 
 */
-//@+node:gcross.20110715235201.1484: *3* Customizing failure messages
+//@+node:gcross.20110715235201.1484: ** Customizing failure messages
 /*! \page writing_tests Writing Tests
 
 \subsection customizing_failure_messages Customizing failure messages
 
 */
-//@+node:gcross.20110715235201.1483: *4* Prefixes: EXPECT versus ASSERT
+//@+node:gcross.20110715235201.1483: *3* Prefixes: EXPECT versus ASSERT
 /*! \page writing_tests Writing Tests
 
 \subsubsection test_prefixes Prefixes: EXPECT versus ASSERT
@@ -72,7 +64,7 @@ If there is a combination of EXPECTs and ASSERTs that fail, then all of the mess
 \include chapter1-test-with-multiple-expects-and-asserts.out
 
 */
-//@+node:gcross.20110715235201.1485: *4* Suffixes: Bare versus VAL versus LABELED
+//@+node:gcross.20110715235201.1485: *3* Suffixes: Bare versus VAL versus LABELED
 /*! \page writing_tests Writing Tests
 
 \subsubsection test_suffixes Suffixes: Bare versus VAL versus LABELED
