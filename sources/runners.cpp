@@ -68,6 +68,7 @@ void printTestFailureCount(
     ColorCodes const& color_codes,
     ostream& out
 ) {
+    out << endl;
     switch(number_of_failed_tests) {
         case 0:  out << color_codes.pass << "All tests passed!" << color_codes.reset << endl;  break;
         case 1:  out << color_codes.fail << "1 test failed."    << color_codes.reset << endl;  break;
