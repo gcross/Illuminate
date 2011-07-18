@@ -1,8 +1,11 @@
 #@+leo-ver=5-thin
 #@+node:gcross.20101205182001.1276: * @file CMakeLists.txt
+#@@language python
 cmake_minimum_required (VERSION 2.6 FATAL_ERROR)
 project (Illuminate CXX)
 set (version 1.0)
+
+ENABLE_TESTING()
 
 #@+<< Configure target output paths >>
 #@+node:gcross.20110430202346.1607: ** << Configure target output paths >>
@@ -40,10 +43,10 @@ message (STATUS "Build type is " ${CMAKE_BUILD_TYPE})
 
 include_directories ("includes")
 
+add_subdirectory ("examples")
 add_subdirectory ("includes")
 add_subdirectory ("package")
 add_subdirectory ("sources")
-add_subdirectory ("tests")
 
 #@+<< Configure documentation >>
 #@+node:gcross.20110430202346.1610: ** << Configure documentation >>

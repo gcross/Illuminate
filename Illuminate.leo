@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Created by Leo (http://webpages.charter.net/edreamleo/front.html) -->
 <?xml-stylesheet ekr_test?>
-<leo_file>
+<leo_file xmlns:leo="http://www.leo-editor.org/2011/leo" >
 <leo_header file_format="2" tnodes="0" max_tnode_index="0" clone_windows="0"/>
-<globals/>
+<globals body_outline_ratio="0.5" body_secondary_ratio="0.5">
+	<global_window_position top="50" left="50" height="500" width="700"/>
+	<global_log_window_position top="0" left="0" height="0" width="0"/>
+</globals>
 <preferences/>
 <find_panel_settings/>
 <vnodes>
 <v t="gcross.20101205182001.1276"><vh>@file CMakeLists.txt</vh></v>
 <v t="gcross.20110221195111.1564"><vh>@file Doxyfile.in</vh></v>
-<v t="gcross.20110601121230.1973"><vh>@path documentation</vh></v>
+<v t="gcross.20110601121230.1973"><vh>@path documentation</vh>
+<v t="gcross.20110715235201.1476"><vh>@file writing_tests.dox</vh></v>
+</v>
+<v t="gcross.20110626224331.1448"><vh>@path examples</vh>
+<v t="gcross.20110626224331.2628"><vh>@file CMakeLists.txt</vh></v>
+</v>
 <v t="gcross.20110527192131.2325"><vh>@path package</vh>
 <v t="gcross.20110527192131.2326"><vh>@file CMakeLists.txt</vh></v>
 <v t="gcross.20110527192131.2327"><vh>@file IlluminateConfig-version.cmake.in</vh></v>
@@ -62,16 +71,6 @@
 </v>
 </v>
 </v>
-<v t="gcross.20101206161648.1787"><vh>@path tests</vh>
-<v t="gcross.20101206161648.1788"><vh>@file CMakeLists.txt</vh></v>
-<v t="gcross.20110222132831.1576"><vh>@file check_for_failure.cpp</vh></v>
-<v t="gcross.20110222154148.1568"><vh>@file checks.cpp</vh></v>
-<v t="gcross.20101206161648.1789"><vh>@file examples.cpp</vh></v>
-<v t="gcross.20101206161648.1791"><vh>@file fake1.cpp</vh></v>
-<v t="gcross.20101206161648.1794"><vh>@file fake2.cpp</vh></v>
-<v t="gcross.20110222194651.1610"><vh>@file skip.cpp</vh></v>
-<v t="gcross.20101206161648.1800"><vh>@file template.cpp</vh></v>
-</v>
 </vnodes>
 <tnodes>
 <t tx="gcross.20101205182001.1274"></t>
@@ -79,12 +78,12 @@
 <t tx="gcross.20101205214942.1341"></t>
 <t tx="gcross.20101205214942.1358"></t>
 <t tx="gcross.20101206142257.1387"></t>
-<t tx="gcross.20101206161648.1787"></t>
 <t tx="gcross.20110203224841.1969"></t>
 <t tx="gcross.20110203224841.1970"></t>
 <t tx="gcross.20110527192131.2325"></t>
-<t tx="gcross.20110601121230.1973"></t>
+<t tx="gcross.20110601121230.1973">@language cplusplus</t>
 <t tx="gcross.20110601150226.2631"></t>
 <t tx="gcross.20110601150226.2632"></t>
+<t tx="gcross.20110626224331.1448"></t>
 </tnodes>
 </leo_file>
