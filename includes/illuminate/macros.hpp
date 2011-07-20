@@ -398,7 +398,7 @@ DEFINE_CHECKS(LT,4)
     \ingroup RELATION_CHECKS
 */
 #define NEAR_ABS_EXPRESSION(name_1,value_1,name_2,value_2,absolute_error) (std::abs((value_1)-(value_2)) <= absolute_error)
-#define NEAR_ABS_MESSAGE(name_1,value_1,name_2,value_2,absolute_error) (boost::format("%|| %|.15| does not match %|| %|.15| within an absolute tolerance of %||") % (name_1) % (value_1) % (name_2) % (value_2) % (absolute_error)).str()
+#define NEAR_ABS_MESSAGE(name_1,value_1,name_2,value_2,absolute_error) (boost::format("%|| <%|.15|> does not match %|| <%|.15|> within an absolute tolerance of %||") % (name_1) % (value_1) % (name_2) % (value_2) % (absolute_error)).str()
 DEFINE_CHECKS(NEAR_ABS,5)
 
 /*! \brief Checks that \a A and \a B are approximately equal within an absolute tolerance of \a C; registers a fatal failure otherwise.
@@ -436,7 +436,7 @@ DEFINE_CHECKS(NEAR_ABS,5)
     \ingroup RELATION_CHECKS
 */
 #define NEAR_REL_EXPRESSION(name_1,value_1,name_2,value_2,relative_error) (((std::abs(value_1)+std::abs(value_2))/2 <= relative_error) || (std::abs((value_1)-(value_2))/((std::abs(value_1)+std::abs(value_2))/2) <= relative_error))
-#define NEAR_REL_MESSAGE(name_1,value_1,name_2,value_2,relative_error) (boost::format("%|| %|.15| does not match %|| %|.15| within a relative tolerance of %||") % (name_1) % (value_1) % (name_2) % (value_2) % (relative_error)).str()
+#define NEAR_REL_MESSAGE(name_1,value_1,name_2,value_2,relative_error) (boost::format("%|| <%|.15|> does not match %|| <%|.15|> within a relative tolerance of %||") % (name_1) % (value_1) % (name_2) % (value_2) % (relative_error)).str()
 DEFINE_CHECKS(NEAR_REL,5)
 
 /*! \brief Checks that \a A and \a B are approximately equal within a relative tolerance of \a C; registers a fatal failure otherwise.
@@ -479,7 +479,7 @@ DEFINE_CHECKS(NEAR_REL,5)
     \ingroup BOOLEAN_CHECKS
 */
 #define TRUE_EXPRESSION(expression,_) (expression)
-#define TRUE_MESSAGE(_,expression) (boost::format("Assertion failed: %1%") % expression).str()
+#define TRUE_MESSAGE(_,expression) (boost::format("%1% is not true") % expression).str()
 DEFINE_CHECKS(TRUE,2)
 
 /*! \brief Checks that \a A is true; registers a fatal failure otherwise.
@@ -497,7 +497,7 @@ DEFINE_CHECKS(TRUE,2)
     \ingroup BOOLEAN_CHECKS
 */
 #define FALSE_EXPRESSION(expression,_) (!(expression))
-#define FALSE_MESSAGE(_,expression) (boost::format("Assertion failed: %1%") % expression).str()
+#define FALSE_MESSAGE(_,expression) (boost::format("%1% is not false") % expression).str()
 DEFINE_CHECKS(FALSE,2)
 
 /*! \brief Checks that \a A is false; registers a fatal failure otherwise.
