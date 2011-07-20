@@ -578,9 +578,9 @@ DEFINE_CHECKS(FALSE,2)
     }
 //@+node:gcross.20101206161648.1598: ** Failures
 //@+node:gcross.20101206161648.1599: *3* FAIL
-#define FAIL(message) Illuminate::Test::registerFailure(__FILE__,__LINE__,(message),false)
+#define FAIL(message) Illuminate::Test::registerFailure(__FILE__,__LINE__,(message),false);
 //@+node:gcross.20101206161648.1601: *3* FATALLY_FAIL
-#define FATALLY_FAIL(message) Illuminate::Test::registerFailure(__FILE__,__LINE__,(message),true)
+#define FATALLY_FAIL(message) Illuminate::Test::registerFailure(__FILE__,__LINE__,(message),true);
 //@-others
 
 #endif
