@@ -183,12 +183,12 @@ DEFINE_CHECKS(EQ,4)
 */
 #define EXPECT_EQ(A,B) EXPECT_EQ_LABELED(#A,A,#B,B)
 
-/*! \brief Like #ASSERT_EQ, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+/*! \brief Like #ASSERT_EQ, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup EQ_CHECKS
 */
 #define ASSERT_EQ_VAL(A,B) ASSERT_EQ_LABELED(#A,A,"the expected value",B)
 
-/*! \brief Like #EXPECT_EQ, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+/*! \brief Like #EXPECT_EQ, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup EQ_CHECKS
 */
 #define EXPECT_EQ_VAL(A,B) EXPECT_EQ_LABELED(#A,A,"the expected value",B)
@@ -221,12 +221,12 @@ DEFINE_CHECKS(NE,4)
 */
 #define EXPECT_NE(A,B) EXPECT_NE_LABELED(#A,A,#B,B)
 
-/*! \brief Like #ASSERT_NE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+/*! \brief Like #ASSERT_NE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup NE_CHECKS
 */
 #define ASSERT_NE_VAL(A,B) ASSERT_NE_LABELED(#A,A,"the unexpected value",B)
 
-/*! \brief Like #EXPECT_NE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+/*! \brief Like #EXPECT_NE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup NE_CHECKS
 */
 #define EXPECT_NE_VAL(A,B) EXPECT_NE_LABELED(#A,A,"the unexpected value",B)
@@ -259,12 +259,12 @@ DEFINE_CHECKS(GE,4)
 */
 #define EXPECT_GE(A,B) EXPECT_GE_LABELED(#A,A,#B,B)
 
-/*! \brief Like #ASSERT_GE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+/*! \brief Like #ASSERT_GE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup GE_CHECKS
 */
 #define ASSERT_GE_VAL(A,B) ASSERT_GE_LABELED(#A,A,"the expected lower bound",B)
 
-/*! \brief Like #EXPECT_GE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+/*! \brief Like #EXPECT_GE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup GE_CHECKS
 */
 #define EXPECT_GE_VAL(A,B) EXPECT_GE_LABELED(#A,A,"the expected lower bound",B)
@@ -297,12 +297,12 @@ DEFINE_CHECKS(GT,4)
 */
 #define EXPECT_GT(A,B) EXPECT_GT_LABELED(#A,A,#B,B)
 
-/*! \brief Like #ASSERT_GT, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+/*! \brief Like #ASSERT_GT, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup GT_CHECKS
 */
 #define ASSERT_GT_VAL(A,B) ASSERT_GT_LABELED(#A,A,"the expected strict lower bound",B)
 
-/*! \brief Like #EXPECT_GT, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+/*! \brief Like #EXPECT_GT, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup GT_CHECKS
 */
 #define EXPECT_GT_VAL(A,B) EXPECT_GT_LABELED(#A,A,"the expected strict lower bound",B)
@@ -335,12 +335,12 @@ DEFINE_CHECKS(LE,4)
 */
 #define EXPECT_LE(A,B) EXPECT_LE_LABELED(#A,A,#B,B)
 
-/*! \brief Like #ASSERT_LE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+/*! \brief Like #ASSERT_LE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup LE_CHECKS
 */
 #define ASSERT_LE_VAL(A,B) ASSERT_LE_LABELED(#A,A,"the expected upper bound",B)
 
-/*! \brief Like #EXPECT_LE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+/*! \brief Like #EXPECT_LE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup LE_CHECKS
 */
 #define EXPECT_LE_VAL(A,B) EXPECT_LE_LABELED(#A,A,"the expected upper bound",B)
@@ -373,12 +373,12 @@ DEFINE_CHECKS(LT,4)
 */
 #define EXPECT_LT(A,B) EXPECT_LT_LABELED(#A,A,#B,B)
 
-/*! \brief Like #ASSERT_LT, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+/*! \brief Like #ASSERT_LT, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup LT_CHECKS
 */
 #define ASSERT_LT_VAL(A,B) ASSERT_LT_LABELED(#A,A,"the expected strict upper bound",B)
 
-/*! \brief Like #EXPECT_LT, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+/*! \brief Like #EXPECT_LT, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup LT_CHECKS
 */
 #define EXPECT_LT_VAL(A,B) EXPECT_LT_LABELED(#A,A,"the expected strict upper bound",B)
@@ -411,12 +411,12 @@ DEFINE_CHECKS(NEAR_ABS,5)
 */
 #define EXPECT_NEAR_ABS(A,B,C) EXPECT_NEAR_ABS_LABELED(#A,A,#B,B,C)
 
-/*! \brief Like #ASSERT_NEAR_ABS, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+/*! \brief Like #ASSERT_NEAR_ABS, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup NEAR_ABS_CHECKS
 */
 #define ASSERT_NEAR_ABS_VAL(A,B,C) ASSERT_NEAR_ABS_LABELED(#A,A,"the expected value",B,C)
 
-/*! \brief Like #EXPECT_NEAR_ABS, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+/*! \brief Like #EXPECT_NEAR_ABS, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup NEAR_ABS_CHECKS
 */
 #define EXPECT_NEAR_ABS_VAL(A,B,C) EXPECT_NEAR_ABS_LABELED(#A,A,"the expected value",B,C)
@@ -449,12 +449,12 @@ DEFINE_CHECKS(NEAR_REL,5)
 */
 #define EXPECT_NEAR_REL(A,B,C) EXPECT_NEAR_REL_LABELED(#A,A,#B,B,C)
 
-/*! \brief Like #ASSERT_NEAR_REL, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+/*! \brief Like #ASSERT_NEAR_REL, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup NEAR_REL_CHECKS
 */
 #define ASSERT_NEAR_REL_VAL(A,B,C) ASSERT_NEAR_REL_LABELED(#A,A,"the expected value",B,C)
 
-/*! \brief Like #EXPECT_NEAR_REL, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is an integer literal so that both quoting it and displaying its value would be redundant.
+/*! \brief Like #EXPECT_NEAR_REL, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup NEAR_REL_CHECKS
 */
 #define EXPECT_NEAR_REL_VAL(A,B,C) EXPECT_NEAR_REL_LABELED(#A,A,"the expected value",B,C)
