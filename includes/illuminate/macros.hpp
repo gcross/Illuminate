@@ -173,12 +173,12 @@
 #define EQ_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> does not match %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
 DEFINE_CHECKS(EQ,4)
 
-/*! \brief Checks that \a A and \a B are equal; registers a fatal failure otherwise.
+/*! \brief Checks that \a A and \a B are equal, and if not registers a failure and terminates the test.
     \ingroup EQ_CHECKS
 */
 #define ASSERT_EQ(A,B) ASSERT_EQ_LABELED(#A,A,#B,B)
 
-/*! \brief Checks that \a A and \a B are equal; registers a non-fatal failure otherwise.
+/*! \brief Checks that \a A and \a B are equal, and if not registers a failure.
     \ingroup EQ_CHECKS
 */
 #define EXPECT_EQ(A,B) EXPECT_EQ_LABELED(#A,A,#B,B)
@@ -193,12 +193,12 @@ DEFINE_CHECKS(EQ,4)
 */
 #define EXPECT_EQ_VAL(A,B) EXPECT_EQ_LABELED(#A,A,"the expected value",B)
 
-/*! \brief Checks that \a B and \a D are equal; registers a fatal failure labeling these values with the respective names \a A and \a C otherwise.
+/*! \brief Checks that \a B and \a D are equal, and if not registers a failure labeling these values with the respective names \a A and \a C, and then terminates the test.
     \ingroup EQ_CHECKS
 */
 #define ASSERT_EQ_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,EQ,A,B,C,D)
 
-/*! \brief Checks that \a B and \a D are equal; registers a non-fatal failure labeling these values with the respective names \a A and \a C otherwise.
+/*! \brief Checks that \a B and \a D are equal, and if not registers a failure labeling these values with the respective names \a A and \a C.
     \ingroup EQ_CHECKS
 */
 #define EXPECT_EQ_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,EQ,A,B,C,D)
@@ -211,12 +211,12 @@ DEFINE_CHECKS(EQ,4)
 #define NE_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> matches %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
 DEFINE_CHECKS(NE,4)
 
-/*! \brief Checks that \a A and \a B are not equal; registers a fatal failure otherwise.
+/*! \brief Checks that \a A and \a B are not equal, and if not registers a failure and terminates the test.
     \ingroup NE_CHECKS
 */
 #define ASSERT_NE(A,B) ASSERT_NE_LABELED(#A,A,#B,B)
 
-/*! \brief Checks that \a A and \a B are not equal; registers a non-fatal failure otherwise.
+/*! \brief Checks that \a A and \a B are not equal, and if not registers a failure.
     \ingroup NE_CHECKS
 */
 #define EXPECT_NE(A,B) EXPECT_NE_LABELED(#A,A,#B,B)
@@ -231,12 +231,12 @@ DEFINE_CHECKS(NE,4)
 */
 #define EXPECT_NE_VAL(A,B) EXPECT_NE_LABELED(#A,A,"the unexpected value",B)
 
-/*! \brief Checks that \a B and \a D are not equal; registers a fatal failure labeling these values with the respective names \a A and \a C otherwise.
+/*! \brief Checks that \a B and \a D are not equal, and if not registers a failure labeling these values with the respective names \a A and \a C, and then terminates the test.
     \ingroup NE_CHECKS
 */
 #define ASSERT_NE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,NE,A,B,C,D)
 
-/*! \brief Checks that \a B and \a D are not equal; registers a non-fatal failure labeling these values with the respective names \a A and \a C otherwise.
+/*! \brief Checks that \a B and \a D are not equal, and if not registers a failure labeling these values with the respective names \a A and \a C.
     \ingroup NE_CHECKS
 */
 #define EXPECT_NE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,NE,A,B,C,D)
@@ -249,12 +249,12 @@ DEFINE_CHECKS(NE,4)
 #define GE_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is less than %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
 DEFINE_CHECKS(GE,4)
 
-/*! \brief Checks that \a A ≥ \a B; registers a fatal failure otherwise.
+/*! \brief Checks that \a A ≥ \a B, and if not registers a failure and terminates the test.
     \ingroup GE_CHECKS
 */
 #define ASSERT_GE(A,B) ASSERT_GE_LABELED(#A,A,#B,B)
 
-/*! \brief Checks that \a A ≥ \a B; registers a non-fatal failure otherwise.
+/*! \brief Checks that \a A ≥ \a B, and if not registers a failure.
     \ingroup GE_CHECKS
 */
 #define EXPECT_GE(A,B) EXPECT_GE_LABELED(#A,A,#B,B)
@@ -269,12 +269,12 @@ DEFINE_CHECKS(GE,4)
 */
 #define EXPECT_GE_VAL(A,B) EXPECT_GE_LABELED(#A,A,"the expected lower bound",B)
 
-/*! \brief Checks that \a B ≥ \a D; registers a fatal failure labeling these values with the respective names \a A and \a C otherwise.
+/*! \brief Checks that \a B ≥ \a D, and if not registers a failure labeling these values with the respective names \a A and \a C, and then terminates the test.
     \ingroup GE_CHECKS
 */
 #define ASSERT_GE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,GE,A,B,C,D)
 
-/*! \brief Checks that \a B ≥ \a D; registers a non-fatal failure labeling these values with the respective names \a A and \a C otherwise.
+/*! \brief Checks that \a B ≥ \a D, and if not registers a failure labeling these values with the respective names \a A and \a C.
     \ingroup GE_CHECKS
 */
 #define EXPECT_GE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,GE,A,B,C,D)
@@ -287,12 +287,12 @@ DEFINE_CHECKS(GE,4)
 #define GT_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is less than or equal to %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
 DEFINE_CHECKS(GT,4)
 
-/*! \brief Checks that \a A > \a B; registers a fatal failure otherwise.
+/*! \brief Checks that \a A > \a B, and if not registers a failure and terminates the test.
     \ingroup GT_CHECKS
 */
 #define ASSERT_GT(A,B) ASSERT_GT_LABELED(#A,A,#B,B)
 
-/*! \brief Checks that \a A > \a B; registers a non-fatal failure otherwise.
+/*! \brief Checks that \a A > \a B, and if not registers a failure.
     \ingroup GT_CHECKS
 */
 #define EXPECT_GT(A,B) EXPECT_GT_LABELED(#A,A,#B,B)
@@ -307,12 +307,12 @@ DEFINE_CHECKS(GT,4)
 */
 #define EXPECT_GT_VAL(A,B) EXPECT_GT_LABELED(#A,A,"the expected strict lower bound",B)
 
-/*! \brief Checks that \a B > \a D; registers a fatal failure labeling these values with the respective names \a A and \a C otherwise.
+/*! \brief Checks that \a B > \a D, and if not registers a failure labeling these values with the respective names \a A and \a C, and then terminates the test.
     \ingroup GT_CHECKS
 */
 #define ASSERT_GT_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,GT,A,B,C,D)
 
-/*! \brief Checks that \a B > \a D; registers a non-fatal failure labeling these values with the respective names \a A and \a C otherwise.
+/*! \brief Checks that \a B > \a D, and if not registers a failure labeling these values with the respective names \a A and \a C.
     \ingroup GT_CHECKS
 */
 #define EXPECT_GT_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,GT,A,B,C,D)
@@ -325,12 +325,12 @@ DEFINE_CHECKS(GT,4)
 #define LE_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is greater than %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
 DEFINE_CHECKS(LE,4)
 
-/*! \brief Checks that \a A ≤ \a B; registers a fatal failure otherwise.
+/*! \brief Checks that \a A ≤ \a B, and if not registers a failure and terminates the test.
     \ingroup LE_CHECKS
 */
 #define ASSERT_LE(A,B) ASSERT_LE_LABELED(#A,A,#B,B)
 
-/*! \brief Checks that \a A ≤ \a B; registers a non-fatal failure otherwise.
+/*! \brief Checks that \a A ≤ \a B, and if not registers a failure.
     \ingroup LE_CHECKS
 */
 #define EXPECT_LE(A,B) EXPECT_LE_LABELED(#A,A,#B,B)
@@ -345,12 +345,12 @@ DEFINE_CHECKS(LE,4)
 */
 #define EXPECT_LE_VAL(A,B) EXPECT_LE_LABELED(#A,A,"the expected upper bound",B)
 
-/*! \brief Checks that \a B ≤ \a D; registers a fatal failure labeling these values with the respective names \a A and \a C otherwise.
+/*! \brief Checks that \a B ≤ \a D, and if not registers a failure labeling these values with the respective names \a A and \a C, and then terminates the test.
     \ingroup LE_CHECKS
 */
 #define ASSERT_LE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,LE,A,B,C,D)
 
-/*! \brief Checks that \a B ≤ \a D; registers a non-fatal failure labeling these values with the respective names \a A and \a C otherwise.
+/*! \brief Checks that \a B ≤ \a D, and if not registers a failure labeling these values with the respective names \a A and \a C.
     \ingroup LE_CHECKS
 */
 #define EXPECT_LE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,LE,A,B,C,D)
@@ -363,12 +363,12 @@ DEFINE_CHECKS(LE,4)
 #define LT_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is greater than or equal to %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
 DEFINE_CHECKS(LT,4)
 
-/*! \brief Checks that \a A < \a B; registers a fatal failure otherwise.
+/*! \brief Checks that \a A < \a B, and if not registers a failure and terminates the test.
     \ingroup LT_CHECKS
 */
 #define ASSERT_LT(A,B) ASSERT_LT_LABELED(#A,A,#B,B)
 
-/*! \brief Checks that \a A < \a B; registers a non-fatal failure otherwise.
+/*! \brief Checks that \a A < \a B, and if not registers a failure.
     \ingroup LT_CHECKS
 */
 #define EXPECT_LT(A,B) EXPECT_LT_LABELED(#A,A,#B,B)
@@ -383,12 +383,12 @@ DEFINE_CHECKS(LT,4)
 */
 #define EXPECT_LT_VAL(A,B) EXPECT_LT_LABELED(#A,A,"the expected strict upper bound",B)
 
-/*! \brief Checks that \a B < \a D; registers a fatal failure labeling these values with the respective names \a A and \a C otherwise.
+/*! \brief Checks that \a B < \a D, and if not registers a failure labeling these values with the respective names \a A and \a C, and then terminates the test.
     \ingroup LT_CHECKS
 */
 #define ASSERT_LT_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,LT,A,B,C,D)
 
-/*! \brief Checks that \a B < \a D; registers a non-fatal failure labeling these values with the respective names \a A and \a C otherwise.
+/*! \brief Checks that \a B < \a D, and if not registers a failure labeling these values with the respective names \a A and \a C.
     \ingroup LT_CHECKS
 */
 #define EXPECT_LT_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,LT,A,B,C,D)
@@ -401,12 +401,12 @@ DEFINE_CHECKS(LT,4)
 #define NEAR_ABS_MESSAGE(name_1,value_1,name_2,value_2,absolute_error) (boost::format("%|| <%|.15|> does not match %|| <%|.15|> within an absolute tolerance of %||") % (name_1) % (value_1) % (name_2) % (value_2) % (absolute_error)).str()
 DEFINE_CHECKS(NEAR_ABS,5)
 
-/*! \brief Checks that \a A and \a B are approximately equal within an absolute tolerance of \a C; registers a fatal failure otherwise.
+/*! \brief Checks that \a A and \a B are approximately equal within an absolute tolerance of \a C, and if not registers a failure and terminates the test.
     \ingroup NEAR_ABS_CHECKS
 */
 #define ASSERT_NEAR_ABS(A,B,C) ASSERT_NEAR_ABS_LABELED(#A,A,#B,B,C)
 
-/*! \brief Checks that \a A and \a B are approximately equal within an absolute tolerance of \a C; registers a non-fatal failure otherwise.
+/*! \brief Checks that \a A and \a B are approximately equal within an absolute tolerance of \a C, and if not registers a failure.
     \ingroup NEAR_ABS_CHECKS
 */
 #define EXPECT_NEAR_ABS(A,B,C) EXPECT_NEAR_ABS_LABELED(#A,A,#B,B,C)
@@ -421,12 +421,12 @@ DEFINE_CHECKS(NEAR_ABS,5)
 */
 #define EXPECT_NEAR_ABS_VAL(A,B,C) EXPECT_NEAR_ABS_LABELED(#A,A,"the expected value",B,C)
 
-/*! \brief Checks that \a B and \a D are approximately equal within an absolute tolerance of \a E; registers a fatal failure labeling these values with the respective names \a A and \a C otherwise.
+/*! \brief Checks that \a B and \a D are approximately equal within an absolute tolerance of \a E, and if not registers a failure labeling these values with the respective names \a A and \a C, and then terminates the test.
     \ingroup NEAR_ABS_CHECKS
 */
 #define ASSERT_NEAR_ABS_LABELED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(ASSERT,NEAR_ABS,A,B,C,D,E)
 
-/*! \brief Checks that \a B and \a D are approximately equal within an absolute tolerance of \a E; registers a non-fatal failure labeling these values with the respective names \a A and \a C otherwise.
+/*! \brief Checks that \a B and \a D are approximately equal within an absolute tolerance of \a E, and if not registers a failure labeling these values with the respective names \a A and \a C.
     \ingroup NEAR_ABS_CHECKS
 */
 #define EXPECT_NEAR_ABS_LABELED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(EXPECT,NEAR_ABS,A,B,C,D,E)
@@ -439,12 +439,12 @@ DEFINE_CHECKS(NEAR_ABS,5)
 #define NEAR_REL_MESSAGE(name_1,value_1,name_2,value_2,relative_error) (boost::format("%|| <%|.15|> does not match %|| <%|.15|> within a relative tolerance of %||") % (name_1) % (value_1) % (name_2) % (value_2) % (relative_error)).str()
 DEFINE_CHECKS(NEAR_REL,5)
 
-/*! \brief Checks that \a A and \a B are approximately equal within a relative tolerance of \a C; registers a fatal failure otherwise.
+/*! \brief Checks that \a A and \a B are approximately equal within a relative tolerance of \a C, and if not registers a failure and terminates the test.
     \ingroup NEAR_REL_CHECKS
 */
 #define ASSERT_NEAR_REL(A,B,C) ASSERT_NEAR_REL_LABELED(#A,A,#B,B,C)
 
-/*! \brief Checks that \a A and \a B are approximately equal within a relative tolerance of \a C; registers a non-fatal failure otherwise.
+/*! \brief Checks that \a A and \a B are approximately equal within a relative tolerance of \a C, and if not registers a failure.
     \ingroup NEAR_REL_CHECKS
 */
 #define EXPECT_NEAR_REL(A,B,C) EXPECT_NEAR_REL_LABELED(#A,A,#B,B,C)
@@ -459,12 +459,12 @@ DEFINE_CHECKS(NEAR_REL,5)
 */
 #define EXPECT_NEAR_REL_VAL(A,B,C) EXPECT_NEAR_REL_LABELED(#A,A,"the expected value",B,C)
 
-/*! \brief Checks that \a B and \a D are approximately equal within a relative tolerance of \a E; registers a fatal failure labeling these values with the respective names \a A and \a C otherwise.
+/*! \brief Checks that \a B and \a D are approximately equal within a relative tolerance of \a E, and if not registers a failure labeling these values with the respective names \a A and \a C, and then terminates the test.
     \ingroup NEAR_REL_CHECKS
 */
 #define ASSERT_NEAR_REL_LABELED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(ASSERT,NEAR_REL,A,B,C,D,E)
 
-/*! \brief Checks that \a B and \a D are approximately equal within a relative tolerance of \a E; registers a non-fatal failure labeling these values with the respective names \a A and \a C otherwise.
+/*! \brief Checks that \a B and \a D are approximately equal within a relative tolerance of \a E, and if not registers a failure labeling these values with the respective names \a A and \a C.
     \ingroup NEAR_REL_CHECKS
 */
 #define EXPECT_NEAR_REL_LABELED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(EXPECT,NEAR_REL,A,B,C,D,E)
@@ -482,12 +482,12 @@ DEFINE_CHECKS(NEAR_REL,5)
 #define TRUE_MESSAGE(_,expression) (boost::format("%1% is not true") % expression).str()
 DEFINE_CHECKS(TRUE,2)
 
-/*! \brief Checks that \a A is true; registers a fatal failure otherwise.
+/*! \brief Checks that \a A is true, and if not registers a failure and terminates the test.
     \ingroup TRUE_CHECKS
 */
 #define ASSERT_TRUE(A) DO_CHECK_WITH_2_ARGUMENTS(ASSERT,TRUE,A,#A)
 
-/*! \brief Checks that \a A is true; registers a non-fatal failure otherwise.
+/*! \brief Checks that \a A is true, and if not registers a failure.
     \ingroup TRUE_CHECKS
 */
 #define EXPECT_TRUE(A) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,TRUE,A,#A)
@@ -500,12 +500,12 @@ DEFINE_CHECKS(TRUE,2)
 #define FALSE_MESSAGE(_,expression) (boost::format("%1% is not false") % expression).str()
 DEFINE_CHECKS(FALSE,2)
 
-/*! \brief Checks that \a A is false; registers a fatal failure otherwise.
+/*! \brief Checks that \a A is false, and if not registers a failure and terminates the test.
     \ingroup FALSE_CHECKS
 */
 #define ASSERT_FALSE(A) DO_CHECK_WITH_2_ARGUMENTS(ASSERT,FALSE,A,#A)
 
-/*! \brief Checks that \a A is false; registers a non-fatal failure otherwise.
+/*! \brief Checks that \a A is false, and if not registers a failure.
     \ingroup FALSE_CHECKS
 */
 #define EXPECT_FALSE(A) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,FALSE,A,#A)
