@@ -5,6 +5,24 @@ cmake_minimum_required (VERSION 2.6 FATAL_ERROR)
 project (Illuminate CXX)
 set (version 1.0)
 
+#@+<< Settings >>
+#@+node:gcross.20110715235201.2667: ** << Settings >>
+#@+others
+#@+node:gcross.20110715235201.2669: *3* Offline HTML
+set (OFFLINE_HTML
+    NO
+    CACHE BOOL
+    "If true, then ensures that HTML documentation can be viewed offline."
+    )
+
+if(${OFFLINE_HTML})
+    set(USE_MATHJAX NO)
+else(${OFFLINE_HTML})
+    set(USE_MATHJAX YES)
+endif(${OFFLINE_HTML})
+#@-others
+#@-<< Settings >>
+
 ENABLE_TESTING()
 
 #@+<< Configure target output paths >>
