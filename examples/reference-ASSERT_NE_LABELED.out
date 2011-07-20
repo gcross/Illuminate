@@ -1,0 +1,5 @@
+Root:
+    ASSERT NE LABELED... FAILED :-(
+        * example.cpp:5 - first value <1> matches second value <1>
+
+1 test failed.

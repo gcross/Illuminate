@@ -1,0 +1,5 @@
+Root:
+    NE using strings... FAILED :-(
+        * example.cpp:6 - hello_world <Hello, world!> matches the unexpected value <Hello, world!>
+
+1 test failed.

@@ -1,0 +1,5 @@
+Root:
+    ASSERT EQ LABELED... FAILED :-(
+        * example.cpp:5 - first value <1> does not match second value <2>
+
+1 test failed.

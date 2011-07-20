@@ -1,0 +1,6 @@
+Root:
+    EXPECT GE... FAILED :-(
+        * example.cpp:6 - 1+1 <2> is less than 2+2 <4>
+        * example.cpp:7 - 1+1 <2> is less than 1+2 <3>
+
+1 test failed.

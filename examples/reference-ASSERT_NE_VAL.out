@@ -1,0 +1,5 @@
+Root:
+    ASSERT NE VAL... FAILED :-(
+        * example.cpp:5 - 2+2 <4> matches the unexpected value <4>
+
+1 test failed.

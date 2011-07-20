@@ -1,0 +1,5 @@
+Root:
+    ASSERT LT VAL... FAILED :-(
+        * example.cpp:5 - 2+2 <4> is greater than or equal to the expected strict upper bound <4>
+
+1 test failed.

@@ -1,0 +1,6 @@
+Root:
+    EXPECT LE VAL... FAILED :-(
+        * example.cpp:6 - 2+2 <4> is greater than the expected upper bound <3>
+        * example.cpp:7 - 2+2 <4> is greater than the expected upper bound <2>
+
+1 test failed.

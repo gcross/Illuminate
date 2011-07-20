@@ -1,0 +1,6 @@
+Root:
+    EXPECT EQ... FAILED :-(
+        * example.cpp:5 - 1+1 <2> does not match 2+2 <4>
+        * example.cpp:6 - 2+2 <4> does not match 1+1 <2>
+
+1 test failed.

@@ -1,0 +1,6 @@
+Root:
+    EXPECT LT LABELED... FAILED :-(
+        * example.cpp:5 - first value <2> is greater than or equal to second value <2>
+        * example.cpp:6 - first value <2> is greater than or equal to second value <1>
+
+1 test failed.

@@ -168,6 +168,11 @@
 /*! \defgroup EQ_CHECKS EQ [=] (equality)
     \brief These macros check that two expressions are equal in value.
     \ingroup RELATION_CHECKS
+
+\note The types of the two operands need not be the same, as long as comparing them for equality is supported, as is illustrated in the following example:
+
+\include_example{reference-EQ-strings}
+
 */
 #define EQ_EXPRESSION(name_1,value_1,name_2,value_2) (value_1) == (value_2)
 #define EQ_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> does not match %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
@@ -175,37 +180,53 @@ DEFINE_CHECKS(EQ,4)
 
 /*! \brief Checks that \a A and \a B are equal, and if not registers a failure and terminates the test.
     \ingroup EQ_CHECKS
+
+\include_example{reference-ASSERT_EQ}
 */
 #define ASSERT_EQ(A,B) ASSERT_EQ_LABELED(#A,A,#B,B)
 
 /*! \brief Checks that \a A and \a B are equal, and if not registers a failure.
     \ingroup EQ_CHECKS
+
+\include_example{reference-EXPECT_EQ}
 */
 #define EXPECT_EQ(A,B) EXPECT_EQ_LABELED(#A,A,#B,B)
 
 /*! \brief Like #ASSERT_EQ, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup EQ_CHECKS
+
+\include_example{reference-ASSERT_EQ_VAL}
 */
 #define ASSERT_EQ_VAL(A,B) ASSERT_EQ_LABELED(#A,A,"the expected value",B)
 
 /*! \brief Like #EXPECT_EQ, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup EQ_CHECKS
+
+\include_example{reference-EXPECT_EQ_VAL}
 */
 #define EXPECT_EQ_VAL(A,B) EXPECT_EQ_LABELED(#A,A,"the expected value",B)
 
 /*! \brief Checks that \a B and \a D are equal, and if not registers a failure labeling these values with the respective names \a A and \a C, and then terminates the test.
     \ingroup EQ_CHECKS
+
+\include_example{reference-ASSERT_EQ_LABELED}
 */
 #define ASSERT_EQ_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,EQ,A,B,C,D)
 
 /*! \brief Checks that \a B and \a D are equal, and if not registers a failure labeling these values with the respective names \a A and \a C.
     \ingroup EQ_CHECKS
+
+\include_example{reference-EXPECT_EQ_LABELED}
 */
 #define EXPECT_EQ_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,EQ,A,B,C,D)
 //@+node:gcross.20110222121027.1867: *4* NE
 /*! \defgroup NE_CHECKS NE [≠] (inequality)
     \brief These macros check that two expressions are not equal in value.
     \ingroup RELATION_CHECKS
+
+\note The types of the two operands need not be the same, as long as comparing them for inequality is supported, as is illustrated in the following example:
+
+\include_example{reference-NE-strings}
 */
 #define NE_EXPRESSION(name_1,value_1,name_2,value_2) (value_1) != (value_2)
 #define NE_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> matches %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
@@ -213,37 +234,51 @@ DEFINE_CHECKS(NE,4)
 
 /*! \brief Checks that \a A and \a B are not equal, and if not registers a failure and terminates the test.
     \ingroup NE_CHECKS
+
+\include_example{reference-ASSERT_NE}
 */
 #define ASSERT_NE(A,B) ASSERT_NE_LABELED(#A,A,#B,B)
 
 /*! \brief Checks that \a A and \a B are not equal, and if not registers a failure.
     \ingroup NE_CHECKS
+
+\include_example{reference-EXPECT_NE}
 */
 #define EXPECT_NE(A,B) EXPECT_NE_LABELED(#A,A,#B,B)
 
 /*! \brief Like #ASSERT_NE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup NE_CHECKS
+
+\include_example{reference-ASSERT_NE_VAL}
 */
 #define ASSERT_NE_VAL(A,B) ASSERT_NE_LABELED(#A,A,"the unexpected value",B)
 
 /*! \brief Like #EXPECT_NE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup NE_CHECKS
+
+\include_example{reference-EXPECT_NE_VAL}
 */
 #define EXPECT_NE_VAL(A,B) EXPECT_NE_LABELED(#A,A,"the unexpected value",B)
 
 /*! \brief Checks that \a B and \a D are not equal, and if not registers a failure labeling these values with the respective names \a A and \a C, and then terminates the test.
     \ingroup NE_CHECKS
+
+\include_example{reference-ASSERT_NE_LABELED}
 */
 #define ASSERT_NE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,NE,A,B,C,D)
 
 /*! \brief Checks that \a B and \a D are not equal, and if not registers a failure labeling these values with the respective names \a A and \a C.
     \ingroup NE_CHECKS
+
+\include_example{reference-EXPECT_NE_LABELED}
 */
 #define EXPECT_NE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,NE,A,B,C,D)
 //@+node:gcross.20110130203213.1497: *4* GE
 /*! \defgroup GE_CHECKS GE [≥] (greater than or equal to)
     \brief These macros check that the first expression is greater than or equal to the second.
     \ingroup RELATION_CHECKS
+
+\note The types of the two operands need not be the same as long as comparing them using the >= operator is supported.
 */
 #define GE_EXPRESSION(name_1,value_1,name_2,value_2) (value_1) >= (value_2)
 #define GE_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is less than %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
@@ -251,37 +286,51 @@ DEFINE_CHECKS(GE,4)
 
 /*! \brief Checks that \a A ≥ \a B, and if not registers a failure and terminates the test.
     \ingroup GE_CHECKS
+
+\include_example{reference-ASSERT_GE}
 */
 #define ASSERT_GE(A,B) ASSERT_GE_LABELED(#A,A,#B,B)
 
 /*! \brief Checks that \a A ≥ \a B, and if not registers a failure.
     \ingroup GE_CHECKS
+
+\include_example{reference-EXPECT_GE}
 */
 #define EXPECT_GE(A,B) EXPECT_GE_LABELED(#A,A,#B,B)
 
 /*! \brief Like #ASSERT_GE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup GE_CHECKS
+
+\include_example{reference-ASSERT_GE_VAL}
 */
 #define ASSERT_GE_VAL(A,B) ASSERT_GE_LABELED(#A,A,"the expected lower bound",B)
 
 /*! \brief Like #EXPECT_GE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup GE_CHECKS
+
+\include_example{reference-EXPECT_GE_VAL}
 */
 #define EXPECT_GE_VAL(A,B) EXPECT_GE_LABELED(#A,A,"the expected lower bound",B)
 
 /*! \brief Checks that \a B ≥ \a D, and if not registers a failure labeling these values with the respective names \a A and \a C, and then terminates the test.
     \ingroup GE_CHECKS
+
+\include_example{reference-ASSERT_GE_LABELED}
 */
 #define ASSERT_GE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,GE,A,B,C,D)
 
 /*! \brief Checks that \a B ≥ \a D, and if not registers a failure labeling these values with the respective names \a A and \a C.
     \ingroup GE_CHECKS
+
+\include_example{reference-EXPECT_GE_LABELED}
 */
 #define EXPECT_GE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,GE,A,B,C,D)
 //@+node:gcross.20110222121027.1859: *4* GT
 /*! \defgroup GT_CHECKS GT [>] (greater than)
     \brief These macros check that the first expression is greater than the second.
     \ingroup RELATION_CHECKS
+
+\note The types of the two operands need not be the same as long as comparing them using the > operator is supported.
 */
 #define GT_EXPRESSION(name_1,value_1,name_2,value_2) (value_1) > (value_2)
 #define GT_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is less than or equal to %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
@@ -289,37 +338,51 @@ DEFINE_CHECKS(GT,4)
 
 /*! \brief Checks that \a A > \a B, and if not registers a failure and terminates the test.
     \ingroup GT_CHECKS
+
+\include_example{reference-ASSERT_GT}
 */
 #define ASSERT_GT(A,B) ASSERT_GT_LABELED(#A,A,#B,B)
 
 /*! \brief Checks that \a A > \a B, and if not registers a failure.
     \ingroup GT_CHECKS
+
+\include_example{reference-EXPECT_GT}
 */
 #define EXPECT_GT(A,B) EXPECT_GT_LABELED(#A,A,#B,B)
 
 /*! \brief Like #ASSERT_GT, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup GT_CHECKS
+
+\include_example{reference-ASSERT_GT_VAL}
 */
 #define ASSERT_GT_VAL(A,B) ASSERT_GT_LABELED(#A,A,"the expected strict lower bound",B)
 
 /*! \brief Like #EXPECT_GT, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup GT_CHECKS
+
+\include_example{reference-EXPECT_GT_VAL}
 */
 #define EXPECT_GT_VAL(A,B) EXPECT_GT_LABELED(#A,A,"the expected strict lower bound",B)
 
 /*! \brief Checks that \a B > \a D, and if not registers a failure labeling these values with the respective names \a A and \a C, and then terminates the test.
     \ingroup GT_CHECKS
+
+\include_example{reference-ASSERT_GT_LABELED}
 */
 #define ASSERT_GT_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,GT,A,B,C,D)
 
 /*! \brief Checks that \a B > \a D, and if not registers a failure labeling these values with the respective names \a A and \a C.
     \ingroup GT_CHECKS
+
+\include_example{reference-EXPECT_GT_LABELED}
 */
 #define EXPECT_GT_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,GT,A,B,C,D)
 //@+node:gcross.20110222121027.1861: *4* LE
 /*! \defgroup LE_CHECKS LE [≤] (less than or equal to)
     \brief These macros check that the first expression is less than or equal to the second.
     \ingroup RELATION_CHECKS
+
+\note The types of the two operands need not be the same as long as comparing them using the <= operator is supported.
 */
 #define LE_EXPRESSION(name_1,value_1,name_2,value_2) (value_1) <= (value_2)
 #define LE_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is greater than %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
@@ -327,37 +390,51 @@ DEFINE_CHECKS(LE,4)
 
 /*! \brief Checks that \a A ≤ \a B, and if not registers a failure and terminates the test.
     \ingroup LE_CHECKS
+
+\include_example{reference-ASSERT_LE}
 */
 #define ASSERT_LE(A,B) ASSERT_LE_LABELED(#A,A,#B,B)
 
 /*! \brief Checks that \a A ≤ \a B, and if not registers a failure.
     \ingroup LE_CHECKS
+
+\include_example{reference-EXPECT_LE}
 */
 #define EXPECT_LE(A,B) EXPECT_LE_LABELED(#A,A,#B,B)
 
 /*! \brief Like #ASSERT_LE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup LE_CHECKS
+
+\include_example{reference-ASSERT_LE_VAL}
 */
 #define ASSERT_LE_VAL(A,B) ASSERT_LE_LABELED(#A,A,"the expected upper bound",B)
 
 /*! \brief Like #EXPECT_LE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup LE_CHECKS
+
+\include_example{reference-EXPECT_LE_VAL}
 */
 #define EXPECT_LE_VAL(A,B) EXPECT_LE_LABELED(#A,A,"the expected upper bound",B)
 
 /*! \brief Checks that \a B ≤ \a D, and if not registers a failure labeling these values with the respective names \a A and \a C, and then terminates the test.
     \ingroup LE_CHECKS
+
+\include_example{reference-ASSERT_LE_LABELED}
 */
 #define ASSERT_LE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,LE,A,B,C,D)
 
 /*! \brief Checks that \a B ≤ \a D, and if not registers a failure labeling these values with the respective names \a A and \a C.
     \ingroup LE_CHECKS
+
+\include_example{reference-EXPECT_LE_LABELED}
 */
 #define EXPECT_LE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,LE,A,B,C,D)
 //@+node:gcross.20110222121027.1863: *4* LT
 /*! \defgroup LT_CHECKS LT [<] (less than)
     \brief These macros check that the first expression is less than the second.
     \ingroup RELATION_CHECKS
+
+\note The types of the two operands need not be the same as long as comparing them using the < operator is supported.
 */
 #define LT_EXPRESSION(name_1,value_1,name_2,value_2) (value_1) < (value_2)
 #define LT_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is greater than or equal to %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
@@ -365,31 +442,43 @@ DEFINE_CHECKS(LT,4)
 
 /*! \brief Checks that \a A < \a B, and if not registers a failure and terminates the test.
     \ingroup LT_CHECKS
+
+\include_example{reference-ASSERT_LT}
 */
 #define ASSERT_LT(A,B) ASSERT_LT_LABELED(#A,A,#B,B)
 
 /*! \brief Checks that \a A < \a B, and if not registers a failure.
     \ingroup LT_CHECKS
+
+\include_example{reference-EXPECT_LT}
 */
 #define EXPECT_LT(A,B) EXPECT_LT_LABELED(#A,A,#B,B)
 
 /*! \brief Like #ASSERT_LT, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup LT_CHECKS
+
+\include_example{reference-ASSERT_LT_VAL}
 */
 #define ASSERT_LT_VAL(A,B) ASSERT_LT_LABELED(#A,A,"the expected strict upper bound",B)
 
 /*! \brief Like #EXPECT_LT, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup LT_CHECKS
+
+\include_example{reference-EXPECT_LT_VAL}
 */
 #define EXPECT_LT_VAL(A,B) EXPECT_LT_LABELED(#A,A,"the expected strict upper bound",B)
 
 /*! \brief Checks that \a B < \a D, and if not registers a failure labeling these values with the respective names \a A and \a C, and then terminates the test.
     \ingroup LT_CHECKS
+
+\include_example{reference-ASSERT_LT_LABELED}
 */
 #define ASSERT_LT_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,LT,A,B,C,D)
 
 /*! \brief Checks that \a B < \a D, and if not registers a failure labeling these values with the respective names \a A and \a C.
     \ingroup LT_CHECKS
+
+\include_example{reference-EXPECT_LT_LABELED}
 */
 #define EXPECT_LT_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,LT,A,B,C,D)
 //@+node:gcross.20110222121027.1873: *4* NEAR_ABS

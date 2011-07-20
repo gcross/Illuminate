@@ -50,6 +50,50 @@ foreach(simple-example-name
     chapter1-approximate-equality
     chapter1-boolean-checks
     chapter1-forced-failure
+
+    reference-EQ-strings
+    reference-ASSERT_EQ
+    reference-EXPECT_EQ
+    reference-ASSERT_EQ_VAL
+    reference-EXPECT_EQ_VAL
+    reference-ASSERT_EQ_LABELED
+    reference-EXPECT_EQ_LABELED
+
+    reference-NE-strings
+    reference-ASSERT_NE
+    reference-EXPECT_NE
+    reference-ASSERT_NE_VAL
+    reference-EXPECT_NE_VAL
+    reference-ASSERT_NE_LABELED
+    reference-EXPECT_NE_LABELED
+
+    reference-ASSERT_GE
+    reference-EXPECT_GE
+    reference-ASSERT_GE_VAL
+    reference-EXPECT_GE_VAL
+    reference-ASSERT_GE_LABELED
+    reference-EXPECT_GE_LABELED
+
+    reference-ASSERT_GT
+    reference-EXPECT_GT
+    reference-ASSERT_GT_VAL
+    reference-EXPECT_GT_VAL
+    reference-ASSERT_GT_LABELED
+    reference-EXPECT_GT_LABELED
+
+    reference-ASSERT_LE
+    reference-EXPECT_LE
+    reference-ASSERT_LE_VAL
+    reference-EXPECT_LE_VAL
+    reference-ASSERT_LE_LABELED
+    reference-EXPECT_LE_LABELED
+
+    reference-ASSERT_LT
+    reference-EXPECT_LT
+    reference-ASSERT_LT_VAL
+    reference-EXPECT_LT_VAL
+    reference-ASSERT_LT_LABELED
+    reference-EXPECT_LT_LABELED
 )
     addSimpleExample(${simple-example-name})
 endforeach(simple-example-name)

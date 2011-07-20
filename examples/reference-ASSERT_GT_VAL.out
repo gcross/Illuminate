@@ -1,0 +1,5 @@
+Root:
+    ASSERT GT VAL... FAILED :-(
+        * example.cpp:5 - 2+2 <4> is less than or equal to the expected strict lower bound <4>
+
+1 test failed.

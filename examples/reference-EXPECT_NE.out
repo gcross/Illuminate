@@ -1,0 +1,6 @@
+Root:
+    EXPECT NE... FAILED :-(
+        * example.cpp:5 - 1+2 <3> matches 2+1 <3>
+        * example.cpp:6 - 2+1 <3> matches 1+2 <3>
+
+1 test failed.

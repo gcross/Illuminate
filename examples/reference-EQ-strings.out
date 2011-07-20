@@ -1,0 +1,5 @@
+Root:
+    EQ using strings... FAILED :-(
+        * example.cpp:7 - hello_world <Hello, world!> does not match the expected value <Hello, planet!>
+
+1 test failed.

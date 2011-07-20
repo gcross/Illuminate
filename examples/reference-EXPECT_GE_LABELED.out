@@ -1,0 +1,6 @@
+Root:
+    EXPECT GE LABELED... FAILED :-(
+        * example.cpp:6 - first value <1> is less than second value <2>
+        * example.cpp:7 - first value <1> is less than second value <3>
+
+1 test failed.
