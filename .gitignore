@@ -8,3 +8,4 @@ install_manifest.txt
 documentation/html
 documentation/latex
 build
+.DS_Store
