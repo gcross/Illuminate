@@ -486,7 +486,7 @@ DEFINE_CHECKS(LT,4)
     \brief These macros check that two expressions are equal in value within an absolute tolerance.
     \ingroup RELATION_CHECKS
 */
-#define NEAR_ABS_EXPRESSION(name_1,value_1,name_2,value_2,absolute_error) (std::abs((value_1)-(value_2)) <= absolute_error)
+#define NEAR_ABS_EXPRESSION(name_1,value_1,name_2,value_2,absolute_error) (std::abs((value_1)-(value_2)) <= (absolute_error))
 #define NEAR_ABS_MESSAGE(name_1,value_1,name_2,value_2,absolute_error) (boost::format("%|| <%|.15|> does not match %|| <%|.15|> within an absolute tolerance of %||") % (name_1) % (value_1) % (name_2) % (value_2) % (absolute_error)).str()
 DEFINE_CHECKS(NEAR_ABS,5)
 
@@ -524,7 +524,7 @@ DEFINE_CHECKS(NEAR_ABS,5)
     \brief These macros check that two expressions are equal in value within a relative tolerance.
     \ingroup RELATION_CHECKS
 */
-#define NEAR_REL_EXPRESSION(name_1,value_1,name_2,value_2,relative_error) (((std::abs(value_1)+std::abs(value_2))/2 <= relative_error) || (std::abs((value_1)-(value_2))/((std::abs(value_1)+std::abs(value_2))/2) <= relative_error))
+#define NEAR_REL_EXPRESSION(name_1,value_1,name_2,value_2,relative_error) (((std::abs(value_1)+std::abs(value_2))/2 <= (relative_error)) || (std::abs((value_1)-(value_2))/((std::abs(value_1)+std::abs(value_2))/2) <= (relative_error)))
 #define NEAR_REL_MESSAGE(name_1,value_1,name_2,value_2,relative_error) (boost::format("%|| <%|.15|> does not match %|| <%|.15|> within a relative tolerance of %||") % (name_1) % (value_1) % (name_2) % (value_2) % (relative_error)).str()
 DEFINE_CHECKS(NEAR_REL,5)
 
