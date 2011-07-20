@@ -52,7 +52,5 @@ endforeach(simple-example-name)
 #@-others
 #@-<< Tests >>
 
-message(STATUS "Test dependencies = " ${tests-dependencies})
-
 add_custom_target(tests DEPENDS ${tests-dependencies})
 #@-leo
