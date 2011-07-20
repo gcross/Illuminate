@@ -1,0 +1,5 @@
+Root:
+    ASSERT NEAR ABS... FAILED :-(
+        * example.cpp:6 - 1+1 <2> does not match 1.5+1.5 <3> within an absolute tolerance of 0.5
+
+1 test failed.

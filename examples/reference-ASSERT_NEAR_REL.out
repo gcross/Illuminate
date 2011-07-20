@@ -1,0 +1,5 @@
+Root:
+    ASSERT NEAR REL... FAILED :-(
+        * example.cpp:6 - 1.0+1.0 <2> does not match 4.0+4.0 <8> within a relative tolerance of 1
+
+1 test failed.

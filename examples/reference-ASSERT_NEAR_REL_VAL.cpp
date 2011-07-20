@@ -1,0 +1,8 @@
+#include "illuminate.hpp"
+
+TEST_CASE(ASSERT_NEAR_REL_VAL) {
+    ASSERT_NEAR_REL_VAL(1.0+1.0,5.0,1.0)
+    ASSERT_NEAR_REL_VAL(1.0+1.0,6.0,1.0)
+    ASSERT_NEAR_REL_VAL(1.0+1.0,7.0,1.0)
+    ASSERT_NEAR_REL_VAL(1.0+1.0,8.0,1.0)
+}

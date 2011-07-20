@@ -1,0 +1,8 @@
+#include "illuminate.hpp"
+
+TEST_CASE(ASSERT_NEAR_ABS) {
+    ASSERT_NEAR_ABS(1+1,1+1,0.5)
+    ASSERT_NEAR_ABS(1+1,1.25+1.25,0.5)
+    ASSERT_NEAR_ABS(1+1,1.5+1.5,0.5)
+    ASSERT_NEAR_ABS(1+1,2+2,0.5)
+}

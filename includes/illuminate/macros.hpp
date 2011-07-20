@@ -485,6 +485,8 @@ DEFINE_CHECKS(LT,4)
 /*! \defgroup NEAR_ABS_CHECKS NEAR_ABS [≈] (absolutely approximately equal)
     \brief These macros check that two expressions are equal in value within an absolute tolerance.
     \ingroup RELATION_CHECKS
+
+Specifically, x_NEAR_ABS_y(a,b,c) checks that \f$|a-b| \le c\f$.
 */
 #define NEAR_ABS_EXPRESSION(name_1,value_1,name_2,value_2,absolute_error) (std::abs((value_1)-(value_2)) <= (absolute_error))
 #define NEAR_ABS_MESSAGE(name_1,value_1,name_2,value_2,absolute_error) (boost::format("%|| <%|.15|> does not match %|| <%|.15|> within an absolute tolerance of %||") % (name_1) % (value_1) % (name_2) % (value_2) % (absolute_error)).str()
@@ -492,37 +494,51 @@ DEFINE_CHECKS(NEAR_ABS,5)
 
 /*! \brief Checks that \a A and \a B are approximately equal within an absolute tolerance of \a C, and if not registers a failure and terminates the test.
     \ingroup NEAR_ABS_CHECKS
+
+\include_example{reference-ASSERT_NEAR_ABS}
 */
 #define ASSERT_NEAR_ABS(A,B,C) ASSERT_NEAR_ABS_LABELED(#A,A,#B,B,C)
 
 /*! \brief Checks that \a A and \a B are approximately equal within an absolute tolerance of \a C, and if not registers a failure.
     \ingroup NEAR_ABS_CHECKS
+
+\include_example{reference-EXPECT_NEAR_ABS}
 */
 #define EXPECT_NEAR_ABS(A,B,C) EXPECT_NEAR_ABS_LABELED(#A,A,#B,B,C)
 
 /*! \brief Like #ASSERT_NEAR_ABS, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup NEAR_ABS_CHECKS
+
+\include_example{reference-ASSERT_NEAR_ABS_VAL}
 */
 #define ASSERT_NEAR_ABS_VAL(A,B,C) ASSERT_NEAR_ABS_LABELED(#A,A,"the expected value",B,C)
 
 /*! \brief Like #EXPECT_NEAR_ABS, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup NEAR_ABS_CHECKS
+
+\include_example{reference-EXPECT_NEAR_ABS_VAL}
 */
 #define EXPECT_NEAR_ABS_VAL(A,B,C) EXPECT_NEAR_ABS_LABELED(#A,A,"the expected value",B,C)
 
 /*! \brief Checks that \a B and \a D are approximately equal within an absolute tolerance of \a E, and if not registers a failure labeling these values with the respective names \a A and \a C, and then terminates the test.
     \ingroup NEAR_ABS_CHECKS
+
+\include_example{reference-ASSERT_NEAR_ABS_LABELED}
 */
 #define ASSERT_NEAR_ABS_LABELED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(ASSERT,NEAR_ABS,A,B,C,D,E)
 
 /*! \brief Checks that \a B and \a D are approximately equal within an absolute tolerance of \a E, and if not registers a failure labeling these values with the respective names \a A and \a C.
     \ingroup NEAR_ABS_CHECKS
+
+\include_example{reference-EXPECT_NEAR_ABS_LABELED}
 */
 #define EXPECT_NEAR_ABS_LABELED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(EXPECT,NEAR_ABS,A,B,C,D,E)
 //@+node:gcross.20110222121027.1875: *4* NEAR_REL
 /*! \defgroup NEAR_REL_CHECKS NEAR_REL [≈] (relatively approximately equal)
     \brief These macros check that two expressions are equal in value within a relative tolerance.
     \ingroup RELATION_CHECKS
+
+Specifically, x_NEAR_REL_y(a,b,c) checks that either \f$|a|+|b| \le c\f$ (that is, both a and b are approximately 0) or that \f$\frac{|a-b|}{(|a|+|b|)/2} \le c\f$
 */
 #define NEAR_REL_EXPRESSION(name_1,value_1,name_2,value_2,relative_error) (((std::abs(value_1)+std::abs(value_2))/2 <= (relative_error)) || (std::abs((value_1)-(value_2))/((std::abs(value_1)+std::abs(value_2))/2) <= (relative_error)))
 #define NEAR_REL_MESSAGE(name_1,value_1,name_2,value_2,relative_error) (boost::format("%|| <%|.15|> does not match %|| <%|.15|> within a relative tolerance of %||") % (name_1) % (value_1) % (name_2) % (value_2) % (relative_error)).str()
@@ -530,31 +546,43 @@ DEFINE_CHECKS(NEAR_REL,5)
 
 /*! \brief Checks that \a A and \a B are approximately equal within a relative tolerance of \a C, and if not registers a failure and terminates the test.
     \ingroup NEAR_REL_CHECKS
+
+\include_example{reference-ASSERT_NEAR_REL}
 */
 #define ASSERT_NEAR_REL(A,B,C) ASSERT_NEAR_REL_LABELED(#A,A,#B,B,C)
 
 /*! \brief Checks that \a A and \a B are approximately equal within a relative tolerance of \a C, and if not registers a failure.
     \ingroup NEAR_REL_CHECKS
+
+\include_example{reference-EXPECT_NEAR_REL}
 */
 #define EXPECT_NEAR_REL(A,B,C) EXPECT_NEAR_REL_LABELED(#A,A,#B,B,C)
 
 /*! \brief Like #ASSERT_NEAR_REL, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup NEAR_REL_CHECKS
+
+\include_example{reference-ASSERT_NEAR_REL_VAL}
 */
 #define ASSERT_NEAR_REL_VAL(A,B,C) ASSERT_NEAR_REL_LABELED(#A,A,"the expected value",B,C)
 
 /*! \brief Like #EXPECT_NEAR_REL, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
     \ingroup NEAR_REL_CHECKS
+
+\include_example{reference-EXPECT_NEAR_REL_VAL}
 */
 #define EXPECT_NEAR_REL_VAL(A,B,C) EXPECT_NEAR_REL_LABELED(#A,A,"the expected value",B,C)
 
 /*! \brief Checks that \a B and \a D are approximately equal within a relative tolerance of \a E, and if not registers a failure labeling these values with the respective names \a A and \a C, and then terminates the test.
     \ingroup NEAR_REL_CHECKS
+
+\include_example{reference-ASSERT_NEAR_REL_LABELED}
 */
 #define ASSERT_NEAR_REL_LABELED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(ASSERT,NEAR_REL,A,B,C,D,E)
 
 /*! \brief Checks that \a B and \a D are approximately equal within a relative tolerance of \a E, and if not registers a failure labeling these values with the respective names \a A and \a C.
     \ingroup NEAR_REL_CHECKS
+
+\include_example{reference-EXPECT_NEAR_REL_LABELED}
 */
 #define EXPECT_NEAR_REL_LABELED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(EXPECT,NEAR_REL,A,B,C,D,E)
 //@+node:gcross.20110221195111.1566: *3* Boolean

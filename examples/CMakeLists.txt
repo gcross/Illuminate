@@ -94,6 +94,20 @@ foreach(simple-example-name
     reference-EXPECT_LT_VAL
     reference-ASSERT_LT_LABELED
     reference-EXPECT_LT_LABELED
+
+    reference-ASSERT_NEAR_ABS
+    reference-EXPECT_NEAR_ABS
+    reference-ASSERT_NEAR_ABS_VAL
+    reference-EXPECT_NEAR_ABS_VAL
+    reference-ASSERT_NEAR_ABS_LABELED
+    reference-EXPECT_NEAR_ABS_LABELED
+
+    reference-ASSERT_NEAR_REL
+    reference-EXPECT_NEAR_REL
+    reference-ASSERT_NEAR_REL_VAL
+    reference-EXPECT_NEAR_REL_VAL
+    reference-ASSERT_NEAR_REL_LABELED
+    reference-EXPECT_NEAR_REL_LABELED
 )
     addSimpleExample(${simple-example-name})
 endforeach(simple-example-name)

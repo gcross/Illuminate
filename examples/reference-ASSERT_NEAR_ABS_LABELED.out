@@ -1,0 +1,5 @@
+Root:
+    ASSERT NEAR ABS LABELED... FAILED :-(
+        * example.cpp:6 - first value <1> does not match second value <3> within an absolute tolerance of 1
+
+1 test failed.
