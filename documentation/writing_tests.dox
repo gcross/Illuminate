@@ -10,7 +10,7 @@
     - \ref test_suffixes "Bare versus VAL versus LABELED"
 - \ref performing_checks "Performing checks"
     - \ref relation_checks "Relation checks"
-    - \ref approximate_equality_checks "Relation checks"
+    - \ref approximate_equality_checks "Approximate equality checks"
     - \ref boolean_checks "Boolean checks"
     - \ref forced_failure "Forced failure"
 */
@@ -106,7 +106,7 @@ Here is an example of using these checks:
 
 \subsubsection approximate_equality_checks Approximate equality checks
 
-When working with floating point numbers, one often ends up with results that need to be checked for approximate equality to an exact result rather than exact equality.  The NEAR_ABS and NEAR_REL checks are provided for this purpose.  NEAR_ABS checks that two values are equal within an \a absolute tolerance --- that is, EXPECT_NEAR_ABS(a,b,c) checks that \f$|a-b| \le c\f$.  NEAR_REL checks that two values are equal within a \a relative tolerance --- that is, EXPECT_NEAR_REL(a,b,c) checks roughly that either \f$|a|+|b| \le c\f$ (that is, both a and b are approximately 0) or that \f$|a-b|/(|a+b|/2) \le c\f$.
+When working with floating point numbers, one often ends up with results that need to be checked for approximate equality to an exact result rather than exact equality.  The NEAR_ABS and NEAR_REL checks are provided for this purpose.  NEAR_ABS checks that two values are equal within an \a absolute tolerance --- that is, EXPECT_NEAR_ABS(a,b,c) checks that \f$|a-b| \le c\f$.  NEAR_REL checks that two values are equal within a \a relative tolerance --- that is, EXPECT_NEAR_REL(a,b,c) checks roughly that either \f$|a|+|b| \le c\f$ (that is, both a and b are approximately 0) or that \f$\frac{|a-b|}{(|a|+|b|)/2} \le c\f$.
 
 Here is an example of using these checks:
 
