@@ -601,11 +601,15 @@ DEFINE_CHECKS(TRUE,2)
 
 /*! \brief Checks that \a A is true, and if not registers a failure and terminates the test.
     \ingroup TRUE_CHECKS
+
+\include_example{reference-ASSERT_TRUE}
 */
 #define ASSERT_TRUE(A) DO_CHECK_WITH_2_ARGUMENTS(ASSERT,TRUE,A,#A)
 
 /*! \brief Checks that \a A is true, and if not registers a failure.
     \ingroup TRUE_CHECKS
+
+\include_example{reference-EXPECT_TRUE}
 */
 #define EXPECT_TRUE(A) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,TRUE,A,#A)
 //@+node:gcross.20110222121027.1877: *4* FALSE
@@ -619,11 +623,15 @@ DEFINE_CHECKS(FALSE,2)
 
 /*! \brief Checks that \a A is false, and if not registers a failure and terminates the test.
     \ingroup FALSE_CHECKS
+
+\include_example{reference-ASSERT_FALSE}
 */
 #define ASSERT_FALSE(A) DO_CHECK_WITH_2_ARGUMENTS(ASSERT,FALSE,A,#A)
 
 /*! \brief Checks that \a A is false, and if not registers a failure.
     \ingroup FALSE_CHECKS
+
+\include_example{reference-EXPECT_FALSE}
 */
 #define EXPECT_FALSE(A) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,FALSE,A,#A)
 //@+node:gcross.20110222132831.1572: ** Expected failures

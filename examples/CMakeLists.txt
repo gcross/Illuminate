@@ -108,6 +108,11 @@ foreach(simple-example-name
     reference-EXPECT_NEAR_REL_VAL
     reference-ASSERT_NEAR_REL_LABELED
     reference-EXPECT_NEAR_REL_LABELED
+
+    reference-ASSERT_TRUE
+    reference-EXPECT_TRUE
+    reference-ASSERT_FALSE
+    reference-EXPECT_FALSE
 )
     addSimpleExample(${simple-example-name})
 endforeach(simple-example-name)

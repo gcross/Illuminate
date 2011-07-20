@@ -1,0 +1,6 @@
+Root:
+    EXPECT FALSE... FAILED :-(
+        * example.cpp:4 - 1+1 == 2 is not false
+        * example.cpp:5 - 2+2 == 4 is not false
+
+1 test failed.

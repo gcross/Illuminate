@@ -1,0 +1,5 @@
+Root:
+    ASSERT FALSE... FAILED :-(
+        * example.cpp:4 - 1+1 == 2 is not false
+
+1 test failed.
