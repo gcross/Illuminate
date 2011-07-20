@@ -1,0 +1,13 @@
+Root:
+    two plus two test... FAILED :-(
+        * example.cpp:5 - 2+2 <4> does not match the expected value <3>
+        * example.cpp:9 - 2+2 <4> is greater than the expected upper bound <3>
+        * example.cpp:10 - 2+2 <4> is greater than or equal to the expected strict upper bound <3>
+        * example.cpp:6 - 2+2 <4> matches the unexpected value <4>
+        * example.cpp:8 - 2+2 <4> is less than or equal to the expected strict lower bound <4>
+        * example.cpp:10 - 2+2 <4> is greater than or equal to the expected strict upper bound <4>
+        * example.cpp:5 - 2+2 <4> does not match the expected value <5>
+        * example.cpp:7 - 2+2 <4> is less than the expected lower bound <5>
+        * example.cpp:8 - 2+2 <4> is less than or equal to the expected strict lower bound <5>
+
+1 test failed.

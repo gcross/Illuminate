@@ -2,18 +2,22 @@
 //@+node:gcross.20110715235201.1476: * @file writing_tests.dox
 /*!
 
-\page writing_tests Writing Tests
+\page writing_tests Writing tests
 
 - \ref simple_test "A simple test"
 - \ref customizing_failure_messages "Customizing failure messages"
     - \ref test_prefixes "Prefixes: EXPECT versus ASSERT"
     - \ref test_suffixes "Bare versus VAL versus LABELED"
-
+- \ref performing_checks "Performing checks"
+    - \ref relation_checks "Relation checks"
+    - \ref approximate_equality_checks "Relation checks"
+    - \ref boolean_checks "Boolean checks"
+    - \ref forced_failure "Forced failure"
 */
 
 //@+others
 //@+node:gcross.20110715235201.1480: ** A simple test
-/*! \page writing_tests Writing Tests
+/*! \page writing_tests Writing tests
 
 \section simple_test A simple test
 
@@ -29,14 +33,13 @@ Note that when printing out test names, underscores are converted to spaces.
 
 Whenever a non-trivial test passes on the first try, I like to intentionally break the code it is testing to see if that makes the test fail in order to make sure that I am not getting a false positive.  Following this philosophy, let's make a change that breaks our simple test from the last section:
 
-\includelineno chapter1-simple-test-broken.cpp
-\include chapter1-simple-test-broken.out
+\include_example{chapter1-simple-test-broken}
 
 As we can see, a message is output describing the location and nature of the failure.
 
 */
 //@+node:gcross.20110715235201.1484: ** Customizing failure messages
-/*! \page writing_tests Writing Tests
+/*! \page writing_tests Writing tests
 
 \subsection customizing_failure_messages Customizing failure messages
 
@@ -50,31 +53,88 @@ Up to now all of the test macros have begun with EXPECT;  however, all macros th
 
 For example, here is a test with multiple EXPECT checks that fail:
 
-\includelineno chapter1-test-with-multiple-expects.cpp
-\include chapter1-test-with-multiple-expects.out
+\include_example{chapter1-test-with-multiple-expects}
 
 If instead we used \c ASSERT_EQ_VAL, then we would have the following:
 
-\includelineno chapter1-test-with-multiple-asserts.cpp
-\include chapter1-test-with-multiple-asserts.out
+\include_example{chapter1-test-with-multiple-asserts}
 
 If there is a combination of EXPECTs and ASSERTs that fail, then all of the messages will be displayed up to the first ASSERT that fails:
 
-\includelineno chapter1-test-with-multiple-expects-and-asserts.cpp
-\include chapter1-test-with-multiple-expects-and-asserts.out
+\include_example{chapter1-test-with-multiple-expects-and-asserts}
 
 */
 //@+node:gcross.20110715235201.1485: *3* Suffixes: Bare versus VAL versus LABELED
 /*! \page writing_tests Writing Tests
 
-\subsubsection test_suffixes Suffixes: Bare versus VAL versus LABELED
+\subsubsection test_suffixes Suffixes: Bare versus VAL versus LABELED.
 
-Up to now all of the test macros have ended with VAL, but for any macro that ends in VAL there is also a bare variant and a variant that ends in LABELED.  Here is an example of using these variants:
+Up to now all of the test macros have ended with VAL, but for any macro that ends in VAL there is also a bare variant, a variant that ends in LABELED.  Here is an example of using these variants:
 
-\includelineno chapter1-suffix-variants.cpp
-\include chapter1-suffix-variants.out
+\include_example{chapter1-suffix-variants}
 
-The bare form prints out both the expression and the value for each of the two arguments.  The LABELED form takes an extra argument before each expression that provides an explicit label for that expression.  The VAL form prints the expression and value for the first argument, but only the value of the second argument (with the label "the expected value").
+The bare form prints out both the expression and the value for each of the two arguments.  The VAL form prints the expression and value for the first argument, but only the value of the second argument (with the label "the expected value").  The LABELED form takes an extra argument before each expression that provides an explicit label for that expression.
+
+*/
+//@+node:gcross.20110715235201.1489: ** Performing checks
+/*! \page writing_tests Writing tests
+
+\subsection performing_checks Performing checks
+
+*/
+//@+node:gcross.20110715235201.1490: *3* Relation checks
+/*! \page writing_tests Writing tests
+
+\subsubsection relation_checks Relation checks
+
+Up to this point we have only been using macros that check for equality, but Illuminate has other checks as well:
+
+    - EQ: a == b
+    - NE: a != b
+    - GE: a >= b
+    - GT: a > b
+    - LE: a <= b
+    - LT: a < b
+
+Here is an example of using these checks:
+
+\include_example{chapter1-all-relations}
+
+*/
+//@+node:gcross.20110715235201.1492: *3* Approximate equality checks
+/*! \page writing_tests Writing tests
+
+\subsubsection approximate_equality_checks Approximate equality checks
+
+When working with floating point numbers, one often ends up with results that need to be checked for approximate equality to an exact result rather than exact equality.  The NEAR_ABS and NEAR_REL checks are provided for this purpose.  NEAR_ABS checks that two values are equal within an \a absolute tolerance --- that is, EXPECT_NEAR_ABS(a,b,c) checks that \f$|a-b| \le c\f$.  NEAR_REL checks that two values are equal within a \a relative tolerance --- that is, EXPECT_NEAR_REL(a,b,c) checks roughly that either \f$|a|+|b| \le c\f$ (that is, both a and b are approximately 0) or that \f$|a-b|/(|a+b|/2) \le c\f$.
+
+Here is an example of using these checks:
+
+\include_example{chapter1-approximate-equality}
+
+*/
+//@+node:gcross.20110715235201.2670: *3* Boolean checks
+/*! \page writing_tests Writing tests
+
+\subsubsection boolean_checks Boolean checks
+
+Sometimes you just have an expression and you need to check that it is true or false.  EXPECT_TRUE(x) / ASSERT_TRUE(x) and EXPECT_FALSE(x) / ASSERT_FALSE(x) provide this functionality, respectively checking that a given expression (x) is true or false.
+
+Here is an example of using these checks:
+
+\include_example{chapter1-boolean-checks}
+
+*/
+//@+node:gcross.20110715235201.2672: *3* Forced failure
+/*! \page writing_tests Writing tests
+
+\subsubsection forced_failure Forced failure
+
+The macros presented previously are provided for convenience, but there is nothing stopping you from writing your own check and having exact control over the failure message that is displayed.  If your test fails, you will want to call either FAIL(msg) or FATALLY_FAIL(msg) with your failure message, where the only difference between the two macros is that the latter terminates the test in addition to displaying the failure message.
+
+Here is an example of using these macros:
+
+\include_example{chapter1-forced-failure}
 
 */
 //@-others

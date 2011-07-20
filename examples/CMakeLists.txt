@@ -46,6 +46,10 @@ foreach(simple-example-name
     chapter1-test-with-multiple-asserts
     chapter1-test-with-multiple-expects-and-asserts
     chapter1-suffix-variants
+    chapter1-all-relations
+    chapter1-approximate-equality
+    chapter1-boolean-checks
+    chapter1-forced-failure
 )
     addSimpleExample(${simple-example-name})
 endforeach(simple-example-name)

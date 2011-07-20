@@ -1,0 +1,6 @@
+Root:
+    failures... FAILED :-(
+        * example.cpp:4 - You will see this message...
+        * example.cpp:5 - ...and this message...
+
+1 test failed.
