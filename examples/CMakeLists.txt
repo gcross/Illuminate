@@ -113,6 +113,9 @@ foreach(simple-example-name
     reference-EXPECT_TRUE
     reference-ASSERT_FALSE
     reference-EXPECT_FALSE
+
+    reference-FAIL
+    reference-FATALLY_FAIL
 )
     addSimpleExample(${simple-example-name})
 endforeach(simple-example-name)

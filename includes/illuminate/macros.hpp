@@ -702,9 +702,23 @@ DEFINE_CHECKS(FALSE,2)
         _ILLUMINATE_END_THROWS(exception_type) \
     }
 //@+node:gcross.20101206161648.1598: ** Failures
-//@+node:gcross.20101206161648.1599: *3* FAIL
+/*! \defgroup FORCED_FAILURES Forced failures
+    \brief These macros force a failure message to be displayed.
+    \ingroup CHECKS
+*/
+
+/*! \brief Raises a failure with the given message.
+    \ingroup FORCED_FAILURES
+
+\include_example{reference-FAIL}
+*/
 #define FAIL(message) Illuminate::Test::registerFailure(__FILE__,__LINE__,(message),false);
-//@+node:gcross.20101206161648.1601: *3* FATALLY_FAIL
+
+/*! \brief Raises a failure with the given message, and then terminates the test.
+    \ingroup FORCED_FAILURES
+
+\include_example{reference-FATALLY_FAIL}
+*/
 #define FATALLY_FAIL(message) Illuminate::Test::registerFailure(__FILE__,__LINE__,(message),true);
 //@-others
 

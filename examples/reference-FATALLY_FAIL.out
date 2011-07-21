@@ -1,0 +1,5 @@
+Root:
+    FATALLY FAIL... FAILED :-(
+        * example.cpp:4 - First failure message.
+
+1 test failed.
