@@ -178,42 +178,42 @@
 #define EQ_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> does not match %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
 DEFINE_CHECKS(EQ,4)
 
-/*! \brief Checks that \a A and \a B are equal, and if not registers a failure and terminates the test.
+/*! \brief \ASSERT_REL_MESSAGE{\a A and \a B are equal}
     \ingroup EQ_CHECKS
 
 \include_example{reference-ASSERT_EQ}
 */
 #define ASSERT_EQ(A,B) ASSERT_EQ_LABELED(#A,A,#B,B)
 
-/*! \brief Checks that \a A and \a B are equal, and if not registers a failure.
+/*! \brief \EXPECT_REL_MESSAGE{\a A and \a B are equal}
     \ingroup EQ_CHECKS
 
 \include_example{reference-EXPECT_EQ}
 */
 #define EXPECT_EQ(A,B) EXPECT_EQ_LABELED(#A,A,#B,B)
 
-/*! \brief Like #ASSERT_EQ, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
+/*! \brief \ASSERT_REL_VAL_MESSAGE{EQ}
     \ingroup EQ_CHECKS
 
 \include_example{reference-ASSERT_EQ_VAL}
 */
 #define ASSERT_EQ_VAL(A,B) ASSERT_EQ_LABELED(#A,A,"the expected value",B)
 
-/*! \brief Like #EXPECT_EQ, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
+/*! \brief \EXPECT_REL_VAL_MESSAGE{EQ}
     \ingroup EQ_CHECKS
 
 \include_example{reference-EXPECT_EQ_VAL}
 */
 #define EXPECT_EQ_VAL(A,B) EXPECT_EQ_LABELED(#A,A,"the expected value",B)
 
-/*! \brief Checks that \a B and \a D are equal, and if not registers a failure labeling these values with the respective names \a A and \a C, and then terminates the test.
+/*! \brief \ASSERT_REL_LABELED_MESSAGE{\a B and \a D are equal}
     \ingroup EQ_CHECKS
 
 \include_example{reference-ASSERT_EQ_LABELED}
 */
 #define ASSERT_EQ_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,EQ,A,B,C,D)
 
-/*! \brief Checks that \a B and \a D are equal, and if not registers a failure labeling these values with the respective names \a A and \a C.
+/*! \brief \EXPECT_REL_LABELED_MESSAGE{\a B and \a D are equal}
     \ingroup EQ_CHECKS
 
 \include_example{reference-EXPECT_EQ_LABELED}
@@ -232,42 +232,42 @@ DEFINE_CHECKS(EQ,4)
 #define NE_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> matches %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
 DEFINE_CHECKS(NE,4)
 
-/*! \brief Checks that \a A and \a B are not equal, and if not registers a failure and terminates the test.
+/*! \brief \ASSERT_REL_MESSAGE{\a A and \a B are \b not equal}
     \ingroup NE_CHECKS
 
 \include_example{reference-ASSERT_NE}
 */
 #define ASSERT_NE(A,B) ASSERT_NE_LABELED(#A,A,#B,B)
 
-/*! \brief Checks that \a A and \a B are not equal, and if not registers a failure.
+/*! \brief \EXPECT_REL_MESSAGE{\a A and \a B are \b not equal}
     \ingroup NE_CHECKS
 
 \include_example{reference-EXPECT_NE}
 */
 #define EXPECT_NE(A,B) EXPECT_NE_LABELED(#A,A,#B,B)
 
-/*! \brief Like #ASSERT_NE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
+/*! \brief \ASSERT_REL_VAL_MESSAGE{NE}
     \ingroup NE_CHECKS
 
 \include_example{reference-ASSERT_NE_VAL}
 */
 #define ASSERT_NE_VAL(A,B) ASSERT_NE_LABELED(#A,A,"the unexpected value",B)
 
-/*! \brief Like #EXPECT_NE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
+/*! \brief \EXPECT_REL_VAL_MESSAGE{NE}
     \ingroup NE_CHECKS
 
 \include_example{reference-EXPECT_NE_VAL}
 */
 #define EXPECT_NE_VAL(A,B) EXPECT_NE_LABELED(#A,A,"the unexpected value",B)
 
-/*! \brief Checks that \a B and \a D are not equal, and if not registers a failure labeling these values with the respective names \a A and \a C, and then terminates the test.
+/*! \brief \ASSERT_REL_LABELED_MESSAGE{\a B and \a D are \b not equal}
     \ingroup NE_CHECKS
 
 \include_example{reference-ASSERT_NE_LABELED}
 */
 #define ASSERT_NE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,NE,A,B,C,D)
 
-/*! \brief Checks that \a B and \a D are not equal, and if not registers a failure labeling these values with the respective names \a A and \a C.
+/*! \brief \EXPECT_REL_LABELED_MESSAGE{\a B and \a D are \b not equal}
     \ingroup NE_CHECKS
 
 \include_example{reference-EXPECT_NE_LABELED}
@@ -284,28 +284,28 @@ DEFINE_CHECKS(NE,4)
 #define GE_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is less than %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
 DEFINE_CHECKS(GE,4)
 
-/*! \brief Checks that \a A ≥ \a B, and if not registers a failure and terminates the test.
+/*! \brief \ASSERT_REL_MESSAGE{\a A ≥ \a B}
     \ingroup GE_CHECKS
 
 \include_example{reference-ASSERT_GE}
 */
 #define ASSERT_GE(A,B) ASSERT_GE_LABELED(#A,A,#B,B)
 
-/*! \brief Checks that \a A ≥ \a B, and if not registers a failure.
+/*! \brief \EXPECT_REL_MESSAGE{\a A ≥ \a B}
     \ingroup GE_CHECKS
 
 \include_example{reference-EXPECT_GE}
 */
 #define EXPECT_GE(A,B) EXPECT_GE_LABELED(#A,A,#B,B)
 
-/*! \brief Like #ASSERT_GE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
+/*! \brief \ASSERT_REL_VAL_MESSAGE{GE}
     \ingroup GE_CHECKS
 
 \include_example{reference-ASSERT_GE_VAL}
 */
 #define ASSERT_GE_VAL(A,B) ASSERT_GE_LABELED(#A,A,"the expected lower bound",B)
 
-/*! \brief Like #EXPECT_GE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
+/*! \brief \EXPECT_REL_VAL_MESSAGE{GE}
     \ingroup GE_CHECKS
 
 \include_example{reference-EXPECT_GE_VAL}
@@ -336,28 +336,28 @@ DEFINE_CHECKS(GE,4)
 #define GT_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is less than or equal to %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
 DEFINE_CHECKS(GT,4)
 
-/*! \brief Checks that \a A > \a B, and if not registers a failure and terminates the test.
+/*! \brief \ASSERT_REL_MESSAGE{\a A > \a B}
     \ingroup GT_CHECKS
 
 \include_example{reference-ASSERT_GT}
 */
 #define ASSERT_GT(A,B) ASSERT_GT_LABELED(#A,A,#B,B)
 
-/*! \brief Checks that \a A > \a B, and if not registers a failure.
+/*! \brief \EXPECT_REL_MESSAGE{\a A > \a B}
     \ingroup GT_CHECKS
 
 \include_example{reference-EXPECT_GT}
 */
 #define EXPECT_GT(A,B) EXPECT_GT_LABELED(#A,A,#B,B)
 
-/*! \brief Like #ASSERT_GT, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
+/*! \brief \ASSERT_REL_VAL_MESSAGE{GT}
     \ingroup GT_CHECKS
 
 \include_example{reference-ASSERT_GT_VAL}
 */
 #define ASSERT_GT_VAL(A,B) ASSERT_GT_LABELED(#A,A,"the expected strict lower bound",B)
 
-/*! \brief Like #EXPECT_GT, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
+/*! \brief \EXPECT_REL_VAL_MESSAGE{GT}
     \ingroup GT_CHECKS
 
 \include_example{reference-EXPECT_GT_VAL}
@@ -388,28 +388,28 @@ DEFINE_CHECKS(GT,4)
 #define LE_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is greater than %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
 DEFINE_CHECKS(LE,4)
 
-/*! \brief Checks that \a A ≤ \a B, and if not registers a failure and terminates the test.
+/*! \brief \ASSERT_REL_MESSAGE{\a A ≤ \a B}
     \ingroup LE_CHECKS
 
 \include_example{reference-ASSERT_LE}
 */
 #define ASSERT_LE(A,B) ASSERT_LE_LABELED(#A,A,#B,B)
 
-/*! \brief Checks that \a A ≤ \a B, and if not registers a failure.
+/*! \brief \EXPECT_REL_MESSAGE{\a A ≤ \a B}
     \ingroup LE_CHECKS
 
 \include_example{reference-EXPECT_LE}
 */
 #define EXPECT_LE(A,B) EXPECT_LE_LABELED(#A,A,#B,B)
 
-/*! \brief Like #ASSERT_LE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
+/*! \brief \ASSERT_REL_VAL_MESSAGE{LE}
     \ingroup LE_CHECKS
 
 \include_example{reference-ASSERT_LE_VAL}
 */
 #define ASSERT_LE_VAL(A,B) ASSERT_LE_LABELED(#A,A,"the expected upper bound",B)
 
-/*! \brief Like #EXPECT_LE, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
+/*! \brief \EXPECT_REL_VAL_MESSAGE{LE}
     \ingroup LE_CHECKS
 
 \include_example{reference-EXPECT_LE_VAL}
@@ -440,28 +440,28 @@ DEFINE_CHECKS(LE,4)
 #define LT_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is greater than or equal to %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
 DEFINE_CHECKS(LT,4)
 
-/*! \brief Checks that \a A < \a B, and if not registers a failure and terminates the test.
+/*! \brief \ASSERT_REL_MESSAGE{\a A < \a B}
     \ingroup LT_CHECKS
 
 \include_example{reference-ASSERT_LT}
 */
 #define ASSERT_LT(A,B) ASSERT_LT_LABELED(#A,A,#B,B)
 
-/*! \brief Checks that \a A < \a B, and if not registers a failure.
+/*! \brief \EXPECT_REL_MESSAGE{\a A < \a B}
     \ingroup LT_CHECKS
 
 \include_example{reference-EXPECT_LT}
 */
 #define EXPECT_LT(A,B) EXPECT_LT_LABELED(#A,A,#B,B)
 
-/*! \brief Like #ASSERT_LT, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
+/*! \brief \ASSERT_REL_VAL_MESSAGE{LT}
     \ingroup LT_CHECKS
 
 \include_example{reference-ASSERT_LT_VAL}
 */
 #define ASSERT_LT_VAL(A,B) ASSERT_LT_LABELED(#A,A,"the expected strict upper bound",B)
 
-/*! \brief Like #EXPECT_LT, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
+/*! \brief \EXPECT_REL_VAL_MESSAGE{LT}
     \ingroup LT_CHECKS
 
 \include_example{reference-EXPECT_LT_VAL}
@@ -492,28 +492,28 @@ Specifically, x_NEAR_ABS_y(a,b,c) checks that \f$|a-b| \le c\f$.
 #define NEAR_ABS_MESSAGE(name_1,value_1,name_2,value_2,absolute_error) (boost::format("%|| <%|.15|> does not match %|| <%|.15|> within an absolute tolerance of %||") % (name_1) % (value_1) % (name_2) % (value_2) % (absolute_error)).str()
 DEFINE_CHECKS(NEAR_ABS,5)
 
-/*! \brief Checks that \a A and \a B are approximately equal within an absolute tolerance of \a C, and if not registers a failure and terminates the test.
+/*! \brief \ASSERT_REL_MESSAGE{\a A and \a B are approximately equal within an absolute tolerance of \a C}
     \ingroup NEAR_ABS_CHECKS
 
 \include_example{reference-ASSERT_NEAR_ABS}
 */
 #define ASSERT_NEAR_ABS(A,B,C) ASSERT_NEAR_ABS_LABELED(#A,A,#B,B,C)
 
-/*! \brief Checks that \a A and \a B are approximately equal within an absolute tolerance of \a C, and if not registers a failure.
+/*! \brief \EXPECT_REL_MESSAGE{\a A and \a B are approximately equal within an absolute tolerance of \a C}
     \ingroup NEAR_ABS_CHECKS
 
 \include_example{reference-EXPECT_NEAR_ABS}
 */
 #define EXPECT_NEAR_ABS(A,B,C) EXPECT_NEAR_ABS_LABELED(#A,A,#B,B,C)
 
-/*! \brief Like #ASSERT_NEAR_ABS, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
+/*! \brief \ASSERT_REL_VAL_MESSAGE{NEAR_ABS}
     \ingroup NEAR_ABS_CHECKS
 
 \include_example{reference-ASSERT_NEAR_ABS_VAL}
 */
 #define ASSERT_NEAR_ABS_VAL(A,B,C) ASSERT_NEAR_ABS_LABELED(#A,A,"the expected value",B,C)
 
-/*! \brief Like #EXPECT_NEAR_ABS, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
+/*! \brief \EXPECT_REL_VAL_MESSAGE{NEAR_ABS}
     \ingroup NEAR_ABS_CHECKS
 
 \include_example{reference-EXPECT_NEAR_ABS_VAL}
@@ -544,28 +544,28 @@ Specifically, x_NEAR_REL_y(a,b,c) checks that either \f$|a|+|b| \le c\f$ (that i
 #define NEAR_REL_MESSAGE(name_1,value_1,name_2,value_2,relative_error) (boost::format("%|| <%|.15|> does not match %|| <%|.15|> within a relative tolerance of %||") % (name_1) % (value_1) % (name_2) % (value_2) % (relative_error)).str()
 DEFINE_CHECKS(NEAR_REL,5)
 
-/*! \brief Checks that \a A and \a B are approximately equal within a relative tolerance of \a C, and if not registers a failure and terminates the test.
+/*! \brief \ASSERT_REL_MESSAGE{\a A and \a B are approximately equal within a relative tolerance of \a C}
     \ingroup NEAR_REL_CHECKS
 
 \include_example{reference-ASSERT_NEAR_REL}
 */
 #define ASSERT_NEAR_REL(A,B,C) ASSERT_NEAR_REL_LABELED(#A,A,#B,B,C)
 
-/*! \brief Checks that \a A and \a B are approximately equal within a relative tolerance of \a C, and if not registers a failure.
+/*! \brief \EXPECT_REL_MESSAGE{\a A and \a B are approximately equal within a relative tolerance of \a C}
     \ingroup NEAR_REL_CHECKS
 
 \include_example{reference-EXPECT_NEAR_REL}
 */
 #define EXPECT_NEAR_REL(A,B,C) EXPECT_NEAR_REL_LABELED(#A,A,#B,B,C)
 
-/*! \brief Like #ASSERT_NEAR_REL, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
+/*! \brief \ASSERT_REL_VAL_MESSAGE{NEAR_REL}
     \ingroup NEAR_REL_CHECKS
 
 \include_example{reference-ASSERT_NEAR_REL_VAL}
 */
 #define ASSERT_NEAR_REL_VAL(A,B,C) ASSERT_NEAR_REL_LABELED(#A,A,"the expected value",B,C)
 
-/*! \brief Like #EXPECT_NEAR_REL, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant.
+/*! \brief \EXPECT_REL_VAL_MESSAGE{NEAR_REL}
     \ingroup NEAR_REL_CHECKS
 
 \include_example{reference-EXPECT_NEAR_REL_VAL}

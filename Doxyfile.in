@@ -182,7 +182,16 @@ TAB_SIZE               = 8
 # will result in a user-defined paragraph with heading "Side Effects:".
 # You can put \n's in the value part of an alias to insert newlines.
 
-ALIASES                = include_example{1}="\includelineno \1.cpp \n\verbinclude \1.out"
+#@+<< Aliases >>
+#@+node:gcross.20110715235201.2674: ** << Aliases >>
+ALIASES += include_example{1}="\includelineno \1.cpp \n\verbinclude \1.out"
+ALIASES += ASSERT_REL_MESSAGE{1}="Checks that \1, and if not registers a failure message that quotes \a A and \a B and displays their values, and then terminates the test."
+ALIASES += EXPECT_REL_MESSAGE{1}="Checks that \1, and if not registers a failure message that quotes \a A and \a B and displays their values."
+ALIASES += ASSERT_REL_VAL_MESSAGE{1}="Like #ASSERT_\1, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant."
+ALIASES += EXPECT_REL_VAL_MESSAGE{1}="Like #EXPECT_\1, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant."
+ALIASES += ASSERT_REL_LABELED_MESSAGE{1}="Checks that \1, and if not registers a failure labeling these values with the respective names \a A and \a C, and then terminates the test."
+ALIASES += EXPECT_REL_LABELED_MESSAGE{1}="Checks that \1, and if not registers a failure labeling these values with the respective names \a A and \a C."
+#@-<< Aliases >>
 
 # Set the OPTIMIZE_OUTPUT_FOR_C tag to YES if your project consists of C
 # sources only. Doxygen will then generate output that is more tailored for C.
