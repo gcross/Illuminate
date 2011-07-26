@@ -1,0 +1,74 @@
+//@+leo-ver=5-thin
+//@+node:gcross.20110725161606.1413: * @file organizing_tests.dox
+/*!
+
+\page organizing_tests Organizing tests
+
+- \ref multiple_test_cases "Multiple test cases"
+- \ref test_suites "Test suites"
+- \ref nesting "Nesting"
+*/
+
+//@+others
+//@+node:gcross.20110725161606.1414: ** Multiple test cases
+/*! \page organizing_tests Organizing tests
+
+\section multiple_test_cases Multiple test cases
+
+In all of the examples in the previous chapter we crammed all of our checks into a single test case.  However, it is possible to declare multiple test cases, such as in the following example:
+
+\include_example{chapter2-multiple-test-cases-same-file}
+
+Tests may also be spread out over multiple files:
+
+\includelineno chapter2-multiple-test-cases-1.cpp
+\includelineno chapter2-multiple-test-cases-2.cpp
+\includelineno chapter2-multiple-test-cases-3.cpp
+\verbinclude chapter2-multiple-test-cases-multiple-files.out
+
+\note The order in which the tests appear may be different across different environments since it depends on the static initialization ordering behavior of the C++ compiler/linker in use.
+
+*/
+//@+node:gcross.20110725161606.1418: ** Test suites
+/*! \page organizing_tests Organizing tests
+
+\section test_suites Test suites
+
+When you start to have a lot of tests, it makes sense to start organizing them into groups.  Illuminate allows you to do this with the TEST_SUITE macro, as illustrated in the following example:
+
+\include_example{chapter2-test-suites}
+
+The test cases in a particular suite may be spread over multiple files:
+
+\includelineno chapter2-test-suite-multiple-files-1.cpp
+\includelineno chapter2-test-suite-multiple-files-2.cpp
+\verbinclude chapter2-test-suite-multiple-files.out
+
+*/
+//@+node:gcross.20110725161606.1419: ** Nesting
+/*! \page organizing_tests Organizing tests
+
+\section nesting Nesting
+
+Test suites and test cases can be arbitrarily nested, as illustrated in the following example:
+
+\include_example{chapter2-nesting}
+
+Note that the empty test suite A2a3 was not listed because it contained no tests.
+
+*/
+//@+node:gcross.20110725161606.1420: ** Skipping and forcing
+/*! \page organizing_tests Organizing tests
+
+\section skipping_and_forcing Skipping and forcing
+
+Sometimes it is useful to temporarily disable a test case or a test suite without removing it entirely from the suite.  To do this, just add the prefix DONT_ before TEST_SUITE or TEST_CASE as in the following example:
+
+\include_example{chapter2-dont-test}
+
+If you want to re-enable selected test suites or test cases nested inside a skipped test suite, you may do so by adding the prefix MUST_ as in the following example:
+
+\include_example{chapter2-must-test}
+*/
+//@-others
+//@-leo

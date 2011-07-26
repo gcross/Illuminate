@@ -14,6 +14,7 @@
 <v t="gcross.20110221195111.1564"><vh>@file Doxyfile.in</vh></v>
 <v t="gcross.20110601121230.1973"><vh>@path documentation</vh>
 <v t="gcross.20110715235201.1476"><vh>@file writing_tests.dox</vh></v>
+<v t="gcross.20110725161606.1413"><vh>@file organizing_tests.dox</vh></v>
 </v>
 <v t="gcross.20110626224331.1448"><vh>@path examples</vh>
 <v t="gcross.20110626224331.2628"><vh>@file CMakeLists.txt</vh></v>

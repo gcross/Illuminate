@@ -43,12 +43,7 @@
 */
 /*! The contents of the test should be supplied within curly brackets ({}'s) immediately following the macro as in the following example:
 
-    \code
-    TEST_CASE(MyTest) {
-        ...
-        ASSERT_TRUE(expression);
-    }
-    \endcode
+\include_example{reference-TEST_CASE}
 */
 #define TEST_CASE(caseName) DEFINE_TEST_CASE(caseName,boost::none)
 
@@ -56,15 +51,19 @@
     \ingroup DECLARATIONS
 */
 /*! This macro is like #TEST_CASE, but the test body is ignored and the test is tagged as being skipped.
+
+\include_example{reference-DONT_TEST_CASE}
 */
-#define SKIP_TEST_CASE(caseName) DEFINE_TEST_CASE(caseName,boost::make_optional(true))
+#define DONT_TEST_CASE(caseName) DEFINE_TEST_CASE(caseName,boost::make_optional(true))
 
 /*! \brief Defines a test case named \a caseName, and runs it even if its parent is flagged to be skipped.
     \ingroup DECLARATIONS
 */
 /*! This macro is like #TEST_CASE, but it overrides the skip flag of its parent to make sure the test body is run.
+
+\include_example{reference-MUST_TEST_CASE}
 */
-#define UNSKIP_TEST_CASE(caseName) DEFINE_TEST_CASE(caseName,boost::make_optional(false))
+#define MUST_TEST_CASE(caseName) DEFINE_TEST_CASE(caseName,boost::make_optional(false))
 //@+node:gcross.20101206142257.1406: *3* TEST_SUITE
 #define DEFINE_TEST_SUITE(suiteName,skipped) \
     namespace SUITE_##suiteName { \
@@ -81,32 +80,27 @@
 */
 /*! Suites may contain a mixture of test cases and nested test suites in any order.  The contents of the suite should be supplied within curly brackets ({}'s) immediately following the macro as in the following example:
 
-    \code
-    TEST_SUITE(Suite) {
-        TEST_SUITE(NestedSuite1) { ... }
-        TEST_SUITE(NestedSuite2) { ... }
-        ...
-        TEST_CASE(Test1) { ... }
-        TEST_CASE(Test2) { ... }
-        ...
-    }
-    \endcode
+\include_example{reference-TEST_SUITE}
 */
 #define TEST_SUITE(suiteName) DEFINE_TEST_SUITE(suiteName,boost::none)
 
 /*! \brief Defines a test suite named \a suiteName, but indicates that the suite should be skipped.
     \ingroup DECLARATIONS
 */
-/*! This macro is like #TEST_SUITE, but all of the children will be skipped (unless individually UNSKIPped).
+/*! This macro is like #TEST_SUITE, but all of the children will be skipped (unless individually re-enabled using MUST_TEST_SUITE(suiteName) or MUST_TEST_CASE(caseName).
+
+\include_example{reference-DONT_TEST_SUITE}
 */
-#define SKIP_TEST_SUITE(suiteName) DEFINE_TEST_SUITE(suiteName,boost::make_optional(true))
+#define DONT_TEST_SUITE(suiteName) DEFINE_TEST_SUITE(suiteName,boost::make_optional(true))
 
 /*! \brief Defines a test suite named \a suiteName, and runs it even if its parent is flagged to be skipped.
     \ingroup DECLARATIONS
 */
 /*! This macro is like #TEST_SUITE, but it overrides the skip flag of its parent to make sure the test suite is run.
+
+\include_example{reference-MUST_TEST_SUITE}
 */
-#define UNSKIP_TEST_SUITE(suiteName) DEFINE_TEST_SUITE(suiteName,boost::make_optional(false))
+#define MUST_TEST_SUITE(suiteName) DEFINE_TEST_SUITE(suiteName,boost::make_optional(false))
 //@+node:gcross.20101206161648.1614: ** Helpers
 //@+node:gcross.20101206161648.1620: *3* DEFINE_CHECK_WITH_X_ARGUMENTS
 #define DEFINE_CHECK_WITH_1_ARGUMENTS(K,F) \

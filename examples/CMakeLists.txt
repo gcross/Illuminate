@@ -38,7 +38,7 @@ endmacro(addSimpleExample)
 #@+<< Tests >>
 #@+node:gcross.20110715235201.1474: ** << Tests >>
 #@+others
-#@+node:gcross.20110715235201.1487: *3* Simple examples
+#@+node:gcross.20110715235201.1487: *3* Chapter 1
 foreach(simple-example-name
     chapter1-simple-test
     chapter1-simple-test-broken
@@ -50,7 +50,26 @@ foreach(simple-example-name
     chapter1-approximate-equality
     chapter1-boolean-checks
     chapter1-forced-failure
+)
+    addSimpleExample(${simple-example-name})
+endforeach(simple-example-name)
 
+#@+node:gcross.20110725161606.1415: *3* Chapter 2
+foreach(simple-example-name
+    chapter2-multiple-test-cases-same-file
+    chapter2-test-suites
+    chapter2-nesting
+    chapter2-dont-test
+    chapter2-must-test
+)
+    addSimpleExample(${simple-example-name})
+endforeach(simple-example-name)
+
+addExample(chapter2-multiple-test-cases-multiple-files.out "chapter2-multiple-test-cases-1.cpp;chapter2-multiple-test-cases-2.cpp;chapter2-multiple-test-cases-3.cpp" illuminate-main "")
+
+addExample(chapter2-test-suite-multiple-files.out "chapter2-test-suite-multiple-files-1.cpp;chapter2-test-suite-multiple-files-2.cpp" illuminate-main "")
+#@+node:gcross.20110725161606.1417: *3* Reference
+foreach(simple-example-name
     reference-EQ-strings
     reference-ASSERT_EQ
     reference-EXPECT_EQ
@@ -116,6 +135,14 @@ foreach(simple-example-name
 
     reference-FAIL
     reference-FATALLY_FAIL
+
+    reference-TEST_CASE
+    reference-DONT_TEST_CASE
+    reference-MUST_TEST_CASE
+
+    reference-TEST_SUITE
+    reference-DONT_TEST_SUITE
+    reference-MUST_TEST_SUITE
 )
     addSimpleExample(${simple-example-name})
 endforeach(simple-example-name)
