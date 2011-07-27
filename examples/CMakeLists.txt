@@ -65,9 +65,9 @@ foreach(simple-example-name
     addSimpleExample(${simple-example-name})
 endforeach(simple-example-name)
 
-addExample(chapter2-multiple-test-cases-multiple-files.out "chapter2-multiple-test-cases-1.cpp;chapter2-multiple-test-cases-2.cpp;chapter2-multiple-test-cases-3.cpp" illuminate-main "")
-
-addExample(chapter2-test-suite-multiple-files.out "chapter2-test-suite-multiple-files-1.cpp;chapter2-test-suite-multiple-files-2.cpp" illuminate-main "")
+# Not enabled by default since the exact output is compiler-dependent.
+#addExample(chapter2-multiple-test-cases-multiple-files.out "chapter2-multiple-test-cases-1.cpp;chapter2-multiple-test-cases-2.cpp;chapter2-multiple-test-cases-3.cpp" illuminate-main "")
+#addExample(chapter2-test-suite-multiple-files.out "chapter2-test-suite-multiple-files-1.cpp;chapter2-test-suite-multiple-files-2.cpp" illuminate-main "")
 #@+node:gcross.20110725161606.1417: *3* Reference
 foreach(simple-example-name
     reference-EQ-strings
