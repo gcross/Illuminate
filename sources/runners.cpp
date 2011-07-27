@@ -102,7 +102,7 @@ void printTestTree(ColorCodes const& color_codes,ostream& out) {
 void runTestsAndPrintResults(ColorCodes const& color_codes, ostream& out) {
     PrinterResultVisitor visitor(Test::run,color_codes,out);
     getRoot().visit(visitor);
-    printTestFailureCount(visitor.number_of_failed_tests);
+    printTestFailureCount(visitor.number_of_failed_tests,color_codes,out);
 }
 //@+node:gcross.20101208142631.1684: *3* runTestsInThreadsAndPrintResults
 void runTestsInThreadsAndPrintResults(optional<unsigned int> const requested_number_of_workers, ColorCodes const& color_codes, ostream& out) {
