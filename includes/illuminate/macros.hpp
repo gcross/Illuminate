@@ -29,7 +29,7 @@
 //@+others
 //@+node:gcross.20101206142257.1405: ** Test declarations
 /*! \brief These macros define tests and test suites.
-    \defgroup DECLARATIONS Test declarations
+    \defgroup DECLARATIONS Declarations
     \details Note that in the name displayed to the user all the underscores will be replaced with spaces and then leading and trailing whitespace will be trimmed.
 */
 //@+node:gcross.20101206142257.1407: *3* TEST_CASE

@@ -37,7 +37,7 @@ namespace Illuminate {
 
 //@+others
 //@+node:gcross.20101208142631.1667: ** Functions
-/*! \defgroup TestRunners Test runners
+/*! \defgroup TestRunners Runners
     \brief A collection of functions that operate on the global test tree.
     @{
 */
