@@ -5,5 +5,5 @@ get_filename_component(_prefix "${_dir}/../.." ABSOLUTE)
 
 include("${_prefix}/lib/Illuminate-@version@/Illuminate-targets.cmake")
 
-set (Illuminate_INCLUDE_DIRS "${_prefix}/include/illuminate-@version@" @BOOST_INCLUDE_DIRS@)
+set (Illuminate_INCLUDE_DIRS "${_prefix}/${HEADER_INSTALLATION_DIRECTORY}" @BOOST_INCLUDE_DIRS@)
 #@-leo

@@ -20,6 +20,20 @@ if(${OFFLINE_HTML})
 else(${OFFLINE_HTML})
     set(USE_MATHJAX YES)
 endif(${OFFLINE_HTML})
+#@+node:gcross.20110730232122.1427: *3* Version Prefix
+set (INSTALL_IN_VERSIONED_SUBDIRECTORY
+    NO
+    CACHE BOOL
+    "If true, the installation directories are appended by a subdirectory labeled by the version number."
+    )
+
+if(${INSTALL_IN_VERSIONED_SUBDIRECTORY})
+    set(LIBRARY_INSTALLATION_DIRECTORY lib/Illuminate-${version})
+    set(HEADER_INSTALLATION_DIRECTORY include/illuminate-${version})
+else(${INSTALL_IN_VERSIONED_SUBDIRECTORY})
+    set(LIBRARY_INSTALLATION_DIRECTORY lib)
+    set(HEADER_INSTALLATION_DIRECTORY include)
+endif(${INSTALL_IN_VERSIONED_SUBDIRECTORY})
 #@-others
 #@-<< Settings >>
 

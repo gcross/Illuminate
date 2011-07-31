@@ -26,7 +26,7 @@ install (
     TARGETS
         illuminate
         illuminate-main
-    DESTINATION lib/Illuminate-${version}
+    DESTINATION ${LIBRARY_INSTALLATION_DIRECTORY}
     EXPORT Illuminate-targets
 )
 #@-leo
