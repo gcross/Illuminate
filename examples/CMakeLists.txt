@@ -38,6 +38,13 @@ endmacro(addSimpleExample)
 #@+<< Tests >>
 #@+node:gcross.20110715235201.1474: ** << Tests >>
 #@+others
+#@+node:gcross.20110730203014.1426: *3* Introduction
+foreach(simple-example-name
+    introduction-example
+)
+    addSimpleExample(${simple-example-name})
+endforeach(simple-example-name)
+
 #@+node:gcross.20110715235201.1487: *3* Chapter 1
 foreach(simple-example-name
     chapter1-simple-test

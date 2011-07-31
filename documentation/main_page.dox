@@ -1,0 +1,72 @@
+//@+leo-ver=5-thin
+//@+node:gcross.20110730203014.1424: * @file main_page.dox
+/*!
+
+\mainpage Introduction
+
+\section table_of_contents Table of Contents
+- \b Introduction
+- \subpage writing_tests
+- \subpage organizing_tests
+
+\section introduction Introduction
+
+- \ref introduction
+- \ref installation
+- \ref usage
+
+Illuminate is a test framework with the goal of making it fun to write and organize tests.  It boasts the following features:
+
+- minimal boilerplate code for defining test cases and suites
+- arbitrary nesting of test suites to form a hierarchy
+- a special mode to facilitate debugging with a debugger by terminating immediately upon failure in such a way as to preserve the call stack at the point of failure
+- multiple variants of each value comparison tests to allow customization of the value labels in the failure message
+- two variants of each check macro (ASSERT and EXPECT) that both do and do not abort the test case upon failure
+
+Of course, there are many test frameworks out there and I will not claim that Illuminate is the best in all situations;  however, I personally find it very pleasant to use in my own projects, and I think you may too.
+
+Here is an example of what tests written using Illuminate look like:
+
+\includelineno introduction-example.cpp
+
+The result of running the tests looks like this (but with optional colors on an ANSI terminal):
+
+\verbinclude introduction-example.cpp
+
+Two features in particular are illustrated in the example above.  First, defining test cases and test suites requires very boilerplate little code.  Second, test suites can be arbitrarily nested to form a hierarchy.
+
+\section installation Installation
+
+At the moment, the only way to install Illuminate is to build it from sources;  you will need CMake as well as 1.45 or greater of Boost.  If you want to build the documentation, you will need Doxygen.
+
+To build Illuminate, change to the directory where you unpacked it and type something like the following
+
+\code
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+\endcode
+
+\section usage Usage
+
+To use Illuminate, compile your test sources and link against the following libraries:
+
+- illuminate
+- illuminate-main
+- boost_thread
+- boost_program_options
+
+That is, do something like the following:
+
+\code
+g++ test.cpp -o test -lilluminate -lilluminate-main -lboost_thread -lboost_program_options
+\endcode
+
+If you want to implement the main() function yourself then do not link to \c illuminate-main.
+
+For more information on writing tests, see \ref writing_tests.  For more information on organizing tests, see \ref organizing_tests.
+
+*/
+//@-leo
