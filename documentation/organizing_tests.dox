@@ -4,9 +4,9 @@
 
 \page organizing_tests Organizing tests
 
-- \ref multiple_test_cases "Multiple test cases"
-- \ref test_suites "Test suites"
-- \ref nesting "Nesting"
+- \ref multiple_test_cases
+- \ref test_suites
+- \ref nesting
 */
 
 //@+others

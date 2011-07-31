@@ -4,15 +4,15 @@
 
 \page writing_tests Writing tests
 
-- \ref simple_test "A simple test"
-- \ref customizing_failure_messages "Customizing failure messages"
-    - \ref test_prefixes "Prefixes: EXPECT versus ASSERT"
-    - \ref test_suffixes "Bare versus VAL versus LABELED"
-- \ref performing_checks "Performing checks"
-    - \ref relation_checks "Relation checks"
-    - \ref approximate_equality_checks "Approximate equality checks"
-    - \ref boolean_checks "Boolean checks"
-    - \ref forced_failure "Forced failure"
+- \ref simple_test
+- \ref customizing_failure_messages
+    - \ref test_prefixes
+    - \ref test_suffixes
+- \ref performing_checks
+    - \ref relation_checks
+    - \ref approximate_equality_checks
+    - \ref boolean_checks
+    - \ref forced_failure
 */
 
 //@+others
