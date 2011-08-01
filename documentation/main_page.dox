@@ -37,7 +37,7 @@ Two features in particular are illustrated in the example above.  First, definin
 
 \section installation Installation
 
-At the moment, the only way to install Illuminate is to build it from sources;  you will need CMake as well as 1.45 or greater of Boost.  If you want to build the documentation, you will need Doxygen.
+At the moment, the only way to install Illuminate is to build it from sources;  you will need CMake as well as 1.42 or greater of Boost.  If you want to build the documentation, you will need Doxygen.
 
 To build Illuminate, change to the directory where you unpacked it and type something like the following
 

@@ -61,8 +61,7 @@ mark_as_advanced(
 
 #@+<< Configure Boost >>
 #@+node:gcross.20110430202346.1609: ** << Configure Boost >>
-SET(Boost_ADDITIONAL_VERSIONS "1.43" "1.43.0" "1.44" "1.44.0" "1.45" "1.45.0")
-find_package( Boost COMPONENTS thread program_options REQUIRED )
+find_package( Boost 1.42 COMPONENTS thread program_options REQUIRED )
 link_directories ( ${Boost_LIBRARY_DIRS} )
 include_directories ( ${Boost_INCLUDE_DIRS} )
 #@-<< Configure Boost >>
