@@ -37,9 +37,7 @@ public:
         //! queue of test tasks
         TestQueue const& queue,
         //! a mutex that should be locked to access the queue
-        boost::shared_ptr<boost::mutex> const& queue_mutex,
-        //! a value that signals the worker to halt when set to true
-        boost::shared_ptr<const bool> const& stop_signal
+        boost::shared_ptr<boost::mutex> const& queue_mutex
     );
     
     //! Run the worker.
@@ -49,8 +47,6 @@ protected:
     TestQueue queue;
     //! a mutex that is locked before accessing the test queue
     boost::shared_ptr<boost::mutex> queue_mutex;
-    //! a value that signals the worker to halt when set to true
-    boost::shared_ptr<const bool> stop_signal;
 };
 //@-others
 

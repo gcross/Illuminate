@@ -34,10 +34,9 @@ using boost::shared_ptr;
 //@+others
 //@+node:gcross.20101208142631.1536: ** class TestWorker
 //@+node:gcross.20101208142631.1537: *3* (constructors)
-TestWorker::TestWorker(TestQueue const& queue, shared_ptr<mutex> const& queue_mutex, shared_ptr<const bool> const& stop_signal)
+TestWorker::TestWorker(TestQueue const& queue, shared_ptr<mutex> const& queue_mutex)
     : queue(queue)
     , queue_mutex(queue_mutex)
-    , stop_signal(stop_signal)
 { }
 //@+node:gcross.20101208142631.1540: *3* operator()
 void TestWorker::operator()() {

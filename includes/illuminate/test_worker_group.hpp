@@ -42,8 +42,6 @@ protected:
     TestQueue queue;
     //! a mutex that must be locked before accessing the test queue
     boost::shared_ptr<boost::mutex> queue_mutex;
-    //! a value that signals the group of workers to halt when set to true
-    boost::shared_ptr<bool> stop_signal;
 public:
     //! futures providing the test results
     TestFutures futures;

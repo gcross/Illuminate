@@ -36,12 +36,10 @@ TestWorkerGroup::TestWorkerGroup(unsigned int const number_of_workers)
     : queue(new std::queue<TestTask>)
     , queue_mutex(new mutex)
     , futures(new vector<TestFuture>(getRoot().tests.size()))
-    , stop_signal(new bool)
 {
-    *stop_signal = false;
     enqueueTests(queue,futures);
     for(unsigned int i = 0; i < number_of_workers; ++i) {
-        workers.create_thread(TestWorker(queue,queue_mutex,stop_signal));
+        workers.create_thread(TestWorker(queue,queue_mutex));
     }
 }
 //@+node:gcross.20101208142631.1553: *3* (destructors)
