@@ -45,6 +45,8 @@ protected:
     /*! \param out the current output stream */
     IndentedOutputVisitor(std::ostream& out);
 
+    //! write spaces to produce the current level of indentation
+    void writeIndentation();
     //! write \c s with the current level of indentation
     void writeIndented(boost::format const& s);
     //! write \c s with the current level of indentation

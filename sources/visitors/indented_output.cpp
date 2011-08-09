@@ -48,15 +48,19 @@ void IndentedOutputVisitor::enter(Suite const& suite_) {
 void IndentedOutputVisitor::exit(Suite const& suite) {
     indentation -= 4;
 }
+//@+node:gcross.20110809112154.2068: *3* writeIndentation
+void IndentedOutputVisitor::writeIndentation() {
+    for(int i = 0; i < indentation; ++i) out << ' ';
+}
 //@+node:gcross.20101206161648.1571: *3* writeIndented
 void IndentedOutputVisitor::writeIndented(format const& s) {
-    for(int i = 0; i < indentation; ++i) out << ' ';
+    writeIndentation();
     out << s;
     out.flush();
 }
 
 void IndentedOutputVisitor::writeIndented(string const& s) {
-    for(int i = 0; i < indentation; ++i) out << ' ';
+    writeIndentation();
     out << s;
     out.flush();
 }
