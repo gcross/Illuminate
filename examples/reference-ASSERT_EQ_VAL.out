@@ -1,5 +1,5 @@
 Root:
-    ASSERT EQ VAL... FAILED :-(
+    ASSERT EQ VAL [#0]... FAILED :-(
         * example.cpp:5 - 2+2 <4> does not match the expected value <5>
 
 1 test failed.

@@ -23,6 +23,7 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101206161648.1549: ** << Includes >>
+#include <boost/format.hpp>
 #include <iostream>
 
 #include "../visitor.hpp"
@@ -45,7 +46,11 @@ protected:
     IndentedOutputVisitor(std::ostream& out);
 
     //! write \c s with the current level of indentation
+    void writeIndented(boost::format const& s);
+    //! write \c s with the current level of indentation
     void writeIndented(std::string const& s);
+    //! write \c s with the current level of indentation and a trailing newline character
+    void writeIndentedLine(boost::format const& s);
     //! write \c s with the current level of indentation and a trailing newline character
     void writeIndentedLine(std::string const& s);
 

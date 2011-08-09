@@ -29,7 +29,7 @@ Line 1 includes illuminate.hpp, line 3 defines a test case named "two_plus_two_e
 
 \include chapter1-simple-test.out
 
-Note that when printing out test names, underscores are converted to spaces.
+Note that when printing out test names, underscores are converted to spaces.  Next to each test is its id number, which depends on the static initialization order of your compiler/linker and not on the printed ordering of the tests.
 
 Whenever a non-trivial test passes on the first try, I like to intentionally break the code it is testing to see if that makes the test fail in order to make sure that I am not getting a false positive.  Following this philosophy, let's make a change that breaks our simple test from the last section:
 

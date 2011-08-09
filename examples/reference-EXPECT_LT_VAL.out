@@ -1,5 +1,5 @@
 Root:
-    EXPECT LT VAL... FAILED :-(
+    EXPECT LT VAL [#0]... FAILED :-(
         * example.cpp:5 - 2+2 <4> is greater than or equal to the expected strict upper bound <4>
         * example.cpp:6 - 2+2 <4> is greater than or equal to the expected strict upper bound <3>
 

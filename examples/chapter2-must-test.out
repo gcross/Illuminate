@@ -1,7 +1,7 @@
 Root:
     A:
         A2:
-            A2a... PASSED :-)
-        A1... PASSED :-)
+            A2a [#1]... PASSED :-)
+        A1 [#0]... PASSED :-)
 
 All tests passed!

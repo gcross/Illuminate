@@ -1,5 +1,5 @@
 Root:
-    ASSERT NEAR REL LABELED... FAILED :-(
+    ASSERT NEAR REL LABELED [#0]... FAILED :-(
         * example.cpp:6 - first value <2> does not match second value <8> within a relative tolerance of 1
 
 1 test failed.

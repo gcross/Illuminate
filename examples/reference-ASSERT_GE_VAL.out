@@ -1,5 +1,5 @@
 Root:
-    ASSERT GE VAL... FAILED :-(
+    ASSERT GE VAL [#0]... FAILED :-(
         * example.cpp:6 - 2+2 <4> is less than the expected lower bound <5>
 
 1 test failed.

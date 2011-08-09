@@ -1,5 +1,5 @@
 Root:
-    EXPECT GT... FAILED :-(
+    EXPECT GT [#0]... FAILED :-(
         * example.cpp:5 - 2+2 <4> is less than or equal to 2+2 <4>
         * example.cpp:6 - 1+1 <2> is less than or equal to 2+2 <4>
 

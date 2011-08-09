@@ -1,5 +1,5 @@
 Root:
-    EXPECT LE LABELED... FAILED :-(
+    EXPECT LE LABELED [#0]... FAILED :-(
         * example.cpp:6 - first value <2> is greater than second value <1>
         * example.cpp:7 - first value <2> is greater than second value <0>
 

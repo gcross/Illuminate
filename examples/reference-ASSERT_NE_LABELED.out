@@ -1,5 +1,5 @@
 Root:
-    ASSERT NE LABELED... FAILED :-(
+    ASSERT NE LABELED [#0]... FAILED :-(
         * example.cpp:5 - first value <1> matches second value <1>
 
 1 test failed.

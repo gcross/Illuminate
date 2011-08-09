@@ -1,5 +1,5 @@
 Root:
-    two plus two test... FAILED :-(
+    two plus two test [#0]... FAILED :-(
         * example.cpp:5 - 2+2 <4> does not match the expected value <3>
         * example.cpp:9 - 2+2 <4> is greater than the expected upper bound <3>
         * example.cpp:10 - 2+2 <4> is greater than or equal to the expected strict upper bound <3>

@@ -1,5 +1,5 @@
 Root:
-    EXPECT NEAR REL LABELED... FAILED :-(
+    EXPECT NEAR REL LABELED [#0]... FAILED :-(
         * example.cpp:6 - first value <2> does not match second value <8> within a relative tolerance of 1
         * example.cpp:7 - first value <2> does not match second value <10> within a relative tolerance of 1
 

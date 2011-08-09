@@ -1,5 +1,5 @@
 Root:
-    EXPECT NE LABELED... FAILED :-(
+    EXPECT NE LABELED [#0]... FAILED :-(
         * example.cpp:5 - first value <1> matches second value <1>
         * example.cpp:6 - first value <0> matches second value <0>
 

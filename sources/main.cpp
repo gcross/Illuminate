@@ -44,7 +44,8 @@ int main(int argc, char** argv) {
     // Declare the supported options.
     po::options_description desc("Allowed options");
     desc.add_options()
-        ("help", "produce help message\n")
+        ("help", "produce help message and then exit\n")
+        ("list,l", "output the list of tests and then exit\n")
         ("color,c", po::value<Coloring>(),
             "coloring style\n"
             "\n"
@@ -117,6 +118,11 @@ int main(int argc, char** argv) {
             ? cout
             : file
     ;
+
+    if(vm.count("list")) {
+        printTestTree(color_codes,out);
+        return 1;
+    }
 
     if (vm.count("fatal")) {
         Test::abort_mode = vm["fatal"].as<AbortMode>();

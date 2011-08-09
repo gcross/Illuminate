@@ -16,6 +16,7 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101208142631.1636: ** << Includes >>
+#include <boost/format.hpp>
 #include <ostream>
 
 #include "illuminate/runners.hpp"
@@ -29,6 +30,7 @@ namespace Illuminate {
 
 //@+<< Usings >>
 //@+node:gcross.20101208142631.1637: ** << Usings >>
+using boost::format;
 using boost::optional;
 using boost::promise;
 using boost::thread;
@@ -94,7 +96,15 @@ void printTestTree(ColorCodes const& color_codes,ostream& out) {
             writeIndentedLine(color_codes.suite + suite.name + ":" + color_codes.reset);
         }
         virtual void test(Test const& test) {
-            writeIndentedLine(color_codes.test + test.name + (test.skipped ? " (skipped)" : "") + color_codes.reset);
+            writeIndentedLine(
+                (format("%1%%2% [#%3%] %4%%5%")
+                    % color_codes.test
+                    % test.name
+                    % test.id
+                    % (test.skipped ? " (skipped)" : "")
+                    % color_codes.reset
+                ).str()
+            );
         }
     } visitor(color_codes,out);
     getRoot().visit(visitor);

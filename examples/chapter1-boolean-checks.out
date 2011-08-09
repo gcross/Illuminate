@@ -1,5 +1,5 @@
 Root:
-    two plus two test... FAILED :-(
+    two plus two test [#0]... FAILED :-(
         * example.cpp:5 - 2+2==5 is not true
         * example.cpp:6 - 2+2==4 is not false
 

@@ -1,5 +1,5 @@
 Root:
-    FAIL... FAILED :-(
+    FAIL [#0]... FAILED :-(
         * example.cpp:4 - First failure message.
         * example.cpp:5 - Second failure message.
 

@@ -25,6 +25,8 @@ namespace Illuminate {
 
 //@+<< Usings >>
 //@+node:gcross.20101206161648.1564: ** << Usings >>
+using boost::format;
+
 using std::endl;
 using std::ostream;
 using std::string;
@@ -47,12 +49,24 @@ void IndentedOutputVisitor::exit(Suite const& suite) {
     indentation -= 4;
 }
 //@+node:gcross.20101206161648.1571: *3* writeIndented
+void IndentedOutputVisitor::writeIndented(format const& s) {
+    for(int i = 0; i < indentation; ++i) out << ' ';
+    out << s;
+    out.flush();
+}
+
 void IndentedOutputVisitor::writeIndented(string const& s) {
     for(int i = 0; i < indentation; ++i) out << ' ';
     out << s;
     out.flush();
 }
 //@+node:gcross.20101206161648.1573: *3* writeIndentedLine
+void IndentedOutputVisitor::writeIndentedLine(format const& s) {
+    writeIndented(s);
+    out << endl;
+    out.flush();
+}
+
 void IndentedOutputVisitor::writeIndentedLine(string const& s) {
     writeIndented(s);
     out << endl;

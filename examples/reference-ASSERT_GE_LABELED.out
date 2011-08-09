@@ -1,5 +1,5 @@
 Root:
-    ASSERT GE LABELED... FAILED :-(
+    ASSERT GE LABELED [#0]... FAILED :-(
         * example.cpp:6 - first value <1> is less than second value <2>
 
 1 test failed.

@@ -25,6 +25,8 @@ namespace Illuminate {
 
 //@+<< Usings >>
 //@+node:gcross.20110203224841.1962: ** << Usings >>
+using boost::format;
+
 using std::endl;
 using std::ostream;
 using std::string;
@@ -49,11 +51,24 @@ void PrinterResultVisitor::suite(Suite const& suite) {
 }
 //@+node:gcross.20110222194651.1593: *3* testSkipped
 void PrinterResultVisitor::testSkipped(Test const& test) {
-    writeIndentedLine(color_codes.test + test.name + "... " + color_codes.skip + "(skipped)" + color_codes.reset);
+    writeIndentedLine(
+        format("%1%%2% [#%3%]... %4%(skipped)%5%")
+            % color_codes.test
+            % test.name
+            % test.id
+            % color_codes.skip
+            % color_codes.reset
+    );
 }
 //@+node:gcross.20110203224841.1966: *3* testStarted
 void PrinterResultVisitor::testStarted(Test const& test) {
-    writeIndented(color_codes.test + test.name + "... " + color_codes.reset);
+    writeIndented(
+        format("%1%%2% [#%3%]... %4%")
+            % color_codes.test
+            % test.name
+            % test.id
+            % color_codes.reset
+    );
 }
 //@+node:gcross.20110203224841.1967: *3* testPassed
 void PrinterResultVisitor::testPassed(Test const& test) {

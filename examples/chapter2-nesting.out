@@ -2,10 +2,10 @@ Root:
     A:
         A2:
             A2a:
-                A2a1... PASSED :-)
-                A2a2... PASSED :-)
-            A2b... PASSED :-)
-        A1... PASSED :-)
-    B... PASSED :-)
+                A2a1 [#1]... PASSED :-)
+                A2a2 [#2]... PASSED :-)
+            A2b [#3]... PASSED :-)
+        A1 [#0]... PASSED :-)
+    B [#4]... PASSED :-)
 
 All tests passed!

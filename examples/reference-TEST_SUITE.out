@@ -2,8 +2,8 @@ Root:
     Parent:
         Child2:
             Grandchild21:
-                Greatgrandchild211... PASSED :-)
-            Grandchild22... PASSED :-)
-        Child1... PASSED :-)
+                Greatgrandchild211 [#1]... PASSED :-)
+            Grandchild22 [#2]... PASSED :-)
+        Child1 [#0]... PASSED :-)
 
 All tests passed!

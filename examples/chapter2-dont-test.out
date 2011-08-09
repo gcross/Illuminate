@@ -1,6 +1,6 @@
 Root:
     A:
-        A1... (skipped)
-    B... (skipped)
+        A1 [#0]... (skipped)
+    B [#1]... (skipped)
 
 All tests passed!

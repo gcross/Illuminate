@@ -1,5 +1,5 @@
 Root:
-    two plus two equals many test... FAILED :-(
+    two plus two equals many test [#0]... FAILED :-(
         * example.cpp:4 - 2+2 <4> does not match the expected value <1>
 
 1 test failed.
