@@ -34,6 +34,7 @@ using std::ios_base;
 using std::ofstream;
 using std::ostream;
 using std::string;
+using std::vector;
 
 using namespace Illuminate;
 //@-<< Includes >>
@@ -75,6 +76,11 @@ int main(int argc, char** argv) {
             "If this value is zero, then the number of threads is equal to the detected number of hardware capabilities.\n\n"
             "If this value is one (the default), then no threads are spawned but rather the tests are run in the main thread (which can make it easier to analyze stack traces).\n\n"
             "Note that using multiple threads can cause problems if your code (or a library on which it relies) is not thread-safe.\n"
+        )
+        ("id,i", po::value<vector<unsigned int> >()->composing(),
+            "test ids to run\n\n"
+            "If this value is specified one or more times, then instead of running the whole suite the tests with the given numbers will be run in the main thread.\n\n"
+            "Note that if this value is present then the value of -n is ignored.\n"
         )
     ;
 
@@ -126,6 +132,11 @@ int main(int argc, char** argv) {
 
     if (vm.count("fatal")) {
         Test::abort_mode = vm["fatal"].as<AbortMode>();
+    }
+
+    if(vm.count("id")) {
+        runTestsWithIdsAndPrintResults(vm["id"].as<vector<unsigned int> >(),color_codes,out);
+        return 0;
     }
 
     unsigned int const number_of_threads = vm["threads"].as<unsigned int>();

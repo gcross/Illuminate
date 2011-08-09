@@ -24,6 +24,7 @@
 //@+<< Includes >>
 //@+node:gcross.20101205182001.2569: ** << Includes >>
 #include <boost/any.hpp>
+#include <boost/format.hpp>
 #include <boost/function.hpp>
 #include <boost/optional.hpp>
 #include <boost/program_options.hpp>
@@ -155,6 +156,8 @@ class Suite : public Node {
     \param visitor the visitor to apply to this suite
     */
     void visit(Visitor& visitor) const;
+
+    boost::format constructPath() const;
     //@-others
 };
 //@+node:gcross.20101206104532.1407: *3* Root
@@ -194,6 +197,8 @@ class Root : public Suite {
     \return a reference to the test with the given id
     */
     Test const& lookupTest(unsigned int id) const;
+
+    unsigned int numberOfTests() const;
     //@-others
 };
 //@+node:gcross.20101205182001.2592: *3* Test
@@ -303,6 +308,8 @@ class Test : public Node {
 
     //! Run \c test and return the result.
     static TestResult run(Test const& test);
+
+    boost::format constructPath() const;
     //@-others
 };
 //@-others

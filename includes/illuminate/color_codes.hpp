@@ -83,6 +83,9 @@ struct ColorCodes {
     //! Constructs the suite entered string using appropriate color codes.
     boost::format suiteEntered(Suite const& suite) const;
 
+    //! Constructs the test path string using appropriate color codes.
+    boost::format testPath(Test const& test) const;
+
     //! Constructs the test name string using appropriate color codes.
     boost::format testName(Test const& test) const;
 

@@ -26,6 +26,7 @@ namespace Illuminate {
 
 //@+<< Usings >>
 //@+node:gcross.20101205182001.1314: ** << Usings >>
+using boost::format;
 using boost::optional;
 
 using std::string;
@@ -37,6 +38,10 @@ using std::string;
 Suite::Suite(string const& name, optional<Suite const&> const parent, optional<bool> const skipped)
     : Node(name,parent,skipped)
 { }
+//@+node:gcross.20110809112154.2074: *3* constructPath
+boost::format Suite::constructPath() const {
+    return format("%1%/") % name;
+}
 //@+node:gcross.20101205182001.1319: *3* lookupSuite
 Suite& Suite::lookupSuite(string const& name,optional<bool> const skipped) {
     BOOST_FOREACH(Suite& suite, nested_suites) {

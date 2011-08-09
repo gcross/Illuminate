@@ -33,6 +33,7 @@ namespace Illuminate {
 //@+node:gcross.20101205182001.1420: ** << Usings >>
 using boost::any;
 using boost::equals;
+using boost::format;
 using boost::function;
 using boost::optional;
 using boost::program_options::invalid_option_value;
@@ -67,6 +68,10 @@ string Test::annotateFailureMessage(char const* filename, int const line_number,
     stringstream annotated_message;
     annotated_message << filename << ':' << line_number << " - " << message;
     return annotated_message.str();
+}
+//@+node:gcross.20110809112154.2072: *3* constructPath
+boost::format Test::constructPath() const {
+    return format("%1%%2%") % parent->constructPath() % name;
 }
 //@+node:gcross.20110222132831.1570: *3* countFailures
 unsigned int Test::countFailures() {

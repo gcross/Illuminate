@@ -1,8 +1,8 @@
 //@+leo-ver=5-thin
-//@+node:gcross.20101206104532.1395: * @file root.cpp
+//@+node:gcross.20110809112154.2422: * @file exceptions.cpp
 //@@language cplusplus
 //@+<< License >>
-//@+node:gcross.20110222175650.1654: ** << License >>
+//@+node:gcross.20110809112154.2424: ** << License >>
 //@+at
 // ISC License (http://www.opensource.org/licenses/isc-license)
 // 
@@ -15,41 +15,35 @@
 //@-<< License >>
 
 //@+<< Includes >>
-//@+node:gcross.20101206104532.1396: ** << Includes >>
-#include "illuminate/test_tree.hpp"
+//@+node:gcross.20110809112154.2426: ** << Includes >>
+#include <boost/format.hpp>
+
+#include "illuminate/exceptions.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {
 
 //@+<< Usings >>
-//@+node:gcross.20101206104532.1397: ** << Usings >>
+//@+node:gcross.20110809112154.2428: ** << Usings >>
 using boost::format;
-using boost::none;
+
+using std::exception;
+using std::string;
 //@-<< Usings >>
 
 //@+others
-//@+node:gcross.20101206104532.1398: ** class Root
-//@+node:gcross.20101206104532.1399: *3* (constructors)
-Root::Root() : Suite("Root",none) { }
-//@+node:gcross.20110809112154.2049: *3* lookupTest
-Test const& Root::lookupTest(unsigned int id) const {
-    return *tests[id];
+//@+node:gcross.20110809112154.2431: ** Exceptions
+//@+node:gcross.20110809112154.2432: *3* TestIdTooLargeException
+TestIdTooLargeException::TestIdTooLargeException(unsigned int test_id, unsigned int maximum_test_id)
+  : test_id(test_id)
+  , maximum_test_id(maximum_test_id)
+  , message((format("No such test id %1% (%1% > %2%).") % test_id % maximum_test_id).str())
+{}
+
+char const* TestIdTooLargeException::what() const throw() {
+    return message.c_str();
 }
-//@+node:gcross.20101206104532.1401: *3* registerTest
-unsigned int Root::registerTest(Test* const test) {
-    unsigned int const test_id = tests.size();
-    tests.push_back(test);
-    return test_id;
-}
-//@+node:gcross.20110809112154.2410: *3* numberOfTests
-unsigned int Root::numberOfTests() const {
-    return tests.size();
-}
-//@+node:gcross.20101206104532.1406: ** getRoot
-Root& getRoot() {
-    static Root root;
-    return root;
-}
+TestIdTooLargeException::~TestIdTooLargeException() throw() {}
 //@-others
 
 }

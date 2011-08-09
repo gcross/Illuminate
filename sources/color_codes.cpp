@@ -93,6 +93,15 @@ format ColorCodes::testName(Test const& t) const {
         % reset
     ;
 }
+//@+node:gcross.20110809112154.2080: *3* testPath
+format ColorCodes::testPath(Test const& t) const {
+    return format("%1%%2% [#%3%]%4%")
+        % test
+        % t.constructPath()
+        % t.id
+        % reset
+    ;
+}
 //@+node:gcross.20110809112154.2077: *3* testNameAndSkipped
 format ColorCodes::testNameAndSkipped(Test const& t) const {
     return format("%1%%2% [#%3%] %4%%5%")

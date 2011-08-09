@@ -30,6 +30,7 @@
 <v t="gcross.20101206142257.1466"><vh>@file illuminate.hpp</vh></v>
 <v t="gcross.20101206142257.1387"><vh>@path illuminate</vh>
 <v t="gcross.20110203233241.1528"><vh>@file color_codes.hpp</vh></v>
+<v t="gcross.20110809112154.2413"><vh>@file exceptions.hpp</vh></v>
 <v t="gcross.20110601121230.1627"><vh>@file future.hpp</vh></v>
 <v t="gcross.20101206142257.1399"><vh>@file macros.hpp</vh></v>
 <v t="gcross.20101208142631.1623"><vh>@file runners.hpp</vh></v>
@@ -53,6 +54,7 @@
 <v t="gcross.20101205182001.1274"><vh>@path sources</vh>
 <v t="gcross.20101205182001.1278"><vh>@file CMakeLists.txt</vh></v>
 <v t="gcross.20110203233241.1536"><vh>@file color_codes.cpp</vh></v>
+<v t="gcross.20110809112154.2422"><vh>@file exceptions.cpp</vh></v>
 <v t="gcross.20101206161648.1606"><vh>@file main.cpp</vh></v>
 <v t="gcross.20101205182001.1356"><vh>@file node.cpp</vh></v>
 <v t="gcross.20101206104532.1395"><vh>@file root.cpp</vh></v>

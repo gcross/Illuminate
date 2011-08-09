@@ -16,7 +16,11 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101208142631.1636: ** << Includes >>
+#include <boost/foreach.hpp>
 #include <boost/format.hpp>
+#include <boost/lambda/lambda.hpp>
+#include <boost/range/algorithm/remove_copy_if.hpp>
+#include <iterator>
 #include <ostream>
 
 #include "illuminate/runners.hpp"
@@ -31,15 +35,21 @@ namespace Illuminate {
 //@+<< Usings >>
 //@+node:gcross.20101208142631.1637: ** << Usings >>
 using boost::format;
+namespace lambda = boost::lambda;
 using boost::optional;
 using boost::promise;
+using boost::remove_copy_if;
+using boost::shared_ptr;
 using boost::thread;
 using boost::unique_future;
 
+using std::back_inserter;
 using std::endl;
 using std::make_pair;
 using std::max;
+using std::string;
 using std::ostream;
+using std::vector;
 //@-<< Usings >>
 
 //@+others
@@ -111,6 +121,40 @@ void runTestsInThreadsAndPrintResults(optional<unsigned int> const requested_num
             ;
     TestWorkerGroup workers(number_of_workers);
     printTestFutures(workers.futures,color_codes,out);
+}
+//@+node:gcross.20110809112154.2053: *3* runTestsWithIdsAndPrintResults
+void runTestsWithIdsAndPrintResults(vector<unsigned int> const& test_ids, ColorCodes const& color_codes, ostream& out) {
+    Root const& root = getRoot();
+    vector<unsigned int> bad_test_ids;
+    remove_copy_if(test_ids,back_inserter(bad_test_ids),lambda::_1 < root.numberOfTests());
+    switch(bad_test_ids.size()) {
+        case 0: break;
+        case 1:
+            out << "Bad test id: " << bad_test_ids[0] << endl;
+            return;
+        default:
+            out << "Bad test ids:" << endl;
+            BOOST_FOREACH(unsigned int const bad_test_id, bad_test_ids) {
+                out << "    " << bad_test_id << endl;
+            }
+            return;
+    }
+    unsigned int number_of_failed_tests = 0;
+    BOOST_FOREACH(unsigned int const test_id, test_ids) {
+        Test const& test = root.lookupTest(test_id);
+        out << format("%1%%2%") % color_codes.testPath(test) % color_codes.testStarted();
+        shared_ptr<vector<string> > failures = test();
+        if(failures->size() == 0) {
+            out << color_codes.passed() << endl;
+        } else {
+            ++number_of_failed_tests;
+            out << color_codes.failed() << endl;
+            BOOST_FOREACH(const string& m, *failures) {
+                out << color_codes.failure(m) << endl;
+            }
+        }
+    }
+    printTestFailureCount(number_of_failed_tests);
 }
 //@-others
 

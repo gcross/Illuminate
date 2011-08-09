@@ -2,6 +2,7 @@
 #@+node:gcross.20101205182001.1278: * @file CMakeLists.txt
 add_library(illuminate
     color_codes
+    exceptions
     node
     suite
     root

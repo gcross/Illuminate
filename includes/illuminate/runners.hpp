@@ -101,6 +101,16 @@ void runTestsInThreadsAndPrintResults(
     //! the output device to which the test results should be printed
     std::ostream& out=std::cout
 );
+//@+node:gcross.20110809112154.2055: *3* runTestsWithIdsAndPrintResults
+//! Runs the specified tests (in the main thread) and prints the results
+void runTestsWithIdsAndPrintResults(
+    //! the ids of the tests to run
+    std::vector<unsigned int> const& test_ids,
+    //! the color code escape sequences to use when printing the test results
+    Illuminate::ColorCodes const& color_codes=Illuminate::ColorCodes::ANSI,
+    //! the output device to which the test results should be printed
+    std::ostream& out=std::cout
+);
 //@-others
 
 //! @}
