@@ -47,38 +47,25 @@ PrinterResultVisitor::PrinterResultVisitor(
 { }
 //@+node:gcross.20110203224841.1965: *3* suite
 void PrinterResultVisitor::suite(Suite const& suite) {
-    writeIndentedLine(color_codes.suite + suite.name + ":" + color_codes.reset);
+    writeIndentedLine(color_codes.suiteEntered(suite));
 }
 //@+node:gcross.20110222194651.1593: *3* testSkipped
 void PrinterResultVisitor::testSkipped(Test const& test) {
-    writeIndentedLine(
-        format("%1%%2% [#%3%]... %4%(skipped)%5%")
-            % color_codes.test
-            % test.name
-            % test.id
-            % color_codes.skip
-            % color_codes.reset
-    );
+    writeIndentedLine(format("%1%%2%") % color_codes.testName(test) % color_codes.testSkipped());
 }
 //@+node:gcross.20110203224841.1966: *3* testStarted
 void PrinterResultVisitor::testStarted(Test const& test) {
-    writeIndented(
-        format("%1%%2% [#%3%]... %4%")
-            % color_codes.test
-            % test.name
-            % test.id
-            % color_codes.reset
-    );
+    writeIndented(format("%1%%2%") % color_codes.testName(test) % color_codes.testStarted());
 }
 //@+node:gcross.20110203224841.1967: *3* testPassed
 void PrinterResultVisitor::testPassed(Test const& test) {
-    out << color_codes.pass << "PASSED :-)" << color_codes.reset << endl;  out.flush();
+    out << color_codes.passed() << endl; out.flush();
 }
 //@+node:gcross.20110203224841.1968: *3* testFailed
-void PrinterResultVisitor::testFailed(Test const& test, vector<string> const& failures) { 
-    out << color_codes.fail << "FAILED :-(" << color_codes.reset << endl;
+void PrinterResultVisitor::testFailed(Test const& test, vector<string> const& failures) {
+    out << color_codes.failed() << endl;
     BOOST_FOREACH(const string& m, failures) {
-        writeIndentedLine(color_codes.fail + "    * " + m + color_codes.reset);
+        writeIndentedLine(color_codes.failure(m));
     }
 }
 //@-others

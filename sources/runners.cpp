@@ -71,12 +71,7 @@ void printTestFailureCount(
     ColorCodes const& color_codes,
     ostream& out
 ) {
-    out << endl;
-    switch(number_of_failed_tests) {
-        case 0:  out << color_codes.pass << "All tests passed!" << color_codes.reset << endl;  break;
-        case 1:  out << color_codes.fail << "1 test failed."    << color_codes.reset << endl;  break;
-        default: out << color_codes.fail << number_of_failed_tests << " tests failed." << color_codes.reset << endl;  break;
-    }
+    out << endl << color_codes.numberOfFailedTests(number_of_failed_tests) << endl;
 }
 //@+node:gcross.20101208142631.1680: *3* printTestFutures
 void printTestFutures(TestFutures const& futures,ColorCodes const& color_codes,ostream& out) {
@@ -96,15 +91,7 @@ void printTestTree(ColorCodes const& color_codes,ostream& out) {
             writeIndentedLine(color_codes.suite + suite.name + ":" + color_codes.reset);
         }
         virtual void test(Test const& test) {
-            writeIndentedLine(
-                (format("%1%%2% [#%3%] %4%%5%")
-                    % color_codes.test
-                    % test.name
-                    % test.id
-                    % (test.skipped ? " (skipped)" : "")
-                    % color_codes.reset
-                ).str()
-            );
+            writeIndentedLine(color_codes.testNameAndSkipped(test));
         }
     } visitor(color_codes,out);
     getRoot().visit(visitor);

@@ -24,11 +24,19 @@
 //@+<< Includes >>
 //@+node:gcross.20110203233241.1529: ** << Includes >>
 #include <boost/any.hpp>
+#include <boost/format.hpp>
+#include <iosfwd>
 #include <string>
 #include <vector>
 //@-<< Includes >>
 
 namespace Illuminate {
+
+//@+<< Forward declarations >>
+//@+node:gcross.20110809112154.2063: ** << Forward declarations >>
+class Suite;
+class Test;
+//@-<< Forward declarations >>
 
 //@+others
 //@+node:gcross.20110203233241.1531: ** struct ColorCodes
@@ -59,6 +67,33 @@ struct ColorCodes {
     Suites are white, test cases are yellow, passes are green, failures are red, skips are purple.
     */
     static const ColorCodes ANSI;
+
+    //! Constructs PASSED :-) using the appropriate color codes.
+    boost::format passed() const;
+
+    //! Constructs FAILED :-( using the appropriate color codes.
+    boost::format failed() const;
+
+    //! Constructs the given failure message using appropriate color codes.
+    boost::format failure(std::string const& m) const;
+
+    //! Constructs the number of tests message using appropriate color codes.
+    boost::format numberOfFailedTests(unsigned int number_of_failed_tests) const;
+
+    //! Constructs the suite entered string using appropriate color codes.
+    boost::format suiteEntered(Suite const& suite) const;
+
+    //! Constructs the test name string using appropriate color codes.
+    boost::format testName(Test const& test) const;
+
+    //! Constructs the test name (with (skipped) if appropriate) string using appropriate color codes.
+    boost::format testNameAndSkipped(Test const& test) const;
+
+    //! Constructs the test skipped string using appropriate color codes.
+    boost::format testSkipped() const;
+
+    //! Constructs the test started string using appropriate color codes.
+    boost::format testStarted() const;
 };
 //@+node:gcross.20110204202041.1563: ** enum Coloring
 //! Built-in supported color codes.
