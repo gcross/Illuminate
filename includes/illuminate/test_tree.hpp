@@ -186,7 +186,7 @@ class Root : public Suite {
     \param test a pointer to the test case
     \return a unique integer identifier for the test
     */
-    int registerTest(Test* test);
+    unsigned int registerTest(Test* test);
     //@-others
 };
 //@+node:gcross.20101205182001.2592: *3* Test
@@ -197,7 +197,7 @@ class Test : public Node {
     public:
 
     //! The unique identifier of the test.
-    int const id;
+    unsigned int const id;
 
     //! The code that performs the test.
     boost::function<void ()> const runner;
