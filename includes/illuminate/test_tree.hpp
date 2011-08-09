@@ -187,6 +187,13 @@ class Root : public Suite {
     \return a unique integer identifier for the test
     */
     unsigned int registerTest(Test* test);
+
+    //! Returns a reference to the test with the given id.
+    /*!
+    \param id the test id
+    \return a reference to the test with the given id
+    */
+    Test const& lookupTest(unsigned int id) const;
     //@-others
 };
 //@+node:gcross.20101205182001.2592: *3* Test

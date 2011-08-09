@@ -34,7 +34,7 @@ namespace Illuminate {
 //@+others
 //@+node:gcross.20110601121230.1632: ** Type aliases
 //! A task that runs a test to obtain its result.
-typedef boost::shared_ptr<boost::packaged_task<TestResult> > TestTask;
+typedef std::pair<unsigned int, boost::shared_ptr<boost::promise<TestResult> > > TestTask;
 
 //! A queue of test tasks.
 typedef boost::shared_ptr<std::queue<TestTask> > TestQueue;

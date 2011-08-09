@@ -30,11 +30,12 @@ namespace Illuminate {
 //@+<< Usings >>
 //@+node:gcross.20101208142631.1637: ** << Usings >>
 using boost::optional;
-using boost::packaged_task;
+using boost::promise;
 using boost::thread;
 using boost::unique_future;
 
 using std::endl;
+using std::make_pair;
 using std::max;
 using std::ostream;
 //@-<< Usings >>
@@ -50,9 +51,9 @@ void enqueueTests(TestQueue const& queue, TestFutures const& futures, Suite cons
         virtual void exit(Suite const& _) {}
         virtual void test(Test const& test) {
             if(!test.skipped) {
-                TestTask task(new packaged_task<TestResult>(test));
+                TestTask task(make_pair(test.id,new promise<TestResult>()));
                 TestFuture future(new unique_future<TestResult>);
-                (*future) = task->get_future();
+                (*future) = task.second->get_future();
                 (*futures)[test.id] = future;
                 queue->push(task);
             }

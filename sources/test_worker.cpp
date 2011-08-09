@@ -40,6 +40,7 @@ TestWorker::TestWorker(TestQueue const& queue, shared_ptr<mutex> const& queue_mu
 { }
 //@+node:gcross.20101208142631.1540: *3* operator()
 void TestWorker::operator()() {
+    Root const& root = getRoot();
     while(!this_thread::interruption_requested()) {
         TestTask task;
         {
@@ -51,7 +52,7 @@ void TestWorker::operator()() {
                 queue->pop();
             }
         }
-        (*task)();
+        task.second->set_value(root.lookupTest(task.first)());
     }
 }
 //@-others
