@@ -61,7 +61,7 @@ mark_as_advanced(
 
 #@+<< Configure Boost >>
 #@+node:gcross.20110430202346.1609: ** << Configure Boost >>
-find_package( Boost 1.42 COMPONENTS thread program_options REQUIRED )
+find_package( Boost 1.42 COMPONENTS serialization system thread program_options REQUIRED )
 link_directories ( ${Boost_LIBRARY_DIRS} )
 include_directories ( ${Boost_INCLUDE_DIRS} )
 #@-<< Configure Boost >>

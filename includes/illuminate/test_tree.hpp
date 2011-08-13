@@ -69,7 +69,7 @@ If the vector is empty, then the test is deemed to have passed.  Otherwise, the 
 */
 typedef boost::shared_ptr<std::vector<std::string> > TestResult;
 //! Function which fetches the result of a test.
-typedef boost::function<TestResult (Test const&)> TestResultFetcher;
+typedef boost::function<TestResult (unsigned int)> TestResultFetcher;
 //@+node:gcross.20110204202041.1558: ** Enums
 //! A setting that specifies what kind of failure (if any) will cause the test program to abort.
 /*!
@@ -306,8 +306,8 @@ class Test : public Node {
     */
     TestResult operator()() const;
 
-    //! Run \c test and return the result.
-    static TestResult run(Test const& test);
+    //! Run the test with the given id and return the result.
+    static TestResult run(unsigned int test_id);
 
     boost::format constructPath() const;
     //@-others

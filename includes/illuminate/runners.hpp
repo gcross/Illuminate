@@ -89,17 +89,21 @@ void runTestsAndPrintResults(
     //! the color code escape sequences to use when printing the test results
     Illuminate::ColorCodes const& color_codes=Illuminate::ColorCodes::ANSI,
     //! the output device to which the test results should be printed
-    std::ostream& out=std::cout
+    std::ostream& out=std::cout,
+    //! the fetcher to use for obtaining test results
+    TestResultFetcher fetchResult=Test::run
 );
-//@+node:gcross.20110601121230.1634: *3* runTestsInThreadsAndPrintResults
+//@+node:gcross.20110601121230.1634: *3* runTestsInWorkersAndPrintResults
 //! Runs the test suite in possibly multiple threads and prints the results
-void runTestsInThreadsAndPrintResults(
+void runTestsInWorkersAndPrintResults(
     //! The (optional) number of worker threads to spawn;  if none, then the main thread is used.
     boost::optional<unsigned int> const requested_number_of_workers=boost::none,
     //! the color code escape sequences to use when printing the test results
     Illuminate::ColorCodes const& color_codes=Illuminate::ColorCodes::ANSI,
     //! the output device to which the test results should be printed
-    std::ostream& out=std::cout
+    std::ostream& out=std::cout,
+    //! the fetcher to use for obtaining test results
+    TestResultFetcher fetchResult=Test::run
 );
 //@+node:gcross.20110809112154.2055: *3* runTestsWithIdsAndPrintResults
 //! Runs the specified tests (in the main thread) and prints the results
@@ -109,7 +113,9 @@ void runTestsWithIdsAndPrintResults(
     //! the color code escape sequences to use when printing the test results
     Illuminate::ColorCodes const& color_codes=Illuminate::ColorCodes::ANSI,
     //! the output device to which the test results should be printed
-    std::ostream& out=std::cout
+    std::ostream& out=std::cout,
+    //! the fetcher to use for obtaining test results
+    TestResultFetcher fetchResult=Test::run
 );
 //@-others
 

@@ -32,14 +32,17 @@ using std::vector;
 //@+others
 //@+node:gcross.20101208142631.1550: ** class TestWorkerGroup
 //@+node:gcross.20101208142631.1551: *3* (constructors)
-TestWorkerGroup::TestWorkerGroup(unsigned int const number_of_workers)
+TestWorkerGroup::TestWorkerGroup(
+    unsigned int const number_of_workers,
+    TestResultFetcher fetchResult
+)
     : queue(new std::queue<TestTask>)
     , queue_mutex(new mutex)
     , futures(new vector<TestFuture>(getRoot().tests.size()))
 {
     enqueueTests(queue,futures);
     for(unsigned int i = 0; i < number_of_workers; ++i) {
-        workers.create_thread(TestWorker(queue,queue_mutex));
+        workers.create_thread(TestWorker(queue,queue_mutex,fetchResult));
     }
 }
 //@+node:gcross.20101208142631.1553: *3* (destructors)

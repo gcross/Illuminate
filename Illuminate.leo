@@ -19,6 +19,7 @@
 </v>
 <v t="gcross.20110626224331.1448"><vh>@path examples</vh>
 <v t="gcross.20110626224331.2628"><vh>@file CMakeLists.txt</vh></v>
+<v t="gcross.20110809112154.2492"><vh>@file tests-slave.cpp</vh></v>
 </v>
 <v t="gcross.20110527192131.2325"><vh>@path package</vh>
 <v t="gcross.20110527192131.2326"><vh>@file CMakeLists.txt</vh></v>
@@ -34,6 +35,7 @@
 <v t="gcross.20110601121230.1627"><vh>@file future.hpp</vh></v>
 <v t="gcross.20101206142257.1399"><vh>@file macros.hpp</vh></v>
 <v t="gcross.20101208142631.1623"><vh>@file runners.hpp</vh></v>
+<v t="gcross.20110809112154.2434"><vh>@file slave.hpp</vh></v>
 <v t="gcross.20110601121230.1630"><vh>@file task.hpp</vh></v>
 <v t="gcross.20101205182001.2567"><vh>@file test_tree.hpp</vh></v>
 <v t="gcross.20101208142631.1499"><vh>@file test_worker.hpp</vh></v>
@@ -59,6 +61,7 @@
 <v t="gcross.20101205182001.1356"><vh>@file node.cpp</vh></v>
 <v t="gcross.20101206104532.1395"><vh>@file root.cpp</vh></v>
 <v t="gcross.20101208142631.1635"><vh>@file runners.cpp</vh></v>
+<v t="gcross.20110809112154.2441"><vh>@file slave.cpp</vh></v>
 <v t="gcross.20101205182001.1306"><vh>@file suite.cpp</vh></v>
 <v t="gcross.20101205182001.1418"><vh>@file test.cpp</vh></v>
 <v t="gcross.20101208142631.1517"><vh>@file test_worker.cpp</vh></v>

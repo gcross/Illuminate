@@ -38,7 +38,7 @@ void ResultVisitor::test(Test const& test) {
         testSkipped(test);
     } else {
         testStarted(test);
-        TestResult result = fetchTestResult(test);
+        TestResult result = fetchTestResult(test.id);
         if(result->size() == 0) {
             testPassed(test);
         } else {

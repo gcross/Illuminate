@@ -4,5 +4,6 @@ install (
     DIRECTORY .
     DESTINATION ${HEADER_INSTALLATION_DIRECTORY}
     PATTERN "CMakeLists.txt" EXCLUDE
+    PATTERN "boost/*" EXCLUDE
 )
 #@-leo

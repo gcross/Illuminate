@@ -40,7 +40,7 @@ struct FutureTestResultFetcher {
     FutureTestResultFetcher(TestFutures const& futures);
 
     //! Fetches the result of the given test
-    TestResult operator()(Test const& test) const;
+    TestResult operator()(unsigned int test_id) const;
 };
 //@-others
 

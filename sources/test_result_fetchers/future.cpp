@@ -32,8 +32,8 @@ FutureTestResultFetcher::FutureTestResultFetcher(TestFutures const& futures)
     : futures(futures)
 { }
 //@+node:gcross.20101208142631.1593: *3* operator()
-TestResult FutureTestResultFetcher::operator()(Test const& test) const {
-    return (*futures)[test.id]->get();
+TestResult FutureTestResultFetcher::operator()(unsigned int test_id) const {
+    return (*futures)[test_id]->get();
 }
 //@-others
 

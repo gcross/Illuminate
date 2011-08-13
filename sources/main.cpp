@@ -16,13 +16,16 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101206161648.1607: ** << Includes >>
+#include <boost/lambda/lambda.hpp>
 #include <boost/program_options.hpp>
 #include <fstream>
 #include <iostream>
 
 #include "illuminate.hpp"
 #include "illuminate/runners.hpp"
+#include "illuminate/slave.hpp"
 
+namespace lambda = boost::lambda;
 using boost::none;
 namespace po = boost::program_options;
 
@@ -42,6 +45,13 @@ using namespace Illuminate;
 //@+others
 //@+node:gcross.20101206161648.1609: ** main
 int main(int argc, char** argv) {
+    string const slave_mode("--slave-mode");
+    if(find_if(argv,argv+argc,slave_mode == lambda::_1) != argv+argc) {
+        std::cerr << "Running in slave mode!" << std::endl;
+        runInSlaveMode();
+        return 0;
+    }
+
     // Declare the supported options.
     po::options_description desc("Allowed options");
     desc.add_options()
@@ -65,7 +75,7 @@ int main(int argc, char** argv) {
             "\n"
             "The purpose of this option is to allow you cause the test program to die when it encounters a particular type of problem so that you can more easily examine the stack trace in a debugger.\n"
         )
-        ("threads,n", po::value<unsigned int>()->default_value(1),
+        ("threads,n", po::value<int>()->default_value(1),
             "number of threads\n\n"
             "If this value is zero, then the number of threads is equal to the detected number of hardware capabilities.\n\n"
             "If this value is one (the default), then no threads are spawned but rather the tests are run in the main thread (which can make it easier to analyze stack traces).\n\n"
@@ -139,12 +149,21 @@ int main(int argc, char** argv) {
         return 0;
     }
 
-    unsigned int const number_of_threads = vm["threads"].as<unsigned int>();
+    int number_of_threads = vm["threads"].as<int>();
+
+    TestResultFetcher fetchResult;
+
+    if(number_of_threads < 1) {
+        number_of_threads = -number_of_threads;
+        fetchResult = *std::auto_ptr<SlaveProcess>(new SlaveProcess(argv[0]));
+    } else {
+        fetchResult = Test::run;
+    }
 
     switch(number_of_threads) {
-        case 0:  runTestsInThreadsAndPrintResults(none,color_codes,out); break;
-        case 1:  runTestsAndPrintResults(color_codes,out); break;
-        default: runTestsInThreadsAndPrintResults(number_of_threads,color_codes,out); break;
+        case 0:  runTestsInWorkersAndPrintResults(none,color_codes,out,fetchResult); break;
+        case 1:  runTestsAndPrintResults(color_codes,out,fetchResult); break;
+        default: runTestsInWorkersAndPrintResults(number_of_threads,color_codes,out,fetchResult); break;
     }
 
     return 0;

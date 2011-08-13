@@ -7,6 +7,7 @@ add_library(illuminate
     suite
     root
     runners
+    slave
     test
     test_worker
     test_worker_group

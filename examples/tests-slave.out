@@ -1,0 +1,7 @@
+Root:
+    construct slave without using it [#0]... PASSED :-)
+    run test in slave with empty input [#1]... PASSED :-)
+    run test in slave with crashing test [#2]... PASSED :-)
+    run test in slave [#3]... PASSED :-)
+
+All tests passed!

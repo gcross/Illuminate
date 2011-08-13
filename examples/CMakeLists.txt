@@ -153,6 +153,12 @@ foreach(simple-example-name
 )
     addSimpleExample(${simple-example-name})
 endforeach(simple-example-name)
+#@+node:gcross.20110809112154.2491: *3* Tests
+foreach(test-name
+    tests-slave
+)
+    addSimpleExample(${test-name})
+endforeach(test-name)
 #@-others
 #@-<< Tests >>
 

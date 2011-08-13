@@ -49,8 +49,12 @@ public:
     boost::thread_group workers;
 
     //! Constructor.
-    //! \param number_of_workers number of workers to create
-    TestWorkerGroup(unsigned int number_of_workers);
+    TestWorkerGroup(
+        //! number_of_workers number of workers to create
+        unsigned int number_of_workers,
+        //! the fetcher to use for obtaining test results
+        TestResultFetcher fetchResult=Test::run
+    );
     
     //! Destructor.
     ~TestWorkerGroup();

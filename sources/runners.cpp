@@ -107,23 +107,37 @@ void printTestTree(ColorCodes const& color_codes,ostream& out) {
     getRoot().visit(visitor);
 }
 //@+node:gcross.20110204143810.1552: *3* runTestsAndPrintResults
-void runTestsAndPrintResults(ColorCodes const& color_codes, ostream& out) {
-    PrinterResultVisitor visitor(Test::run,color_codes,out);
+void runTestsAndPrintResults(
+    ColorCodes const& color_codes,
+    ostream& out,
+    TestResultFetcher fetchResult
+) {
+    PrinterResultVisitor visitor(fetchResult,color_codes,out);
     getRoot().visit(visitor);
     printTestFailureCount(visitor.number_of_failed_tests,color_codes,out);
 }
-//@+node:gcross.20101208142631.1684: *3* runTestsInThreadsAndPrintResults
-void runTestsInThreadsAndPrintResults(optional<unsigned int> const requested_number_of_workers, ColorCodes const& color_codes, ostream& out) {
+//@+node:gcross.20101208142631.1684: *3* runTestsInWorkersAndPrintResults
+void runTestsInWorkersAndPrintResults(
+    optional<unsigned int> const requested_number_of_workers,
+    ColorCodes const& color_codes,
+    ostream& out,
+    TestResultFetcher fetchResult
+) {
     unsigned int const number_of_workers = 
         requested_number_of_workers
             ? *requested_number_of_workers
             : max(thread::hardware_concurrency(),(unsigned int)1)
             ;
-    TestWorkerGroup workers(number_of_workers);
+    TestWorkerGroup workers(number_of_workers,fetchResult);
     printTestFutures(workers.futures,color_codes,out);
 }
 //@+node:gcross.20110809112154.2053: *3* runTestsWithIdsAndPrintResults
-void runTestsWithIdsAndPrintResults(vector<unsigned int> const& test_ids, ColorCodes const& color_codes, ostream& out) {
+void runTestsWithIdsAndPrintResults(
+    vector<unsigned int> const& test_ids,
+    ColorCodes const& color_codes,
+    ostream& out,
+    TestResultFetcher fetchResult
+) {
     Root const& root = getRoot();
     vector<unsigned int> bad_test_ids;
     remove_copy_if(test_ids,back_inserter(bad_test_ids),lambda::_1 < root.numberOfTests());
@@ -143,7 +157,7 @@ void runTestsWithIdsAndPrintResults(vector<unsigned int> const& test_ids, ColorC
     BOOST_FOREACH(unsigned int const test_id, test_ids) {
         Test const& test = root.lookupTest(test_id);
         out << format("%1%%2%") % color_codes.testPath(test) % color_codes.testStarted();
-        shared_ptr<vector<string> > failures = test();
+        shared_ptr<vector<string> > failures = fetchResult(test.id);
         if(failures->size() == 0) {
             out << color_codes.passed() << endl;
         } else {
