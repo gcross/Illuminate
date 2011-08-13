@@ -19,14 +19,14 @@ In all of the examples in the previous chapter we crammed all of our checks into
 
 \include_example{chapter2-multiple-test-cases-same-file}
 
+Note that the test names are sorted;  this is done in order to make the test ordering and id numbers independent of the static initialization order of the platform.
+
 Tests may also be spread out over multiple files:
 
 \includelineno chapter2-multiple-test-cases-1.cpp
 \includelineno chapter2-multiple-test-cases-2.cpp
 \includelineno chapter2-multiple-test-cases-3.cpp
 \verbinclude chapter2-multiple-test-cases-multiple-files.out
-
-\note The order in which the tests appear may be different across different environments since it depends on the static initialization ordering behavior of the C++ compiler/linker in use.
 
 */
 //@+node:gcross.20110725161606.1418: ** Test suites

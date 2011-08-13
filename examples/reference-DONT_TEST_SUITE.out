@@ -1,7 +1,7 @@
 Root:
     Parent:
         Child2:
-            Grandchild [#1]... (skipped)
-        Child1 [#0]... (skipped)
+            Grandchild [#0]... (skipped)
+        Child1 [#1]... (skipped)
 
 All tests passed!

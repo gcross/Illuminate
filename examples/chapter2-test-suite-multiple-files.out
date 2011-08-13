@@ -1,9 +1,9 @@
 Root:
     addition tests:
-        one plus one equals two... PASSED :-)
-        two plus two equals four... PASSED :-)
+        one plus one equals two [#0]... PASSED :-)
+        two plus two equals four [#1]... PASSED :-)
     multiplication tests:
-        one times one equals one... PASSED :-)
-        two times two equals four... PASSED :-)
+        one times one equals one [#2]... PASSED :-)
+        two times two equals four [#3]... PASSED :-)
 
 All tests passed!

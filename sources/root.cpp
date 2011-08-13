@@ -17,6 +17,7 @@
 //@+<< Includes >>
 //@+node:gcross.20101206104532.1396: ** << Includes >>
 #include "illuminate/test_tree.hpp"
+#include "illuminate/visitor.hpp"
 //@-<< Includes >>
 
 namespace Illuminate {
@@ -25,6 +26,8 @@ namespace Illuminate {
 //@+node:gcross.20101206104532.1397: ** << Usings >>
 using boost::format;
 using boost::none;
+
+using std::vector;
 //@-<< Usings >>
 
 //@+others
@@ -44,6 +47,27 @@ unsigned int Root::registerTest(Test* const test) {
 //@+node:gcross.20110809112154.2410: *3* numberOfTests
 unsigned int Root::numberOfTests() const {
     return tests.size();
+}
+//@+node:gcross.20110813135646.1512: *3* sort
+void Root::sort() {
+    Suite::sort();
+    struct RenumberVisitor : public Visitor {
+        vector<Test*>& tests;
+        unsigned int current_test_id;
+        RenumberVisitor(vector<Test*>& tests)
+          : tests(tests)
+          , current_test_id(0)
+        {}
+        virtual void enter(Suite const& suite) {}
+        virtual void exit(Suite const& suite) {}
+        virtual void test(Test const& test) {
+            Test& const_overridden_test = const_cast<Test&>(test);
+            const_overridden_test.id = current_test_id;
+            tests[current_test_id] = &const_overridden_test;
+            ++current_test_id;
+        }
+    } visitor(tests);
+    visit(visitor);
 }
 //@+node:gcross.20101206104532.1406: ** getRoot
 Root& getRoot() {

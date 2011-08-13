@@ -31,7 +31,6 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/thread.hpp>
 #include <exception>
-#include <list>
 #include <queue>
 #include <string>
 #include <vector>
@@ -135,7 +134,7 @@ class Suite : public Node {
     private:
 
     //! List of child suites.
-    std::list<Suite> nested_suites;
+    std::vector<Suite*> nested_suites;
 
     //! List of child tests.
     std::vector<Test*> tests;
@@ -158,6 +157,9 @@ class Suite : public Node {
     void visit(Visitor& visitor) const;
 
     boost::format constructPath() const;
+
+    //! Sort the children of this node.
+    void sort();
     //@-others
 };
 //@+node:gcross.20101206104532.1407: *3* Root
@@ -199,6 +201,9 @@ class Root : public Suite {
     Test const& lookupTest(unsigned int id) const;
 
     unsigned int numberOfTests() const;
+
+    //! Recursively sort all the tests and suites, and then renumber the tests.
+    void sort();
     //@-others
 };
 //@+node:gcross.20101205182001.2592: *3* Test
@@ -209,7 +214,7 @@ class Test : public Node {
     public:
 
     //! The unique identifier of the test.
-    unsigned int const id;
+    unsigned int id;
 
     //! The code that performs the test.
     boost::function<void ()> const runner;

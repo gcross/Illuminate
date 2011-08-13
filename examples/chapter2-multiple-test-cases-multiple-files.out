@@ -1,6 +1,6 @@
 Root:
-    one plus one equals two... PASSED :-)
-    two plus two equals four... PASSED :-)
-    three plus three equals six... PASSED :-)
+    one plus one equals two [#0]... PASSED :-)
+    three plus three equals six [#1]... PASSED :-)
+    two plus two equals four [#2]... PASSED :-)
 
 All tests passed!

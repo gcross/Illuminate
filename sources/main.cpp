@@ -46,6 +46,7 @@ using namespace Illuminate;
 //@+others
 //@+node:gcross.20101206161648.1609: ** main
 int main(int argc, char** argv) {
+    getRoot().sort();
     string const slave_mode("--slave-mode");
     if(find_if(argv,argv+argc,slave_mode == lambda::_1) != argv+argc) {
         std::cerr << "Running in slave mode!" << std::endl;
