@@ -96,8 +96,8 @@ void runTestsAndPrintResults(
 //@+node:gcross.20110601121230.1634: *3* runTestsInWorkersAndPrintResults
 //! Runs the test suite in possibly multiple threads and prints the results
 void runTestsInWorkersAndPrintResults(
-    //! The (optional) number of worker threads to spawn;  if none, then the main thread is used.
-    boost::optional<unsigned int> const requested_number_of_workers=boost::none,
+    //! The number of worker threads to spawn.
+    unsigned int number_of_workers,
     //! the color code escape sequences to use when printing the test results
     Illuminate::ColorCodes const& color_codes=Illuminate::ColorCodes::ANSI,
     //! the output device to which the test results should be printed

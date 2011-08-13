@@ -40,13 +40,11 @@ using boost::optional;
 using boost::promise;
 using boost::remove_copy_if;
 using boost::shared_ptr;
-using boost::thread;
 using boost::unique_future;
 
 using std::back_inserter;
 using std::endl;
 using std::make_pair;
-using std::max;
 using std::string;
 using std::ostream;
 using std::vector;
@@ -118,16 +116,11 @@ void runTestsAndPrintResults(
 }
 //@+node:gcross.20101208142631.1684: *3* runTestsInWorkersAndPrintResults
 void runTestsInWorkersAndPrintResults(
-    optional<unsigned int> const requested_number_of_workers,
+    unsigned int number_of_workers,
     ColorCodes const& color_codes,
     ostream& out,
     TestResultFetcher fetchResult
 ) {
-    unsigned int const number_of_workers = 
-        requested_number_of_workers
-            ? *requested_number_of_workers
-            : max(thread::hardware_concurrency(),(unsigned int)1)
-            ;
     TestWorkerGroup workers(number_of_workers,fetchResult);
     printTestFutures(workers.futures,color_codes,out);
 }

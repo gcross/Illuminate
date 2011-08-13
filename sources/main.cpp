@@ -34,6 +34,7 @@ using std::cout;
 using std::endl;
 using std::ifstream;
 using std::ios_base;
+using std::max;
 using std::ofstream;
 using std::ostream;
 using std::string;
@@ -75,11 +76,13 @@ int main(int argc, char** argv) {
             "\n"
             "The purpose of this option is to allow you cause the test program to die when it encounters a particular type of problem so that you can more easily examine the stack trace in a debugger.\n"
         )
-        ("threads,n", po::value<int>()->default_value(1),
-            "number of threads\n\n"
-            "If this value is zero, then the number of threads is equal to the detected number of hardware capabilities.\n\n"
-            "If this value is one (the default), then no threads are spawned but rather the tests are run in the main thread (which can make it easier to analyze stack traces).\n\n"
-            "Note that using multiple threads can cause problems if your code (or a library on which it relies) is not thread-safe.\n"
+        ("workers,n", po::value<int>()->default_value(1),
+            "number of parallel workers\n\n"
+            "If this value is positive, then it specifies the number of processes (outside of the main process) to use for running tests.  Using separate processes involves slightly more overhead, but it is safer in the case where either your code is not thread-safe or where bugs cause tests to crash the process with something like a segmentation fault rather than merely throwing an exception or failing a test invariant.\n\n"
+            "If this value is zero then it is equivalent to having specified +N (that is, use N processes) where N is the detected number of hardware capabilities.\n\n"
+            "If this value is negative, then it specifies the number of threads (within the main process) to use for running tests.  Note that using multiple threads rather than multiple processes can cause problems if your code (or a library on which it relies) is not thread-safe.\n\n"
+            "In the special case where this value is -1, then no threads are spawned but rather the tests are run in the main thread in order to make life easier when using a debugger.\n\n"
+            "This value defaults to +1 (that is, a single process outside the main process) if not otherwise specified.\n"
         )
         ("output,o", po::value<string>(),
             "number of threads\n\n"
@@ -89,8 +92,7 @@ int main(int argc, char** argv) {
         )
         ("id,i", po::value<vector<unsigned int> >()->composing(),
             "test ids to run\n\n"
-            "If this value is specified one or more times, then instead of running the whole suite the tests with the given numbers will be run in the main thread.\n\n"
-            "Note that if this value is present then the value of -n is ignored.\n"
+            "If this value is specified one or more times, then instead of running the whole suite the tests with the given numbers will be run.\n\n"
         )
     ;
 
@@ -149,22 +151,23 @@ int main(int argc, char** argv) {
         return 0;
     }
 
-    int number_of_threads = vm["threads"].as<int>();
+    int number_of_workers = vm["workers"].as<int>();
 
     TestResultFetcher fetchResult;
 
-    if(number_of_threads < 1) {
-        number_of_threads = -number_of_threads;
-        fetchResult = *std::auto_ptr<SlaveProcess>(new SlaveProcess(argv[0]));
-    } else {
+    if(number_of_workers < 0) {
+        number_of_workers = -number_of_workers;
         fetchResult = Test::run;
+    } else {
+        fetchResult = SlaveProcess(argv[0]);
     }
 
-    switch(number_of_threads) {
-        case 0:  runTestsInWorkersAndPrintResults(none,color_codes,out,fetchResult); break;
-        case 1:  runTestsAndPrintResults(color_codes,out,fetchResult); break;
-        default: runTestsInWorkersAndPrintResults(number_of_threads,color_codes,out,fetchResult); break;
-    }
+    if(0 == number_of_workers) number_of_workers = max(boost::thread::hardware_concurrency(),1u);
+
+    if(1 == number_of_workers)
+        runTestsAndPrintResults(color_codes,out,fetchResult);
+    else
+        runTestsInWorkersAndPrintResults(number_of_workers,color_codes,out,fetchResult);
 
     return 0;
 }
