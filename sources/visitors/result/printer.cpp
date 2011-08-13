@@ -41,8 +41,8 @@ PrinterResultVisitor::PrinterResultVisitor(
   , ColorCodes const& color_codes
   , ostream& out
 )
-  : IndentedOutputVisitor(out)
-  , ResultVisitor(fetchTestResult)
+  : ResultVisitor(fetchTestResult)
+  , IndentedOutputVisitor(out)
   , color_codes(color_codes)
 { }
 //@+node:gcross.20110203224841.1965: *3* suite

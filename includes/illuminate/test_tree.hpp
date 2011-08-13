@@ -93,11 +93,11 @@ enum AbortMode {
 struct Node {
     //@+others
     //@+node:gcross.20101205182001.2575: *4* (fields)
-    //! The parent of this node (may be null).
-    boost::optional<Suite const&> const parent;
-
     //! The name of this node.
     std::string const name;
+
+    //! The parent of this node (may be null).
+    boost::optional<Suite const&> const parent;
 
     //! Whether to skip this node.
     bool const skipped;

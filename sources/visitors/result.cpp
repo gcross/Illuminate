@@ -29,8 +29,8 @@ namespace Illuminate {
 //@+node:gcross.20110601150226.2628: ** class ResultVisitor
 //@+node:gcross.20110601150226.2629: *3* (constructors)
 ResultVisitor::ResultVisitor(TestResultFetcher const& fetchTestResult)
-  : number_of_failed_tests(0)
-  , fetchTestResult(fetchTestResult)
+  : fetchTestResult(fetchTestResult)
+  , number_of_failed_tests(0)
 {}
 //@+node:gcross.20110601150226.2630: *3* test
 void ResultVisitor::test(Test const& test) {
