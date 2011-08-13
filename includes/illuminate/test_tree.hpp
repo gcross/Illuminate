@@ -156,6 +156,7 @@ class Suite : public Node {
     */
     void visit(Visitor& visitor) const;
 
+    //! Construct a string representing the "path" of this suite.
     boost::format constructPath() const;
 
     //! Sort the children of this node.
@@ -200,6 +201,7 @@ class Root : public Suite {
     */
     Test const& lookupTest(unsigned int id) const;
 
+    //! Return the number of registered tests.
     unsigned int numberOfTests() const;
 
     //! Recursively sort all the tests and suites, and then renumber the tests.
@@ -314,6 +316,7 @@ class Test : public Node {
     //! Run the test with the given id and return the result.
     static TestResult run(unsigned int test_id);
 
+    //! Construct a string representing the "path" of this suite.
     boost::format constructPath() const;
     //@-others
 };
