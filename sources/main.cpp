@@ -85,6 +85,11 @@ int main(int argc, char** argv) {
             "In the special case where this value is -1, then no threads are spawned but rather the tests are run in the main thread in order to make life easier when using a debugger.\n\n"
             "This value defaults to +1 (that is, a single process outside the main process) if not otherwise specified.\n"
         )
+        ("debug,d",
+            "debugger mode\n\n"
+            "This option is equivalent to '-n -1 -f all', overriding any other values specified for those options.\n\n"
+            "Specifically, if this option is present then the tests are run in the main thread of the main process, and if any exception is thrown or check failed then the program immeidately aborts.  This mode of operation is intended to make it easier to diagnose the reason why a test is failing using a debugger by preserving the stack trace at the exact point of failure.\n"
+        )
         ("output,o", po::value<string>(),
             "output file\n\n"
             "This option causes the output of running the tests to be written to the specified file rather than to standard output.  (It also automatically disables the use of ANSI color codes unless you explicitly enable them.)\n"
@@ -145,12 +150,17 @@ int main(int argc, char** argv) {
         Test::abort_mode = vm["fatal"].as<AbortMode>();
     }
 
+    int number_of_workers = vm["workers"].as<int>();
+
+    if(vm.count("debug")) {
+        Test::abort_mode = ABORT_ON_ANY_FAILURE;
+        number_of_workers = -1;
+    }
+
     if(vm.count("id")) {
         runTestsWithIdsAndPrintResults(vm["id"].as<vector<unsigned int> >(),color_codes,out);
         return 0;
     }
-
-    int number_of_workers = vm["workers"].as<int>();
 
     TestResultFetcher fetchResult;
 
