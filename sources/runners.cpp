@@ -19,8 +19,6 @@
 #include <boost/foreach.hpp>
 #include <boost/format.hpp>
 #include <boost/lambda/lambda.hpp>
-#include <boost/range/algorithm/remove_copy_if.hpp>
-#include <iterator>
 #include <ostream>
 
 #include "illuminate/runners.hpp"
@@ -38,11 +36,9 @@ using boost::format;
 namespace lambda = boost::lambda;
 using boost::optional;
 using boost::promise;
-using boost::remove_copy_if;
 using boost::shared_ptr;
 using boost::unique_future;
 
-using std::back_inserter;
 using std::endl;
 using std::make_pair;
 using std::string;
@@ -52,26 +48,71 @@ using std::vector;
 
 //@+others
 //@+node:gcross.20101208142631.1683: ** Functions
-//@+node:gcross.20101208142631.1486: *3* enqueueTests
-void enqueueTests(TestQueue const& queue, TestFutures const& futures, Suite const& suite) {
+//@+node:gcross.20101208142631.1486: *3* enqueueAllTests
+void enqueueAllTests(TestQueue const& queue, TestFutures const& futures, Suite const& suite) {
     struct : public Visitor {
         TestQueue queue;
         TestFutures futures;
         virtual void enter(Suite const& _) {}
         virtual void exit(Suite const& _) {}
         virtual void test(Test const& test) {
-            if(!test.skipped) {
-                TestTask task(make_pair(test.id,new promise<TestResult>()));
-                TestFuture future(new unique_future<TestResult>);
-                (*future) = task.second->get_future();
-                (*futures)[test.id] = future;
-                queue->push(task);
-            }
+            if(!test.skipped) { enqueueTest(queue,futures,test.id); }
         }
     } queuer;
     queuer.queue = queue;
     queuer.futures = futures;
     suite.visit(queuer);
+}
+//@+node:gcross.20110813230314.1515: *3* enqueueSelectedTests
+void enqueueSelectedTests(TestQueue const& queue, TestFutures const& futures, vector<unsigned int> const& test_ids) {
+    BOOST_FOREACH(unsigned int const test_id, test_ids) {
+        if((*futures).find(test_id) == futures->end()) {
+            enqueueTest(queue,futures,test_id);
+        }
+    }
+}
+//@+node:gcross.20110813230314.1516: *3* enqueueTest
+void enqueueTest(TestQueue const& queue, TestFutures const& futures, unsigned int test_id) {
+    TestTask task(make_pair(test_id,new promise<TestResult>()));
+    TestFuture future(new unique_future<TestResult>);
+    (*future) = task.second->get_future();
+    (*futures)[test_id] = future;
+    queue->push(task);
+}
+//@+node:gcross.20110204143810.1552: *3* printAllTestResults
+void printAllTestResults(
+    ColorCodes const& color_codes,
+    ostream& out,
+    TestResultFetcher fetchResult
+) {
+    PrinterResultVisitor visitor(fetchResult,color_codes,out);
+    getRoot().visit(visitor);
+    printTestFailureCount(visitor.number_of_failed_tests,color_codes,out);
+}
+//@+node:gcross.20110809112154.2053: *3* printSelectedTestResults
+void printSelectedTestResults(
+    vector<unsigned int> const& test_ids,
+    ColorCodes const& color_codes,
+    ostream& out,
+    TestResultFetcher fetchResult
+) {
+    Root const& root = getRoot();
+    unsigned int number_of_failed_tests = 0;
+    BOOST_FOREACH(unsigned int const test_id, test_ids) {
+        Test const& test = root.lookupTest(test_id);
+        out << color_codes.testPath(test) << color_codes.testStarted();
+        TestResult result = fetchResult(test.id);
+        if(result->size() == 0) {
+            out << color_codes.passed() << endl;
+        } else {
+            ++number_of_failed_tests;
+            out << color_codes.failed() << endl;
+            BOOST_FOREACH(const string& m, *result) {
+                out << color_codes.failure(m) << endl;
+            }
+        }
+    }
+    printTestFailureCount(number_of_failed_tests);
 }
 //@+node:gcross.20110601150226.2636: *3* printTestFailureCount
 void printTestFailureCount(
@@ -80,12 +121,6 @@ void printTestFailureCount(
     ostream& out
 ) {
     out << endl << color_codes.numberOfFailedTests(number_of_failed_tests) << endl;
-}
-//@+node:gcross.20101208142631.1680: *3* printTestFutures
-void printTestFutures(TestFutures const& futures,ColorCodes const& color_codes,ostream& out) {
-    PrinterResultVisitor visitor(FutureTestResultFetcher(futures),color_codes,out);
-    getRoot().visit(visitor);
-    printTestFailureCount(visitor.number_of_failed_tests,color_codes,out);
 }
 //@+node:gcross.20101208142631.1677: *3* printTestTree
 void printTestTree(ColorCodes const& color_codes,ostream& out) {
@@ -104,64 +139,26 @@ void printTestTree(ColorCodes const& color_codes,ostream& out) {
     } visitor(color_codes,out);
     getRoot().visit(visitor);
 }
-//@+node:gcross.20110204143810.1552: *3* runTestsAndPrintResults
-void runTestsAndPrintResults(
-    ColorCodes const& color_codes,
-    ostream& out,
-    TestResultFetcher fetchResult
-) {
-    PrinterResultVisitor visitor(fetchResult,color_codes,out);
-    getRoot().visit(visitor);
-    printTestFailureCount(visitor.number_of_failed_tests,color_codes,out);
-}
-//@+node:gcross.20101208142631.1684: *3* runTestsInWorkersAndPrintResults
-void runTestsInWorkersAndPrintResults(
+//@+node:gcross.20101208142631.1684: *3* runAllTestsUsingWorkersAndPrintResults
+void runAllTestsUsingWorkersAndPrintResults(
     unsigned int number_of_workers,
     ColorCodes const& color_codes,
     ostream& out,
     TestResultFetcher fetchResult
 ) {
     TestWorkerGroup workers(number_of_workers,fetchResult);
-    printTestFutures(workers.futures,color_codes,out);
+    printAllTestResults(color_codes,out,FutureTestResultFetcher(workers.futures));
 }
-//@+node:gcross.20110809112154.2053: *3* runTestsWithIdsAndPrintResults
-void runTestsWithIdsAndPrintResults(
+//@+node:gcross.20110813230314.1520: *3* runSelectedTestsUsingWorkersAndPrintResults
+void runSelectedTestsUsingWorkersAndPrintResults(
     vector<unsigned int> const& test_ids,
+    unsigned int number_of_workers,
     ColorCodes const& color_codes,
     ostream& out,
     TestResultFetcher fetchResult
 ) {
-    Root const& root = getRoot();
-    vector<unsigned int> bad_test_ids;
-    remove_copy_if(test_ids,back_inserter(bad_test_ids),lambda::_1 < root.numberOfTests());
-    switch(bad_test_ids.size()) {
-        case 0: break;
-        case 1:
-            out << "Bad test id: " << bad_test_ids[0] << endl;
-            return;
-        default:
-            out << "Bad test ids:" << endl;
-            BOOST_FOREACH(unsigned int const bad_test_id, bad_test_ids) {
-                out << "    " << bad_test_id << endl;
-            }
-            return;
-    }
-    unsigned int number_of_failed_tests = 0;
-    BOOST_FOREACH(unsigned int const test_id, test_ids) {
-        Test const& test = root.lookupTest(test_id);
-        out << format("%1%%2%") % color_codes.testPath(test) % color_codes.testStarted();
-        shared_ptr<vector<string> > failures = fetchResult(test.id);
-        if(failures->size() == 0) {
-            out << color_codes.passed() << endl;
-        } else {
-            ++number_of_failed_tests;
-            out << color_codes.failed() << endl;
-            BOOST_FOREACH(const string& m, *failures) {
-                out << color_codes.failure(m) << endl;
-            }
-        }
-    }
-    printTestFailureCount(number_of_failed_tests);
+    TestWorkerGroup workers(number_of_workers,fetchResult,test_ids);
+    printSelectedTestResults(test_ids,color_codes,out,FutureTestResultFetcher(workers.futures));
 }
 //@-others
 

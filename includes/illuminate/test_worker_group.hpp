@@ -19,8 +19,10 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101208142631.1492: ** << Includes >>
+#include <boost/optional.hpp>
 #include <boost/thread.hpp>
 #include <iostream>
+#include <vector>
 
 #include "future.hpp"
 #include "test_worker.hpp"
@@ -53,7 +55,9 @@ public:
         //! number_of_workers number of workers to create
         unsigned int number_of_workers,
         //! the fetcher to use for obtaining test results
-        TestResultFetcher fetchResult=Test::run
+        TestResultFetcher fetchResult=Test::run,
+        //! the ids of the tests to run;  if none, then all tests are run
+        boost::optional<std::vector<unsigned int> const&> maybe_test_ids=boost::none
     );
     
     //! Destructor.

@@ -42,15 +42,57 @@ namespace Illuminate {
     @{
 */
 //@+others
-//@+node:gcross.20101206161648.1858: *3* enqueueTests
+//@+node:gcross.20101206161648.1858: *3* enqueueAllTests
 //! Populates a test queue and test futures with the tests in a given suite.
-void enqueueTests(
+void enqueueAllTests(
     //! reference to the output test queue (which in turn is a shared_ptr)
     Illuminate::TestQueue const& queue,
     //! reference to the output test futures (which in turn is a shared_ptr)
     Illuminate::TestFutures const& futures,
     //! reference to the input test suite (which defaults to the root)
     Illuminate::Suite const& suite=getRoot()
+);
+//@+node:gcross.20110813230314.1513: *3* enqueueSelectedTests
+//! Populates a test queue and test futures with the tests with the given ids.
+void enqueueSelectedTests(
+    //! reference to the output test queue (which in turn is a shared_ptr)
+    Illuminate::TestQueue const& queue,
+    //! reference to the output test futures (which in turn is a shared_ptr)
+    Illuminate::TestFutures const& futures,
+    //! reference to the test ids to be enqueued
+    std::vector<unsigned int> const& test_ids
+);
+//@+node:gcross.20110813230314.1518: *3* enqueueTest
+//! Enqueues the test with the given id
+void enqueueTest(
+    //! reference to the test queue (which in turn is a shared_ptr)
+    Illuminate::TestQueue const& queue,
+    //! reference to the test futures (which in turn is a shared_ptr)
+    Illuminate::TestFutures const& futures,
+    //! the id of the test to be enqueued
+    unsigned int test_id
+);
+//@+node:gcross.20110601121230.1633: *3* printAllTestResults
+//! Prints the results of running all tests
+void printAllTestResults(
+    //! the color code escape sequences to use when printing the test results
+    Illuminate::ColorCodes const& color_codes=Illuminate::ColorCodes::ANSI,
+    //! the output device to which the test results should be printed
+    std::ostream& out=std::cout,
+    //! the fetcher to use for obtaining test results
+    TestResultFetcher fetchResult=Test::run
+);
+//@+node:gcross.20110813230314.1522: *3* printSelectedTestResults
+//! Prints the results of running the given tests
+void printSelectedTestResults(
+    //! the ids of the tests for which to print results
+    std::vector<unsigned int> const& test_ids,
+    //! the color code escape sequences to use when printing the test results
+    Illuminate::ColorCodes const& color_codes=Illuminate::ColorCodes::ANSI,
+    //! the output device to which the test results should be printed
+    std::ostream& out=std::cout,
+    //! the fetcher to use for obtaining test results
+    TestResultFetcher fetchResult=Test::run
 );
 //@+node:gcross.20110601150226.2634: *3* printTestFailureCount
 //! Prints a message to the user displaying the number of tests that have failed
@@ -65,16 +107,6 @@ void printTestFailureCount(
     //! the output device to which the test results should be printed
     std::ostream& out=std::cout
 );
-//@+node:gcross.20110601121230.1626: *3* printTestFutures
-//! Prints the test results given the test futures
-void printTestFutures(
-    //! the futures providing the test results
-    Illuminate::TestFutures const& futures,
-    //! the color code escape sequences to use when printing the test results
-    Illuminate::ColorCodes const& color_codes=Illuminate::ColorCodes::ANSI,
-    //! the output device to which the test results should be printed
-    std::ostream& out=std::cout
-);
 //@+node:gcross.20110601121230.1625: *3* printTestTree
 //! Print the test tree.
 void printTestTree(
@@ -83,19 +115,9 @@ void printTestTree(
     //! the output device to which the test tree should be printed
     std::ostream& out=std::cout
 );
-//@+node:gcross.20110601121230.1633: *3* runTestsAndPrintResults
-//! Runs the test suite (in the main thread) and prints the results
-void runTestsAndPrintResults(
-    //! the color code escape sequences to use when printing the test results
-    Illuminate::ColorCodes const& color_codes=Illuminate::ColorCodes::ANSI,
-    //! the output device to which the test results should be printed
-    std::ostream& out=std::cout,
-    //! the fetcher to use for obtaining test results
-    TestResultFetcher fetchResult=Test::run
-);
-//@+node:gcross.20110601121230.1634: *3* runTestsInWorkersAndPrintResults
-//! Runs the test suite in possibly multiple threads and prints the results
-void runTestsInWorkersAndPrintResults(
+//@+node:gcross.20110601121230.1634: *3* runAllTestsInWorkersAndPrintResults
+//! Runs the test suite using multiple workers and prints the results
+void runAllTestsUsingWorkersAndPrintResults(
     //! The number of worker threads to spawn.
     unsigned int number_of_workers,
     //! the color code escape sequences to use when printing the test results
@@ -105,11 +127,13 @@ void runTestsInWorkersAndPrintResults(
     //! the fetcher to use for obtaining test results
     TestResultFetcher fetchResult=Test::run
 );
-//@+node:gcross.20110809112154.2055: *3* runTestsWithIdsAndPrintResults
-//! Runs the specified tests (in the main thread) and prints the results
-void runTestsWithIdsAndPrintResults(
-    //! the ids of the tests to run
+//@+node:gcross.20110813230314.1524: *3* runSelectedTestsInWorkersAndPrintResults
+//! Runs the given tests using multiple workers and prints the results
+void runSelectedTestsUsingWorkersAndPrintResults(
+    //! the ids of the tests for which to print results
     std::vector<unsigned int> const& test_ids,
+    //! The number of worker threads to spawn.
+    unsigned int number_of_workers,
     //! the color code escape sequences to use when printing the test results
     Illuminate::ColorCodes const& color_codes=Illuminate::ColorCodes::ANSI,
     //! the output device to which the test results should be printed

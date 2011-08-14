@@ -206,6 +206,9 @@ class Root : public Suite {
 
     //! Recursively sort all the tests and suites, and then renumber the tests.
     void sort();
+
+    //! Exits with an error message if any of the test ids are invalid.
+    void checkTestIds(std::vector<unsigned int> const& test_ids) const;
     //@-others
 };
 //@+node:gcross.20101205182001.2592: *3* Test

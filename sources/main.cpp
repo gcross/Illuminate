@@ -157,11 +157,6 @@ int main(int argc, char** argv) {
         number_of_workers = -1;
     }
 
-    if(vm.count("id")) {
-        runTestsWithIdsAndPrintResults(vm["id"].as<vector<unsigned int> >(),color_codes,out);
-        return 0;
-    }
-
     TestResultFetcher fetchResult;
 
     if(number_of_workers < 0) {
@@ -173,10 +168,21 @@ int main(int argc, char** argv) {
 
     if(0 == number_of_workers) number_of_workers = max(boost::thread::hardware_concurrency(),1u);
 
-    if(1 == number_of_workers)
-        runTestsAndPrintResults(color_codes,out,fetchResult);
-    else
-        runTestsInWorkersAndPrintResults(number_of_workers,color_codes,out,fetchResult);
+    if(vm.count("id") > 0) {
+        vector<unsigned int> test_ids = vm["id"].as<vector<unsigned int> >();
+        getRoot().checkTestIds(test_ids);
+        if(1 == number_of_workers) {
+            printSelectedTestResults(test_ids,color_codes,out,fetchResult);
+        } else {
+            runSelectedTestsUsingWorkersAndPrintResults(test_ids,number_of_workers,color_codes,out,fetchResult);
+        }
+    } else {
+        if(1 == number_of_workers) {
+            printAllTestResults(color_codes,out,fetchResult);
+        } else {
+            runAllTestsUsingWorkersAndPrintResults(number_of_workers,color_codes,out,fetchResult);
+        }
+    }
 
     return 0;
 }

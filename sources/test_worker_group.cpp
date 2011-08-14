@@ -16,6 +16,8 @@
 
 //@+<< Includes >>
 //@+node:gcross.20101208142631.1548: ** << Includes >>
+#include <boost/make_shared.hpp>
+
 #include "illuminate/runners.hpp"
 #include "illuminate/test_worker_group.hpp"
 //@-<< Includes >>
@@ -24,7 +26,10 @@ namespace Illuminate {
 
 //@+<< Usings >>
 //@+node:gcross.20101208142631.1549: ** << Usings >>
+using boost::make_shared;
 using boost::mutex;
+using boost::optional;
+using boost::unordered_map;
 
 using std::vector;
 //@-<< Usings >>
@@ -34,13 +39,18 @@ using std::vector;
 //@+node:gcross.20101208142631.1551: *3* (constructors)
 TestWorkerGroup::TestWorkerGroup(
     unsigned int const number_of_workers,
-    TestResultFetcher fetchResult
+    TestResultFetcher fetchResult,
+    optional<vector<unsigned int> const&> maybe_test_ids
 )
     : queue(new std::queue<TestTask>)
     , queue_mutex(new mutex)
-    , futures(new vector<TestFuture>(getRoot().tests.size()))
+    , futures(make_shared<unordered_map<unsigned int,TestFuture> >())
 {
-    enqueueTests(queue,futures);
+    if(maybe_test_ids) {
+        enqueueSelectedTests(queue,futures,*maybe_test_ids);
+    } else {
+        enqueueAllTests(queue,futures);
+    }
     for(unsigned int i = 0; i < number_of_workers; ++i) {
         workers.create_thread(TestWorker(queue,queue_mutex,fetchResult));
     }
