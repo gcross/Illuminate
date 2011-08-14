@@ -1,6 +1,6 @@
 #@+leo-ver=5-thin
 #@+node:gcross.20101205182001.1278: * @file CMakeLists.txt
-add_library(illuminate
+add_library(illuminate SHARED
     color_codes
     exceptions
     node
@@ -19,7 +19,7 @@ add_library(illuminate
 )
 target_link_libraries(illuminate ${Boost_LIBRARIES})
 
-add_library(illuminate-main
+add_library(illuminate-main SHARED
     main.cpp
 )
 target_link_libraries(illuminate-main illuminate)
