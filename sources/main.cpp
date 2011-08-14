@@ -86,10 +86,8 @@ int main(int argc, char** argv) {
             "This value defaults to +1 (that is, a single process outside the main process) if not otherwise specified.\n"
         )
         ("output,o", po::value<string>(),
-            "number of threads\n\n"
-            "If this value is zero, then the number of threads is equal to the detected number of hardware capabilities.\n\n"
-            "If this value is one (the default), then no threads are spawned but rather the tests are run in the main thread (which can make it easier to analyze stack traces).\n\n"
-            "Note that using multiple threads can cause problems if your code (or a library on which it relies) is not thread-safe.\n"
+            "output file\n\n"
+            "This option causes the output of running the tests to be written to the specified file rather than to standard output.  (It also automatically disables the use of ANSI color codes unless you explicitly enable them.)\n"
         )
         ("id,i", po::value<vector<unsigned int> >()->composing(),
             "test ids to run\n\n"
