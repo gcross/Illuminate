@@ -72,7 +72,13 @@ struct Process : public boost::process::child {
     Process(boost::process::child const& child)
       : boost::process::child(child)
     {}
-    ~Process() { terminate(true); }
+    ~Process() {
+        try {
+            terminate(true);
+        } catch(boost::system::system_error const& _) {
+            // This exception is ignored by intention.
+        }
+    }
 };
 //@+node:gcross.20110809112154.2461: *3* Slave
 //@+node:gcross.20110809112154.2477: *4* (constructor)
