@@ -31,7 +31,7 @@ Here is an example of what tests written using Illuminate look like:
 
 The result of running the tests looks like this (but with optional colors on an ANSI terminal):
 
-\verbinclude introduction-example.cpp
+\verbinclude introduction-example.out
 
 Two features in particular are illustrated in the example above.  First, defining test cases and test suites requires very boilerplate little code.  Second, test suites can be arbitrarily nested to form a hierarchy.
 
