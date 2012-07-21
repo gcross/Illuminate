@@ -27,6 +27,10 @@
 //@-<< Includes >>
 
 //@+others
+//@+node:gcross.20120721120541.1742: ** Define the test source file
+#ifndef TEST_SOURCE_FILE
+    #define TEST_SOURCE_FILE TEST_SOURCE_FILE
+#endif
 //@+node:gcross.20101206142257.1405: ** Test declarations
 /*! \brief These macros define tests and test suites.
     \defgroup DECLARATIONS Declarations
@@ -139,11 +143,11 @@
     DEFINE_CHECK_WITH_##N##_ARGUMENTS(ASSERT,F) \
     DEFINE_CHECK_WITH_##N##_ARGUMENTS(EXPECT,F)
 //@+node:gcross.20101209224839.2290: *3* DO_CHECK_WITH_X_ARGUMENTS
-#define DO_CHECK_WITH_1_ARGUMENTS(K,F,A) Illuminate::DO_##F##_##K(__FILE__,__LINE__,A);
-#define DO_CHECK_WITH_2_ARGUMENTS(K,F,A,B) Illuminate::DO_##F##_##K(__FILE__,__LINE__,A,B);
-#define DO_CHECK_WITH_3_ARGUMENTS(K,F,A,B,C) Illuminate::DO_##F##_##K(__FILE__,__LINE__,A,B,C);
-#define DO_CHECK_WITH_4_ARGUMENTS(K,F,A,B,C,D) Illuminate::DO_##F##_##K(__FILE__,__LINE__,A,B,C,D);
-#define DO_CHECK_WITH_5_ARGUMENTS(K,F,A,B,C,D,E) Illuminate::DO_##F##_##K(__FILE__,__LINE__,A,B,C,D,E);
+#define DO_CHECK_WITH_1_ARGUMENTS(K,F,A) Illuminate::DO_##F##_##K(TEST_SOURCE_FILE,__LINE__,A);
+#define DO_CHECK_WITH_2_ARGUMENTS(K,F,A,B) Illuminate::DO_##F##_##K(TEST_SOURCE_FILE,__LINE__,A,B);
+#define DO_CHECK_WITH_3_ARGUMENTS(K,F,A,B,C) Illuminate::DO_##F##_##K(TEST_SOURCE_FILE,__LINE__,A,B,C);
+#define DO_CHECK_WITH_4_ARGUMENTS(K,F,A,B,C,D) Illuminate::DO_##F##_##K(TEST_SOURCE_FILE,__LINE__,A,B,C,D);
+#define DO_CHECK_WITH_5_ARGUMENTS(K,F,A,B,C,D,E) Illuminate::DO_##F##_##K(TEST_SOURCE_FILE,__LINE__,A,B,C,D,E);
 //@+node:gcross.20101206161648.1615: *3* DO_TEST_X
 #define DO_TEST_OF_KIND(FILE,LINE,expression,message,fatal) { if(not (expression)) { Illuminate::Test::registerFailure(FILE,LINE,message,fatal); } }
 #define DO_TEST_ASSERT(FILE,LINE,expression,message) DO_TEST_OF_KIND(FILE,LINE,expression,message,true)
@@ -643,7 +647,7 @@ DEFINE_CHECKS(FALSE,2)
                     _ILLUMINATE_KNOWN_FAIL_new_number_of_failures = Illuminate::Test::countFailures(); \
                 Illuminate::Test::eraseFailuresAfter(_ILLUMINATE_KNOWN_FAIL_old_number_of_failures); \
                 if(!_ILLUMINATE_KNOWN_FAIL_exception_thrown && _ILLUMINATE_KNOWN_FAIL_new_number_of_failures <= _ILLUMINATE_KNOWN_FAIL_old_number_of_failures) { \
-                    Illuminate::Test::registerFailure(__FILE__,_ILLUMINATE_KNOWN_FAIL_line_number,"Expected failure(s) did not occur.",_ILLUMINATE_KNOWN_FAIL_fatal); \
+                    Illuminate::Test::registerFailure(TEST_SOURCE_FILE,_ILLUMINATE_KNOWN_FAIL_line_number,"Expected failure(s) did not occur.",_ILLUMINATE_KNOWN_FAIL_fatal); \
                 } \
         }
 
@@ -674,7 +678,7 @@ DEFINE_CHECKS(FALSE,2)
 #define _ILLUMINATE_END_THROWS(exception_type) \
             } catch(exception_type const& e) { _ILLUMINATE_THROWS_exception_thrown = true; } \
             if(!_ILLUMINATE_THROWS_exception_thrown) { \
-                Illuminate::Test::registerFailure(__FILE__,_ILLUMINATE_THROWS_line_number,"Exception " #exception_type " was not thrown.",_ILLUMINATE_THROWS_fatal); \
+                Illuminate::Test::registerFailure(TEST_SOURCE_FILE,_ILLUMINATE_THROWS_line_number,"Exception " #exception_type " was not thrown.",_ILLUMINATE_THROWS_fatal); \
             } \
         }
 
@@ -706,14 +710,14 @@ DEFINE_CHECKS(FALSE,2)
 
 \include_example{reference-FAIL}
 */
-#define FAIL(message) Illuminate::Test::registerFailure(__FILE__,__LINE__,(message),false);
+#define FAIL(message) Illuminate::Test::registerFailure(TEST_SOURCE_FILE,__LINE__,(message),false);
 
 /*! \brief Raises a failure with the given message, and then terminates the test.
     \ingroup FORCED_FAILURES
 
 \include_example{reference-FATALLY_FAIL}
 */
-#define FATALLY_FAIL(message) Illuminate::Test::registerFailure(__FILE__,__LINE__,(message),true);
+#define FATALLY_FAIL(message) Illuminate::Test::registerFailure(TEST_SOURCE_FILE,__LINE__,(message),true);
 //@-others
 
 #endif

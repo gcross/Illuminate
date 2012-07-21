@@ -5,7 +5,7 @@
 #@+others
 #@+node:gcross.20110715235201.1473: ** addExample
 function(addExample example-output example-sources additional-libraries additional-options)
-    add_definitions(-D__FILE__="example.cpp")
+    add_definitions(-DTEST_SOURCE_FILE="example.cpp")
     get_filename_component(example-name ${example-output} NAME_WE)
     add_executable(${example-name} EXCLUDE_FROM_ALL ${example-sources})
     target_link_libraries(${example-name} illuminate ${additional-libraries})
