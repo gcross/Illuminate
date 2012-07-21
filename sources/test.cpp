@@ -1,21 +1,4 @@
-//@+leo-ver=5-thin
-//@+node:gcross.20101205182001.1418: * @file test.cpp
-//@@language cplusplus
-//@+<< License >>
-//@+node:gcross.20110222175650.1654: ** << License >>
-//@+at
-// ISC License (http://www.opensource.org/licenses/isc-license)
-// 
-// Copyright (c) 2011, Gregory Crosswhite <gcrosswhite@gmail.com>
-// 
-// Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-//@@c
-//@-<< License >>
-
-//@+<< Includes >>
-//@+node:gcross.20101205182001.1419: ** << Includes >>
+// Includes {{{
 #include <boost/algorithm/string/case_conv.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/any.hpp>
@@ -25,12 +8,9 @@
 #include <sstream>
 
 #include "illuminate/test_tree.hpp"
-//@-<< Includes >>
+// }}}
 
-namespace Illuminate {
-
-//@+<< Usings >>
-//@+node:gcross.20101205182001.1420: ** << Usings >>
+// Usings {{{
 using boost::any;
 using boost::equals;
 using boost::format;
@@ -44,60 +24,54 @@ using boost::to_lower;
 using std::string;
 using std::stringstream;
 using std::vector;
-//@-<< Usings >>
+// }}}
 
-//@+others
-//@+node:gcross.20101205182001.1421: ** class Test
-//@+node:gcross.20101205182001.1422: *3* (constructors)
-Test::Test(string const& name, Suite& parent, function<void ()> const runner, optional<bool> const skipped)
+namespace Illuminate {
+
+// class Test {{{
+// static fields {{{
+thread_specific_ptr<vector<string> > Test::current_failures;
+enum AbortMode Test::abort_mode = NEVER_ABORT;
+// }}}
+
+Test::Test(string const& name, Suite& parent, function<void ()> const runner, optional<bool> const skipped) // {{{
     : Node(name,parent,skipped)
     , id(getRoot().registerTest(this))
     , runner(runner)
 {
     parent.tests.push_back(this);
-}
-//@+node:gcross.20101206161648.1515: *3* (exceptions)
-char const* Test::FailuresAccessedOutsideTestContext::what() const throw() {
+} // }}}
+char const* Test::FailuresAccessedOutsideTestContext::what() const throw() { // {{{
     return "an attempt has been made to register a failure outside of a test context";
-}
-//@+node:gcross.20101206142257.1467: *3* (static fields)
-thread_specific_ptr<vector<string> > Test::current_failures;
-enum AbortMode Test::abort_mode = NEVER_ABORT;
-//@+node:gcross.20101206161648.1525: *3* annotateFailureMessage
-string Test::annotateFailureMessage(char const* filename, int const line_number, string const& message) {
+} // }}}
+string Test::annotateFailureMessage(char const* filename, int const line_number, string const& message) { // {{{
     stringstream annotated_message;
     annotated_message << filename << ':' << line_number << " - " << message;
     return annotated_message.str();
-}
-//@+node:gcross.20110809112154.2072: *3* constructPath
-boost::format Test::constructPath() const {
+} // }}}
+boost::format Test::constructPath() const { // {{{
     return format("%1%%2%") % parent->constructPath() % name;
-}
-//@+node:gcross.20110222132831.1570: *3* countFailures
-unsigned int Test::countFailures() {
+} // }}}
+unsigned int Test::countFailures() { // {{{
     return getFailures().size();
-}
-//@+node:gcross.20101206161648.1517: *3* die
-void Test::die() {
+} // }}}
+void Test::die() { // {{{
     throw FatalTestFailure();
-}
-//@+node:gcross.20110222160854.1885: *3* eraseFailuresAfter
-void Test::eraseFailuresAfter(unsigned int const number_of_failures) {
+} // }}}
+void Test::eraseFailuresAfter(unsigned int const number_of_failures) { // {{{
     vector<string>& failures = getFailures();
     if(number_of_failures < failures.size()) {
         failures.erase(failures.begin()+number_of_failures,failures.end());
     }
-}
-//@+node:gcross.20110222132831.1568: *3* getFailures
-vector<string>& Test::getFailures() {
+} // }}}
+vector<string>& Test::getFailures() { // {{{
     vector<string>* failures = current_failures.get();
     if(failures == NULL) {
         throw FailuresAccessedOutsideTestContext();
     }
     return *failures;
-}
-//@+node:gcross.20101206142257.1395: *3* operator()
-TestResult Test::operator()() const {
+} // }}}
+TestResult Test::operator()() const { // {{{
     current_failures.reset(new vector<string>());
     if(abort_mode >= ABORT_ON_EXCEPTION) {
         runner();
@@ -118,30 +92,30 @@ TestResult Test::operator()() const {
     TestResult failures(current_failures.get());
     current_failures.release();
     return failures;
-}
-//@+node:gcross.20101206161648.1513: *3* registerFailure
-void Test::registerFailure(string const& message, bool const fatal) {
+} // }}}
+void Test::registerFailure(string const& message, bool const fatal) { // {{{
     if(abort_mode >= ABORT_ON_ANY_FAILURE) {
         throw FatalError(message);
     }
     getFailures().push_back(message);
     if(fatal) die();
-}
-//@+node:gcross.20101206161648.1527: *3* registerFailure
-void Test::registerFailure(char const* filename, unsigned int const line_number, string const& message, bool const fatal) {
+} // }}}
+void Test::registerFailure(char const* filename, unsigned int const line_number, string const& message, bool const fatal) { // {{{
     registerFailure(annotateFailureMessage(filename,line_number,message),fatal);
-}
-//@+node:gcross.20110601150226.2637: *3* run
-TestResult Test::run(unsigned int test_id) {
+} // }}}
+TestResult Test::run(unsigned int test_id) { // {{{
     return getRoot().lookupTest(test_id)();
-}
-//@+node:gcross.20110204202041.1556: ** function validate
+} // }}}
+// }}}
+
+// Functions {{{
+
 void validate(any& v
              ,vector<std::string> const& values
              ,AbortMode* target_type
              ,int const
              )
-{
+{ // {{{
     // Make sure no previous assignment to 'a' was made.
     validators::check_first_occurrence(v);
 
@@ -160,8 +134,8 @@ void validate(any& v
     } else {
         throw invalid_option_value(s);
     }
-}
-//@-others
+} // }}}
+
+// }}}
 
 }
-//@-leo

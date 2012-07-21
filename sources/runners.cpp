@@ -1,21 +1,4 @@
-//@+leo-ver=5-thin
-//@+node:gcross.20101208142631.1635: * @file runners.cpp
-//@@language cplusplus
-//@+<< License >>
-//@+node:gcross.20110222175650.1654: ** << License >>
-//@+at
-// ISC License (http://www.opensource.org/licenses/isc-license)
-// 
-// Copyright (c) 2011, Gregory Crosswhite <gcrosswhite@gmail.com>
-// 
-// Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-//@@c
-//@-<< License >>
-
-//@+<< Includes >>
-//@+node:gcross.20101208142631.1636: ** << Includes >>
+// Includes {{{
 #include <boost/foreach.hpp>
 #include <boost/format.hpp>
 #include <boost/lambda/lambda.hpp>
@@ -26,12 +9,9 @@
 #include "illuminate/test_worker_group.hpp"
 #include "illuminate/visitors/indented_output.hpp"
 #include "illuminate/visitors/result/printer.hpp"
-//@-<< Includes >>
+// }}}
 
-namespace Illuminate {
-
-//@+<< Usings >>
-//@+node:gcross.20101208142631.1637: ** << Usings >>
+// Usings {{{
 using boost::format;
 namespace lambda = boost::lambda;
 using boost::optional;
@@ -44,12 +24,12 @@ using std::make_pair;
 using std::string;
 using std::ostream;
 using std::vector;
-//@-<< Usings >>
+// }}}
 
-//@+others
-//@+node:gcross.20101208142631.1683: ** Functions
-//@+node:gcross.20101208142631.1486: *3* enqueueAllTests
-void enqueueAllTests(TestQueue const& queue, TestFutures const& futures, Suite const& suite) {
+namespace Illuminate {
+
+// Functions {{{
+void enqueueAllTests(TestQueue const& queue, TestFutures const& futures, Suite const& suite) { // {{{
     struct : public Visitor {
         TestQueue queue;
         TestFutures futures;
@@ -62,25 +42,22 @@ void enqueueAllTests(TestQueue const& queue, TestFutures const& futures, Suite c
     queuer.queue = queue;
     queuer.futures = futures;
     suite.visit(queuer);
-}
-//@+node:gcross.20110813230314.1515: *3* enqueueSelectedTests
-void enqueueSelectedTests(TestQueue const& queue, TestFutures const& futures, vector<unsigned int> const& test_ids) {
+} // }}}
+void enqueueSelectedTests(TestQueue const& queue, TestFutures const& futures, vector<unsigned int> const& test_ids) { // {{{
     BOOST_FOREACH(unsigned int const test_id, test_ids) {
         if((*futures).find(test_id) == futures->end()) {
             enqueueTest(queue,futures,test_id);
         }
     }
-}
-//@+node:gcross.20110813230314.1516: *3* enqueueTest
-void enqueueTest(TestQueue const& queue, TestFutures const& futures, unsigned int test_id) {
+} // }}}
+void enqueueTest(TestQueue const& queue, TestFutures const& futures, unsigned int test_id) { // {{{
     TestTask task(make_pair(test_id,new promise<TestResult>()));
     TestFuture future(new unique_future<TestResult>);
     (*future) = task.second->get_future();
     (*futures)[test_id] = future;
     queue->push(task);
-}
-//@+node:gcross.20110204143810.1552: *3* printAllTestResults
-void printAllTestResults(
+} // }}}
+void printAllTestResults( // {{{
     ColorCodes const& color_codes,
     ostream& out,
     TestResultFetcher fetchResult
@@ -88,9 +65,8 @@ void printAllTestResults(
     PrinterResultVisitor visitor(fetchResult,color_codes,out);
     getRoot().visit(visitor);
     printTestFailureCount(visitor.number_of_failed_tests,color_codes,out);
-}
-//@+node:gcross.20110809112154.2053: *3* printSelectedTestResults
-void printSelectedTestResults(
+} // }}}
+void printSelectedTestResults(  // {{{
     vector<unsigned int> const& test_ids,
     ColorCodes const& color_codes,
     ostream& out,
@@ -113,17 +89,15 @@ void printSelectedTestResults(
         }
     }
     printTestFailureCount(number_of_failed_tests);
-}
-//@+node:gcross.20110601150226.2636: *3* printTestFailureCount
-void printTestFailureCount(
+} // }}}
+void printTestFailureCount( // {{{
     unsigned int number_of_failed_tests,
     ColorCodes const& color_codes,
     ostream& out
 ) {
     out << endl << color_codes.numberOfFailedTests(number_of_failed_tests) << endl;
-}
-//@+node:gcross.20101208142631.1677: *3* printTestTree
-void printTestTree(ColorCodes const& color_codes,ostream& out) {
+} // }}}
+void printTestTree(ColorCodes const& color_codes,ostream& out) {  // {{{
     struct PrinterVisitor : public IndentedOutputVisitor {
         ColorCodes const& color_codes;
         PrinterVisitor(ColorCodes const& color_codes,std::ostream& out)
@@ -138,9 +112,8 @@ void printTestTree(ColorCodes const& color_codes,ostream& out) {
         }
     } visitor(color_codes,out);
     getRoot().visit(visitor);
-}
-//@+node:gcross.20101208142631.1684: *3* runAllTestsUsingWorkersAndPrintResults
-void runAllTestsUsingWorkersAndPrintResults(
+} // }}}
+void runAllTestsUsingWorkersAndPrintResults( // {{{
     unsigned int number_of_workers,
     ColorCodes const& color_codes,
     ostream& out,
@@ -148,9 +121,8 @@ void runAllTestsUsingWorkersAndPrintResults(
 ) {
     TestWorkerGroup workers(number_of_workers,fetchResult);
     printAllTestResults(color_codes,out,FutureTestResultFetcher(workers.futures));
-}
-//@+node:gcross.20110813230314.1520: *3* runSelectedTestsUsingWorkersAndPrintResults
-void runSelectedTestsUsingWorkersAndPrintResults(
+} // }}}
+void runSelectedTestsUsingWorkersAndPrintResults( // {{{
     vector<unsigned int> const& test_ids,
     unsigned int number_of_workers,
     ColorCodes const& color_codes,
@@ -159,8 +131,7 @@ void runSelectedTestsUsingWorkersAndPrintResults(
 ) {
     TestWorkerGroup workers(number_of_workers,fetchResult,test_ids);
     printSelectedTestResults(test_ids,color_codes,out,FutureTestResultFetcher(workers.futures));
-}
-//@-others
+} // }}}
+// }}}
 
 }
-//@-leo

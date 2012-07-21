@@ -1,5 +1,4 @@
-//@+leo-ver=5-thin
-//@+node:gcross.20110725161606.1413: * @file organizing_tests.dox
+// Table of Contents {{{
 /*!
 
 \page organizing_tests Organizing tests
@@ -8,9 +7,9 @@
 - \ref test_suites
 - \ref nesting
 */
+// }}}
 
-//@+others
-//@+node:gcross.20110725161606.1414: ** Multiple test cases
+// Multiple test cases {{{
 /*! \page organizing_tests Organizing tests
 
 \section multiple_test_cases Multiple test cases
@@ -29,7 +28,8 @@ Tests may also be spread out over multiple files:
 \verbinclude chapter2-multiple-test-cases-multiple-files.out
 
 */
-//@+node:gcross.20110725161606.1418: ** Test suites
+// }}}
+// Test suites {{{
 /*! \page organizing_tests Organizing tests
 
 \section test_suites Test suites
@@ -45,7 +45,8 @@ The test cases in a particular suite may be spread over multiple files:
 \verbinclude chapter2-test-suite-multiple-files.out
 
 */
-//@+node:gcross.20110725161606.1419: ** Nesting
+// }}}
+// Nesting {{{
 /*! \page organizing_tests Organizing tests
 
 \section nesting Nesting
@@ -57,7 +58,8 @@ Test suites and test cases can be arbitrarily nested, as illustrated in the foll
 Note that the empty test suite A2a3 was not listed because it contained no tests.
 
 */
-//@+node:gcross.20110725161606.1420: ** Skipping and forcing
+// }}}
+// Skipping and forcing {{{
 /*! \page organizing_tests Organizing tests
 
 \section skipping_and_forcing Skipping and forcing
@@ -70,5 +72,4 @@ If you want to re-enable selected test suites or test cases nested inside a skip
 
 \include_example{chapter2-must-test}
 */
-//@-others
-//@-leo
+// }}}

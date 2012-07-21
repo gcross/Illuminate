@@ -1,9 +1,4 @@
-//@+leo-ver=5-thin
-//@+node:gcross.20110809112154.2492: * @file tests-slave.cpp
-//@@language cplusplus
-
-//@+<< Includes >>
-//@+node:gcross.20110809112154.2498: ** << Includes >>
+// Includes {{{
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/assign.hpp>
@@ -26,11 +21,9 @@ using std::istringstream;
 using std::string;
 using std::stringstream;
 using std::vector;
-//@-<< Includes >>
+// }}}
 
-//@+others
-//@+node:gcross.20110809112154.2493: ** construct slave without using it
-TEST_CASE(construct_slave_without_using_it) {
+TEST_CASE(construct_slave_without_using_it) { // {{{
     struct : public Slave {
         virtual void initiateConnection() {
             FAIL("initiateConnection() called!");
@@ -46,9 +39,8 @@ TEST_CASE(construct_slave_without_using_it) {
             FATALLY_FAIL("getOutput() called!");
         }
     } slave;
-}
-//@+node:gcross.20110809112154.2497: ** run test in slave with empty input
-TEST_CASE(run_test_in_slave_with_empty_input) {
+} // }}}
+TEST_CASE(run_test_in_slave_with_empty_input) { // {{{
     struct SlaveHarness: public Slave {
         SlaveHarness() : initiateConnection_called(false) {}
         bool initiateConnection_called;
@@ -73,9 +65,8 @@ TEST_CASE(run_test_in_slave_with_empty_input) {
         FAIL("Exception not thrown!");
     } catch(stringstream::failure const& _) {}
     EXPECT_TRUE(slave.stream.eof());
-}
-//@+node:gcross.20110809112154.2500: ** run test in slave with crashing test
-TEST_CASE(run_test_in_slave_with_crashing_test) {
+} // }}}
+TEST_CASE(run_test_in_slave_with_crashing_test) { // {{{
     struct SlaveHarness: public Slave {
         SlaveHarness()
           : initiateConnection_called(false)
@@ -120,9 +111,8 @@ TEST_CASE(run_test_in_slave_with_crashing_test) {
     getline(stream,s);
     getline(stream,s);
     EXPECT_EQ_VAL("Hello, world!",s);
-}
-//@+node:gcross.20110809112154.2502: ** run test in slave
-TEST_CASE(run_test_in_slave) {
+} // }}}
+TEST_CASE(run_test_in_slave) { // {{{
     vector<string> expected_result = list_of("A")("B");
     struct SlaveHarness: public Slave {
         SlaveHarness(vector<string> const& expected_result)
@@ -161,6 +151,4 @@ TEST_CASE(run_test_in_slave) {
     slave.stream2 >> test_id;
     EXPECT_EQ_VAL(test_id,42);
     EXPECT_TRUE(*actual_results == expected_result);
-}
-//@-others
-//@-leo
+} // }}}

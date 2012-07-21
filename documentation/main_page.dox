@@ -1,5 +1,3 @@
-//@+leo-ver=5-thin
-//@+node:gcross.20110730203014.1424: * @file main_page.dox
 /*!
 
 \mainpage Introduction
@@ -69,4 +67,3 @@ If you want to implement the main() function yourself then do not link to \c ill
 For more information on writing tests, see \ref writing_tests.  For more information on organizing tests, see \ref organizing_tests.
 
 */
-//@-leo

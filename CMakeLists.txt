@@ -1,14 +1,9 @@
-#@+leo-ver=5-thin
-#@+node:gcross.20101205182001.1276: * @file CMakeLists.txt
-#@@language python
 cmake_minimum_required (VERSION 2.6 FATAL_ERROR)
 project (Illuminate CXX)
 set (version 1.0)
 
-#@+<< Settings >>
-#@+node:gcross.20110715235201.2667: ** << Settings >>
-#@+others
-#@+node:gcross.20110715235201.2669: *3* Offline HTML
+# Settings {{{
+# Offline HTML {{{
 set (OFFLINE_HTML
     NO
     CACHE BOOL
@@ -20,7 +15,8 @@ if(${OFFLINE_HTML})
 else(${OFFLINE_HTML})
     set(USE_MATHJAX YES)
 endif(${OFFLINE_HTML})
-#@+node:gcross.20110730232122.1427: *3* Version Prefix
+# }}}
+# Version Prefix {{{
 set (INSTALL_IN_VERSIONED_SUBDIRECTORY
     NO
     CACHE BOOL
@@ -34,13 +30,12 @@ else(${INSTALL_IN_VERSIONED_SUBDIRECTORY})
     set(LIBRARY_INSTALLATION_DIRECTORY lib)
     set(HEADER_INSTALLATION_DIRECTORY include)
 endif(${INSTALL_IN_VERSIONED_SUBDIRECTORY})
-#@-others
-#@-<< Settings >>
+# }}}
+# }}}
 
 ENABLE_TESTING()
 
-#@+<< Configure target output paths >>
-#@+node:gcross.20110430202346.1607: ** << Configure target output paths >>
+# Configure target output paths {{{
 set (LIBRARY_OUTPUT_PATH
     ${PROJECT_BINARY_DIR}/lib
     CACHE PATH
@@ -57,14 +52,13 @@ mark_as_advanced(
     LIBRARY_OUTPUT_PATH
     EXECUTABLE_OUTPUT_PATH
     )
-#@-<< Configure target output paths >>
+# }}}
 
-#@+<< Configure Boost >>
-#@+node:gcross.20110430202346.1609: ** << Configure Boost >>
+# Configure Boost {{{
 find_package( Boost 1.42 COMPONENTS serialization system thread program_options REQUIRED )
 link_directories ( ${Boost_LIBRARY_DIRS} )
 include_directories ( ${Boost_INCLUDE_DIRS} )
-#@-<< Configure Boost >>
+# }}}
 
 if( NOT CMAKE_BUILD_TYPE )
 set( CMAKE_BUILD_TYPE "RelWithDebInfo" )
@@ -79,8 +73,7 @@ add_subdirectory ("includes")
 add_subdirectory ("package")
 add_subdirectory ("sources")
 
-#@+<< Configure documentation >>
-#@+node:gcross.20110430202346.1610: ** << Configure documentation >>
+# Configure documentation {{{
 # add a target to generate API documentation with Doxygen
 find_package(Doxygen)
 
@@ -92,5 +85,4 @@ if(DOXYGEN_FOUND)
         COMMENT "Generating API documentation with Doxygen" VERBATIM
     )
 endif(DOXYGEN_FOUND)
-#@-<< Configure documentation >>
-#@-leo
+# }}}

@@ -1,5 +1,4 @@
-//@+leo-ver=5-thin
-//@+node:gcross.20110715235201.1476: * @file writing_tests.dox
+// Table of Contents {{{
 /*!
 
 \page writing_tests Writing tests
@@ -14,9 +13,9 @@
     - \ref boolean_checks
     - \ref forced_failure
 */
+// }}}
 
-//@+others
-//@+node:gcross.20110715235201.1480: ** A simple test
+// A simple test {{{
 /*! \page writing_tests Writing tests
 
 \section simple_test A simple test
@@ -38,13 +37,15 @@ Whenever a non-trivial test passes on the first try, I like to intentionally bre
 As we can see, a message is output describing the location and nature of the failure.
 
 */
-//@+node:gcross.20110715235201.1484: ** Customizing failure messages
+// }}}
+// Customizing failure messages {{{
 /*! \page writing_tests Writing tests
 
 \subsection customizing_failure_messages Customizing failure messages
 
 */
-//@+node:gcross.20110715235201.1483: *3* Prefixes: EXPECT versus ASSERT
+
+// Prefixes: EXPECT versus ASSERT {{{
 /*! \page writing_tests Writing Tests
 
 \subsubsection test_prefixes Prefixes: EXPECT versus ASSERT
@@ -64,10 +65,11 @@ If there is a combination of EXPECTs and ASSERTs that fail, then all of the mess
 \include_example{chapter1-test-with-multiple-expects-and-asserts}
 
 */
-//@+node:gcross.20110715235201.1485: *3* Suffixes: Bare versus VAL versus LABELED
+// }}}
+// Bare versus VAL versus LABELED {{{
 /*! \page writing_tests Writing Tests
 
-\subsubsection test_suffixes Suffixes: Bare versus VAL versus LABELED.
+\subsubsection test_suffixes Suffixes: Bare versus VAL versus LABELED
 
 Up to now all of the test macros have ended with VAL, but for any macro that ends in VAL there is also a bare variant, a variant that ends in LABELED.  Here is an example of using these variants:
 
@@ -76,13 +78,17 @@ Up to now all of the test macros have ended with VAL, but for any macro that end
 The bare form prints out both the expression and the value for each of the two arguments.  The VAL form prints the expression and value for the first argument, but only the value of the second argument (with the label "the expected value").  The LABELED form takes an extra argument before each expression that provides an explicit label for that expression.
 
 */
-//@+node:gcross.20110715235201.1489: ** Performing checks
+// }}}
+
+// }}}
+// Performing checks {{{
 /*! \page writing_tests Writing tests
 
 \subsection performing_checks Performing checks
 
 */
-//@+node:gcross.20110715235201.1490: *3* Relation checks
+
+// Relation checks {{{
 /*! \page writing_tests Writing tests
 
 \subsubsection relation_checks Relation checks
@@ -101,7 +107,8 @@ Here is an example of using these checks:
 \include_example{chapter1-all-relations}
 
 */
-//@+node:gcross.20110715235201.1492: *3* Approximate equality checks
+// }}}
+// Approximate equality checks {{{
 /*! \page writing_tests Writing tests
 
 \subsubsection approximate_equality_checks Approximate equality checks
@@ -113,7 +120,8 @@ Here is an example of using these checks:
 \include_example{chapter1-approximate-equality}
 
 */
-//@+node:gcross.20110715235201.2670: *3* Boolean checks
+// }}}
+// Boolean checks {{{
 /*! \page writing_tests Writing tests
 
 \subsubsection boolean_checks Boolean checks
@@ -125,7 +133,8 @@ Here is an example of using these checks:
 \include_example{chapter1-boolean-checks}
 
 */
-//@+node:gcross.20110715235201.2672: *3* Forced failure
+// }}}
+// Forced faiure {{{
 /*! \page writing_tests Writing tests
 
 \subsubsection forced_failure Forced failure
@@ -137,5 +146,6 @@ Here is an example of using these macros:
 \include_example{chapter1-forced-failure}
 
 */
-//@-others
-//@-leo
+// }}}
+
+// }}}

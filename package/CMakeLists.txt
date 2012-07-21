@@ -1,5 +1,3 @@
-#@+leo-ver=5-thin
-#@+node:gcross.20110527192131.2326: * @file CMakeLists.txt
 configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/IlluminateConfig.cmake.in
     ${CMAKE_CURRENT_BINARY_DIR}/IlluminateConfig.cmake @ONLY
@@ -22,4 +20,3 @@ install (
     EXPORT Illuminate-targets
     DESTINATION lib/Illuminate-${version}
 )
-#@-leo

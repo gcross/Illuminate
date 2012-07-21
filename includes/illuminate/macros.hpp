@@ -1,19 +1,3 @@
-//@+leo-ver=5-thin
-//@+node:gcross.20101206142257.1399: * @file macros.hpp
-//@@language cplusplus
-//@+<< License >>
-//@+node:gcross.20110222175650.1654: ** << License >>
-//@+at
-// ISC License (http://www.opensource.org/licenses/isc-license)
-// 
-// Copyright (c) 2011, Gregory Crosswhite <gcrosswhite@gmail.com>
-// 
-// Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-//@@c
-//@-<< License >>
-
 /*! \file macros.hpp
     \brief Macros for defining test suite/cases and performing checks.
 */
@@ -21,22 +5,23 @@
 #ifndef ILLUMINATE_MACROS_HPP
 #define ILLUMINATE_MACROS_HPP
 
-//@+<< Includes >>
-//@+node:gcross.20101209013121.1492: ** << Includes >>
+// Includes {{{
 #include <boost/format.hpp>
-//@-<< Includes >>
+// }}}
 
-//@+others
-//@+node:gcross.20120721120541.1742: ** Define the test source file
+// Define the test source file macro if not already defined {{{
 #ifndef TEST_SOURCE_FILE
     #define TEST_SOURCE_FILE TEST_SOURCE_FILE
 #endif
-//@+node:gcross.20101206142257.1405: ** Test declarations
+// }}}
+
+// Test declarations {{{
 /*! \brief These macros define tests and test suites.
     \defgroup DECLARATIONS Declarations
     \details Note that in the name displayed to the user all the underscores will be replaced with spaces and then leading and trailing whitespace will be trimmed.
 */
-//@+node:gcross.20101206142257.1407: *3* TEST_CASE
+
+// Test cases {{{
 #define DEFINE_TEST_CASE(caseName,skipped) \
     static void TEST_CASE_RUNNER_##caseName(); \
     static Illuminate::Test TEST_CASE_##caseName(Illuminate::underscoresToSpaces(#caseName),getParentSuite(),TEST_CASE_RUNNER_##caseName,skipped); \
@@ -68,7 +53,8 @@
 \include_example{reference-MUST_TEST_CASE}
 */
 #define MUST_TEST_CASE(caseName) DEFINE_TEST_CASE(caseName,boost::make_optional(false))
-//@+node:gcross.20101206142257.1406: *3* TEST_SUITE
+// }}}
+// Test suites {{{
 #define DEFINE_TEST_SUITE(suiteName,skipped) \
     namespace SUITE_##suiteName { \
         static Illuminate::Suite& _getParentSuite() { \
@@ -105,8 +91,12 @@
 \include_example{reference-MUST_TEST_SUITE}
 */
 #define MUST_TEST_SUITE(suiteName) DEFINE_TEST_SUITE(suiteName,boost::make_optional(false))
-//@+node:gcross.20101206161648.1614: ** Helpers
-//@+node:gcross.20101206161648.1620: *3* DEFINE_CHECK_WITH_X_ARGUMENTS
+// }}}
+
+// }}}
+
+// Helpers {{{
+// DEFINE_CHECK_WITH_X_ARGUMENTS {{{
 #define DEFINE_CHECK_WITH_1_ARGUMENTS(K,F) \
     namespace Illuminate {\
         template<class T1> void DO_##F##_##K(const char* filename, int line_number, const T1& a) {\
@@ -138,31 +128,39 @@
             DO_TEST_##K(filename,line_number,F##_EXPRESSION(a,b,c,d,e),F##_MESSAGE(a,b,c,d,e));\
         }\
     }
-//@+node:gcross.20101209224839.2292: *3* DEFINE_CHECKS
+// }}}
+// DEFINE_CHECKS {{{
 #define DEFINE_CHECKS(F,N) \
     DEFINE_CHECK_WITH_##N##_ARGUMENTS(ASSERT,F) \
     DEFINE_CHECK_WITH_##N##_ARGUMENTS(EXPECT,F)
-//@+node:gcross.20101209224839.2290: *3* DO_CHECK_WITH_X_ARGUMENTS
+// }}}
+// DO_CHECK_WITH_X_ARGUMENTS {{{
 #define DO_CHECK_WITH_1_ARGUMENTS(K,F,A) Illuminate::DO_##F##_##K(TEST_SOURCE_FILE,__LINE__,A);
 #define DO_CHECK_WITH_2_ARGUMENTS(K,F,A,B) Illuminate::DO_##F##_##K(TEST_SOURCE_FILE,__LINE__,A,B);
 #define DO_CHECK_WITH_3_ARGUMENTS(K,F,A,B,C) Illuminate::DO_##F##_##K(TEST_SOURCE_FILE,__LINE__,A,B,C);
 #define DO_CHECK_WITH_4_ARGUMENTS(K,F,A,B,C,D) Illuminate::DO_##F##_##K(TEST_SOURCE_FILE,__LINE__,A,B,C,D);
 #define DO_CHECK_WITH_5_ARGUMENTS(K,F,A,B,C,D,E) Illuminate::DO_##F##_##K(TEST_SOURCE_FILE,__LINE__,A,B,C,D,E);
-//@+node:gcross.20101206161648.1615: *3* DO_TEST_X
+// }}}
+// DO_TEST_X {{{
 #define DO_TEST_OF_KIND(FILE,LINE,expression,message,fatal) { if(not (expression)) { Illuminate::Test::registerFailure(FILE,LINE,message,fatal); } }
 #define DO_TEST_ASSERT(FILE,LINE,expression,message) DO_TEST_OF_KIND(FILE,LINE,expression,message,true)
 #define DO_TEST_EXPECT(FILE,LINE,expression,message) DO_TEST_OF_KIND(FILE,LINE,expression,message,false)
-//@+node:gcross.20101206161648.1520: ** Checks
+// }}}
+// }}}
+
+// Checks {{{
 /*! \defgroup CHECKS Checks
 
     These macros perform various checks within test cases.  For every kind of check there is an ASSERT and an EXPECT variant;  the difference is that the former treats failure as being fatal and immediately terminates the test, whereas the latter merely logs the failure and allows the test to proceed.
 */
-//@+node:gcross.20110221195111.1565: *3* Relation
+
+// Relation {{{
 /*! \defgroup RELATION_CHECKS Relation checks
     \brief These macros check that two expressions are equal in value.
     \ingroup CHECKS
 */
-//@+node:gcross.20101206161648.1618: *4* EQ
+
+// Equality {{{
 /*! \defgroup EQ_CHECKS EQ [=] (equality)
     \brief These macros check that two expressions are equal in value.
     \ingroup RELATION_CHECKS
@@ -217,7 +215,8 @@ DEFINE_CHECKS(EQ,4)
 \include_example{reference-EXPECT_EQ_LABELED}
 */
 #define EXPECT_EQ_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,EQ,A,B,C,D)
-//@+node:gcross.20110222121027.1867: *4* NE
+// }}}
+// Inequality {{{
 /*! \defgroup NE_CHECKS NE [≠] (inequality)
     \brief These macros check that two expressions are not equal in value.
     \ingroup RELATION_CHECKS
@@ -271,7 +270,8 @@ DEFINE_CHECKS(NE,4)
 \include_example{reference-EXPECT_NE_LABELED}
 */
 #define EXPECT_NE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,NE,A,B,C,D)
-//@+node:gcross.20110130203213.1497: *4* GE
+// }}}
+// Greater or equal {{{
 /*! \defgroup GE_CHECKS GE [≥] (greater than or equal to)
     \brief These macros check that the first expression is greater than or equal to the second.
     \ingroup RELATION_CHECKS
@@ -323,7 +323,8 @@ DEFINE_CHECKS(GE,4)
 \include_example{reference-EXPECT_GE_LABELED}
 */
 #define EXPECT_GE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,GE,A,B,C,D)
-//@+node:gcross.20110222121027.1859: *4* GT
+// }}}
+// Greater than {{{
 /*! \defgroup GT_CHECKS GT [>] (greater than)
     \brief These macros check that the first expression is greater than the second.
     \ingroup RELATION_CHECKS
@@ -375,7 +376,8 @@ DEFINE_CHECKS(GT,4)
 \include_example{reference-EXPECT_GT_LABELED}
 */
 #define EXPECT_GT_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,GT,A,B,C,D)
-//@+node:gcross.20110222121027.1861: *4* LE
+// }}}
+// Less or equal {{{
 /*! \defgroup LE_CHECKS LE [≤] (less than or equal to)
     \brief These macros check that the first expression is less than or equal to the second.
     \ingroup RELATION_CHECKS
@@ -427,7 +429,8 @@ DEFINE_CHECKS(LE,4)
 \include_example{reference-EXPECT_LE_LABELED}
 */
 #define EXPECT_LE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,LE,A,B,C,D)
-//@+node:gcross.20110222121027.1863: *4* LT
+// }}}
+// Less than {{{
 /*! \defgroup LT_CHECKS LT [<] (less than)
     \brief These macros check that the first expression is less than the second.
     \ingroup RELATION_CHECKS
@@ -479,7 +482,8 @@ DEFINE_CHECKS(LT,4)
 \include_example{reference-EXPECT_LT_LABELED}
 */
 #define EXPECT_LT_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,LT,A,B,C,D)
-//@+node:gcross.20110222121027.1873: *4* NEAR_ABS
+// }}}
+// Near (absolutely) {{{
 /*! \defgroup NEAR_ABS_CHECKS NEAR_ABS [≈] (absolutely approximately equal)
     \brief These macros check that two expressions are equal in value within an absolute tolerance.
     \ingroup RELATION_CHECKS
@@ -531,7 +535,8 @@ DEFINE_CHECKS(NEAR_ABS,5)
 \include_example{reference-EXPECT_NEAR_ABS_LABELED}
 */
 #define EXPECT_NEAR_ABS_LABELED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(EXPECT,NEAR_ABS,A,B,C,D,E)
-//@+node:gcross.20110222121027.1875: *4* NEAR_REL
+// }}}
+// Near (relatively) {{{
 /*! \defgroup NEAR_REL_CHECKS NEAR_REL [≈] (relatively approximately equal)
     \brief These macros check that two expressions are equal in value within a relative tolerance.
     \ingroup RELATION_CHECKS
@@ -583,12 +588,16 @@ DEFINE_CHECKS(NEAR_REL,5)
 \include_example{reference-EXPECT_NEAR_REL_LABELED}
 */
 #define EXPECT_NEAR_REL_LABELED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(EXPECT,NEAR_REL,A,B,C,D,E)
-//@+node:gcross.20110221195111.1566: *3* Boolean
+// }}}
+
+// }}}
+// Boolean {{{
 /*! \defgroup BOOLEAN_CHECKS Boolean checks
     \brief These macros check for the truth or falsity of an expression.
     \ingroup CHECKS
 */
-//@+node:gcross.20101206161648.1622: *4* TRUE
+
+// True {{{
 /*! \defgroup TRUE_CHECKS TRUE
     \brief These macros check that the given boolean expression is true.
     \ingroup BOOLEAN_CHECKS
@@ -610,7 +619,8 @@ DEFINE_CHECKS(TRUE,2)
 \include_example{reference-EXPECT_TRUE}
 */
 #define EXPECT_TRUE(A) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,TRUE,A,#A)
-//@+node:gcross.20110222121027.1877: *4* FALSE
+// }}}
+// False {{{
 /*! \defgroup FALSE_CHECKS FALSE
     \brief These macros check that the given boolean expression is false.
     \ingroup BOOLEAN_CHECKS
@@ -632,7 +642,13 @@ DEFINE_CHECKS(FALSE,2)
 \include_example{reference-EXPECT_FALSE}
 */
 #define EXPECT_FALSE(A) DO_CHECK_WITH_2_ARGUMENTS(EXPECT,FALSE,A,#A)
-//@+node:gcross.20110222132831.1572: ** Expected failures
+// }}}
+
+// }}}
+
+// }}}
+
+// Expected failures {{{
 #define _ILLUMINATE_BEGIN_KNOWN_FAIL \
         { \
             bool _ILLUMINATE_KNOWN_FAIL_exception_thrown = false; \
@@ -699,7 +715,9 @@ DEFINE_CHECKS(FALSE,2)
 #define END_EXPECT_THROWS(exception_type) \
         _ILLUMINATE_END_THROWS(exception_type) \
     }
-//@+node:gcross.20101206161648.1598: ** Failures
+// }}}
+
+// Failures {{{
 /*! \defgroup FORCED_FAILURES Forced failures
     \brief These macros force a failure message to be displayed.
     \ingroup CHECKS
@@ -718,7 +736,6 @@ DEFINE_CHECKS(FALSE,2)
 \include_example{reference-FATALLY_FAIL}
 */
 #define FATALLY_FAIL(message) Illuminate::Test::registerFailure(TEST_SOURCE_FILE,__LINE__,(message),true);
-//@-others
+// }}}
 
 #endif
-//@-leo

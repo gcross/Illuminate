@@ -1,10 +1,4 @@
-#@+leo-ver=5-thin
-#@+node:gcross.20110626224331.2628: * @file CMakeLists.txt
-#@@language python
-
-#@+others
-#@+node:gcross.20110715235201.1473: ** addExample
-function(addExample example-output example-sources additional-libraries additional-options)
+function(addExample example-output example-sources additional-libraries additional-options) # {{{
     add_definitions(-DTEST_SOURCE_FILE="example.cpp")
     get_filename_component(example-name ${example-output} NAME_WE)
     add_executable(${example-name} EXCLUDE_FROM_ALL ${example-sources})
@@ -28,24 +22,21 @@ function(addExample example-output example-sources additional-libraries addition
                     ${example-output-generated}
     )
     set(tests-dependencies ${tests-dependencies} ${example-output} PARENT_SCOPE)
-endfunction(addExample)
-#@+node:gcross.20110715235201.1486: ** addSimpleExample
-macro(addSimpleExample example-name)
-    addExample(${example-name}.out ${example-name}.cpp illuminate-main "")
-endmacro(addSimpleExample)
-#@-others
+endfunction(addExample) # }}}
 
-#@+<< Tests >>
-#@+node:gcross.20110715235201.1474: ** << Tests >>
-#@+others
-#@+node:gcross.20110730203014.1426: *3* Introduction
+macro(addSimpleExample example-name) # {{{
+    addExample(${example-name}.out ${example-name}.cpp illuminate-main "")
+endmacro(addSimpleExample) # }}}
+
+# Tests {{{
+# Introduction {{{
 foreach(simple-example-name
     introduction-example
 )
     addSimpleExample(${simple-example-name})
 endforeach(simple-example-name)
-
-#@+node:gcross.20110715235201.1487: *3* Chapter 1
+# }}}
+# Chapter 1 {{{
 foreach(simple-example-name
     chapter1-simple-test
     chapter1-simple-test-broken
@@ -60,8 +51,8 @@ foreach(simple-example-name
 )
     addSimpleExample(${simple-example-name})
 endforeach(simple-example-name)
-
-#@+node:gcross.20110725161606.1415: *3* Chapter 2
+# }}}
+# Chapter 2 {{{
 foreach(simple-example-name
     chapter2-multiple-test-cases-same-file
     chapter2-test-suites
@@ -74,7 +65,8 @@ endforeach(simple-example-name)
 
 addExample(chapter2-multiple-test-cases-multiple-files.out "chapter2-multiple-test-cases-1.cpp;chapter2-multiple-test-cases-2.cpp;chapter2-multiple-test-cases-3.cpp" illuminate-main "")
 addExample(chapter2-test-suite-multiple-files.out "chapter2-test-suite-multiple-files-1.cpp;chapter2-test-suite-multiple-files-2.cpp" illuminate-main "")
-#@+node:gcross.20110725161606.1417: *3* Reference
+# }}}
+# Reference {{{
 foreach(simple-example-name
     reference-EQ-strings
     reference-ASSERT_EQ
@@ -152,14 +144,14 @@ foreach(simple-example-name
 )
     addSimpleExample(${simple-example-name})
 endforeach(simple-example-name)
-#@+node:gcross.20110809112154.2491: *3* Tests
+# }}}
+# Tests {{{
 foreach(test-name
     tests-slave
 )
     addSimpleExample(${test-name})
 endforeach(test-name)
-#@-others
-#@-<< Tests >>
+# }}}
+# }}}
 
 add_custom_target(tests DEPENDS ${tests-dependencies})
-#@-leo
