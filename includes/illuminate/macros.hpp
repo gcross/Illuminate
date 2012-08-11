@@ -11,7 +11,7 @@
 
 // Define the test source file macro if not already defined {{{
 #ifndef TEST_SOURCE_FILE
-    #define TEST_SOURCE_FILE TEST_SOURCE_FILE
+    #define TEST_SOURCE_FILE __FILE__
 #endif
 // }}}
 
