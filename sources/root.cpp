@@ -2,6 +2,7 @@
 #include <boost/foreach.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/range/algorithm/remove_copy_if.hpp>
+#include <iostream>
 #include <iterator>
 
 #include "illuminate/test_tree.hpp"
