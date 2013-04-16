@@ -7,6 +7,7 @@
 #include <boost/process.hpp>
 #include <boost/serialization/string.hpp>
 #include <boost/serialization/vector.hpp>
+#include <exception>
 #include <iostream>
 #include <sstream>
 
@@ -29,6 +30,7 @@ using std::getline;
 using std::istream;
 using std::ostream;
 using std::ostringstream;
+using std::runtime_error;
 using std::string;
 using std::stringstream;
 using std::vector;
@@ -71,12 +73,23 @@ TestResult Slave::operator()(Test const& test) {
     return (*this)(test.id);    
 }
 
+using std::cerr;
 TestResult Slave::operator()(unsigned int test_id) {
     start();
     istream& input_from_slave = getInput();
     ostream& output_to_slave = getOutput();
     string s;
-    while (s != slave_sentinel) getline(input_from_slave,s);
+    {
+        ostringstream prelude_log;
+        try {
+            while (s != slave_sentinel) {
+                getline(input_from_slave,s);
+                prelude_log << s << endl;
+            }
+        } catch(...) {
+            throw runtime_error(string("Error starting slave process:\n") + prelude_log.str());
+        }
+    }
     output_to_slave << test_id << endl;
     TestResult result(make_shared<vector<string> >());
     ostringstream log;
