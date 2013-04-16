@@ -47,6 +47,7 @@ struct SlaveProcessContext : public boost::process::context {
         stdin_behavior  = boost::process::capture_stream();
         stderr_behavior = boost::process::redirect_stream_to_stdout();
         stdout_behavior = boost::process::capture_stream();
+        environment     = boost::process::self::get_environment();
     }
 } const slave_process_context;
 // }}}
