@@ -9,3 +9,5 @@ documentation/html
 documentation/latex
 build
 .DS_Store
+*.swp
+
