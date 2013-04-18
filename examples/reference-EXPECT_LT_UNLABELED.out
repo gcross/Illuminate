@@ -1,0 +1,6 @@
+Root:
+    EXPECT LT UNLABELED [#0]... FAILED :-(
+        * example.cpp:5 - <2> is greater than or equal to <2>
+        * example.cpp:6 - <2> is greater than or equal to <1>
+
+1 test failed.

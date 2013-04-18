@@ -1,0 +1,5 @@
+Root:
+    ASSERT EQ UNLABELED [#0]... FAILED :-(
+        * example.cpp:5 - <1> does not match <2>
+
+1 test failed.

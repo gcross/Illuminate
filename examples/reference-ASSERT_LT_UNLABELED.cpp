@@ -1,0 +1,7 @@
+#include "illuminate.hpp"
+
+TEST_CASE(ASSERT_LT_UNLABELED) {
+    ASSERT_LT_UNLABELED(2,3)
+    ASSERT_LT_UNLABELED(2,2)
+    ASSERT_LT_UNLABELED(2,1)
+}

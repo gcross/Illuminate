@@ -1,0 +1,5 @@
+Root:
+    ASSERT GE UNLABELED [#0]... FAILED :-(
+        * example.cpp:6 - <1> is less than <2>
+
+1 test failed.

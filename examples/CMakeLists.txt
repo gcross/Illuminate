@@ -75,6 +75,8 @@ foreach(simple-example-name
     reference-EXPECT_EQ_VAL
     reference-ASSERT_EQ_LABELED
     reference-EXPECT_EQ_LABELED
+    reference-ASSERT_EQ_UNLABELED
+    reference-EXPECT_EQ_UNLABELED
 
     reference-NE-strings
     reference-ASSERT_NE
@@ -83,6 +85,8 @@ foreach(simple-example-name
     reference-EXPECT_NE_VAL
     reference-ASSERT_NE_LABELED
     reference-EXPECT_NE_LABELED
+    reference-ASSERT_NE_UNLABELED
+    reference-EXPECT_NE_UNLABELED
 
     reference-ASSERT_GE
     reference-EXPECT_GE
@@ -90,6 +94,8 @@ foreach(simple-example-name
     reference-EXPECT_GE_VAL
     reference-ASSERT_GE_LABELED
     reference-EXPECT_GE_LABELED
+    reference-ASSERT_GE_UNLABELED
+    reference-EXPECT_GE_UNLABELED
 
     reference-ASSERT_GT
     reference-EXPECT_GT
@@ -97,6 +103,8 @@ foreach(simple-example-name
     reference-EXPECT_GT_VAL
     reference-ASSERT_GT_LABELED
     reference-EXPECT_GT_LABELED
+    reference-ASSERT_GT_UNLABELED
+    reference-EXPECT_GT_UNLABELED
 
     reference-ASSERT_LE
     reference-EXPECT_LE
@@ -104,6 +112,8 @@ foreach(simple-example-name
     reference-EXPECT_LE_VAL
     reference-ASSERT_LE_LABELED
     reference-EXPECT_LE_LABELED
+    reference-ASSERT_LE_UNLABELED
+    reference-EXPECT_LE_UNLABELED
 
     reference-ASSERT_LT
     reference-EXPECT_LT
@@ -111,6 +121,8 @@ foreach(simple-example-name
     reference-EXPECT_LT_VAL
     reference-ASSERT_LT_LABELED
     reference-EXPECT_LT_LABELED
+    reference-ASSERT_LT_UNLABELED
+    reference-EXPECT_LT_UNLABELED
 
     reference-ASSERT_NEAR_ABS
     reference-EXPECT_NEAR_ABS
@@ -118,6 +130,8 @@ foreach(simple-example-name
     reference-EXPECT_NEAR_ABS_VAL
     reference-ASSERT_NEAR_ABS_LABELED
     reference-EXPECT_NEAR_ABS_LABELED
+    reference-ASSERT_NEAR_ABS_UNLABELED
+    reference-EXPECT_NEAR_ABS_UNLABELED
 
     reference-ASSERT_NEAR_REL
     reference-EXPECT_NEAR_REL
@@ -125,6 +139,8 @@ foreach(simple-example-name
     reference-EXPECT_NEAR_REL_VAL
     reference-ASSERT_NEAR_REL_LABELED
     reference-EXPECT_NEAR_REL_LABELED
+    reference-ASSERT_NEAR_REL_UNLABELED
+    reference-EXPECT_NEAR_REL_UNLABELED
 
     reference-ASSERT_TRUE
     reference-EXPECT_TRUE

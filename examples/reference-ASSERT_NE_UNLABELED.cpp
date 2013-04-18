@@ -1,0 +1,7 @@
+#include "illuminate.hpp"
+
+TEST_CASE(ASSERT_NE_UNLABELED) {
+    ASSERT_NE_UNLABELED(1,2)
+    ASSERT_NE_UNLABELED(1,1)
+    ASSERT_NE_UNLABELED(0,0)
+}

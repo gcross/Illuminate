@@ -1,0 +1,5 @@
+Root:
+    ASSERT GT UNLABELED [#0]... FAILED :-(
+        * example.cpp:5 - <2> is less than or equal to <2>
+
+1 test failed.

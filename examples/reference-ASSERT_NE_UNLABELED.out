@@ -1,0 +1,5 @@
+Root:
+    ASSERT NE UNLABELED [#0]... FAILED :-(
+        * example.cpp:5 - <1> matches <1>
+
+1 test failed.

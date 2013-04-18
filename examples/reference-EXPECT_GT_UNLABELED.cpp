@@ -1,0 +1,7 @@
+#include "illuminate.hpp"
+
+TEST_CASE(EXPECT_GT_UNLABELED) {
+    EXPECT_GT_UNLABELED(2,1)
+    EXPECT_GT_UNLABELED(2,2)
+    EXPECT_GT_UNLABELED(2,3)
+}

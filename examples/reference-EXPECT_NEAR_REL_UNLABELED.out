@@ -1,0 +1,6 @@
+Root:
+    EXPECT NEAR REL UNLABELED [#0]... FAILED :-(
+        * example.cpp:6 - <2> does not match <8> within a relative tolerance of 1
+        * example.cpp:7 - <2> does not match <10> within a relative tolerance of 1
+
+1 test failed.

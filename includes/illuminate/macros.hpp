@@ -171,7 +171,7 @@
 
 */
 #define EQ_EXPRESSION(name_1,value_1,name_2,value_2) (value_1) == (value_2)
-#define EQ_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> does not match %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
+#define EQ_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1%<%2%> does not match %3%<%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
 DEFINE_CHECKS(EQ,4)
 
 /*! \brief \ASSERT_REL_MESSAGE{\a A and \a B are equal}
@@ -207,14 +207,28 @@ DEFINE_CHECKS(EQ,4)
 
 \include_example{reference-ASSERT_EQ_LABELED}
 */
-#define ASSERT_EQ_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,EQ,A,B,C,D)
+#define ASSERT_EQ_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,EQ,A " ",B,C " ",D)
 
 /*! \brief \EXPECT_REL_LABELED_MESSAGE{\a B and \a D are equal}
     \ingroup EQ_CHECKS
 
 \include_example{reference-EXPECT_EQ_LABELED}
 */
-#define EXPECT_EQ_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,EQ,A,B,C,D)
+#define EXPECT_EQ_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,EQ,A " ",B,C " ",D)
+
+/*! \brief \ASSERT_REL_UNLABELED_MESSAGE{EQ}
+    \ingroup EQ_CHECKS
+
+\include_example{reference-ASSERT_EQ_UNLABELED}
+*/
+#define ASSERT_EQ_UNLABELED(A,B) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,EQ,"",A,"",B)
+
+/*! \brief \EXPECT_REL_UNLABELED_MESSAGE{EQ}
+    \ingroup EQ_CHECKS
+
+\include_example{reference-EXPECT_EQ_UNLABELED}
+*/
+#define EXPECT_EQ_UNLABELED(A,B) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,EQ,"",A,"",B)
 // }}}
 // Inequality {{{
 /*! \defgroup NE_CHECKS NE [≠] (inequality)
@@ -226,7 +240,7 @@ DEFINE_CHECKS(EQ,4)
 \include_example{reference-NE-strings}
 */
 #define NE_EXPRESSION(name_1,value_1,name_2,value_2) (value_1) != (value_2)
-#define NE_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> matches %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
+#define NE_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1%<%2%> matches %3%<%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
 DEFINE_CHECKS(NE,4)
 
 /*! \brief \ASSERT_REL_MESSAGE{\a A and \a B are \b not equal}
@@ -262,14 +276,28 @@ DEFINE_CHECKS(NE,4)
 
 \include_example{reference-ASSERT_NE_LABELED}
 */
-#define ASSERT_NE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,NE,A,B,C,D)
+#define ASSERT_NE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,NE,A " ",B,C " ",D)
 
 /*! \brief \EXPECT_REL_LABELED_MESSAGE{\a B and \a D are \b not equal}
     \ingroup NE_CHECKS
 
 \include_example{reference-EXPECT_NE_LABELED}
 */
-#define EXPECT_NE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,NE,A,B,C,D)
+#define EXPECT_NE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,NE,A " ",B,C " ",D)
+
+/*! \brief \ASSERT_REL_UNLABELED_MESSAGE{NE}
+    \ingroup NE_CHECKS
+
+\include_example{reference-ASSERT_NE_UNLABELED}
+*/
+#define ASSERT_NE_UNLABELED(A,B) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,NE,"",A,"",B)
+
+/*! \brief \EXPECT_REL_UNLABELED_MESSAGE{NE}
+    \ingroup NE_CHECKS
+
+\include_example{reference-EXPECT_NE_UNLABELED}
+*/
+#define EXPECT_NE_UNLABELED(A,B) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,NE,"",A,"",B)
 // }}}
 // Greater or equal {{{
 /*! \defgroup GE_CHECKS GE [≥] (greater than or equal to)
@@ -279,7 +307,7 @@ DEFINE_CHECKS(NE,4)
 \note The types of the two operands need not be the same as long as comparing them using the >= operator is supported.
 */
 #define GE_EXPRESSION(name_1,value_1,name_2,value_2) (value_1) >= (value_2)
-#define GE_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is less than %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
+#define GE_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1%<%2%> is less than %3%<%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
 DEFINE_CHECKS(GE,4)
 
 /*! \brief \ASSERT_REL_MESSAGE{\a A ≥ \a B}
@@ -315,14 +343,28 @@ DEFINE_CHECKS(GE,4)
 
 \include_example{reference-ASSERT_GE_LABELED}
 */
-#define ASSERT_GE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,GE,A,B,C,D)
+#define ASSERT_GE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,GE,A " ",B,C " ",D)
 
 /*! \brief Checks that \a B ≥ \a D, and if not registers a failure labeling these values with the respective names \a A and \a C.
     \ingroup GE_CHECKS
 
 \include_example{reference-EXPECT_GE_LABELED}
 */
-#define EXPECT_GE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,GE,A,B,C,D)
+#define EXPECT_GE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,GE,A " ",B,C " ",D)
+
+/*! \brief \ASSERT_REL_UNLABELED_MESSAGE{GE}
+    \ingroup GE_CHECKS
+
+\include_example{reference-ASSERT_GE_UNLABELED}
+*/
+#define ASSERT_GE_UNLABELED(A,B) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,GE,"",A,"",B)
+
+/*! \brief \EXPECT_REL_UNLABELED_MESSAGE{GE}
+    \ingroup GE_CHECKS
+
+\include_example{reference-EXPECT_GE_UNLABELED}
+*/
+#define EXPECT_GE_UNLABELED(A,B) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,GE,"",A,"",B)
 // }}}
 // Greater than {{{
 /*! \defgroup GT_CHECKS GT [>] (greater than)
@@ -332,7 +374,7 @@ DEFINE_CHECKS(GE,4)
 \note The types of the two operands need not be the same as long as comparing them using the > operator is supported.
 */
 #define GT_EXPRESSION(name_1,value_1,name_2,value_2) (value_1) > (value_2)
-#define GT_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is less than or equal to %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
+#define GT_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1%<%2%> is less than or equal to %3%<%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
 DEFINE_CHECKS(GT,4)
 
 /*! \brief \ASSERT_REL_MESSAGE{\a A > \a B}
@@ -368,14 +410,28 @@ DEFINE_CHECKS(GT,4)
 
 \include_example{reference-ASSERT_GT_LABELED}
 */
-#define ASSERT_GT_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,GT,A,B,C,D)
+#define ASSERT_GT_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,GT,A " ",B,C " ",D)
 
 /*! \brief Checks that \a B > \a D, and if not registers a failure labeling these values with the respective names \a A and \a C.
     \ingroup GT_CHECKS
 
 \include_example{reference-EXPECT_GT_LABELED}
 */
-#define EXPECT_GT_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,GT,A,B,C,D)
+#define EXPECT_GT_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,GT,A " ",B,C " ",D)
+
+/*! \brief \ASSERT_REL_UNLABELED_MESSAGE{GT}
+    \ingroup GT_CHECKS
+
+\include_example{reference-ASSERT_GT_UNLABELED}
+*/
+#define ASSERT_GT_UNLABELED(A,B) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,GT,"",A,"",B)
+
+/*! \brief \EXPECT_REL_UNLABELED_MESSAGE{GT}
+    \ingroup GT_CHECKS
+
+\include_example{reference-EXPECT_GT_UNLABELED}
+*/
+#define EXPECT_GT_UNLABELED(A,B) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,GT,"",A,"",B)
 // }}}
 // Less or equal {{{
 /*! \defgroup LE_CHECKS LE [≤] (less than or equal to)
@@ -385,7 +441,7 @@ DEFINE_CHECKS(GT,4)
 \note The types of the two operands need not be the same as long as comparing them using the <= operator is supported.
 */
 #define LE_EXPRESSION(name_1,value_1,name_2,value_2) (value_1) <= (value_2)
-#define LE_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is greater than %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
+#define LE_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1%<%2%> is greater than %3%<%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
 DEFINE_CHECKS(LE,4)
 
 /*! \brief \ASSERT_REL_MESSAGE{\a A ≤ \a B}
@@ -421,14 +477,28 @@ DEFINE_CHECKS(LE,4)
 
 \include_example{reference-ASSERT_LE_LABELED}
 */
-#define ASSERT_LE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,LE,A,B,C,D)
+#define ASSERT_LE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,LE,A " ",B,C " ",D)
 
 /*! \brief Checks that \a B ≤ \a D, and if not registers a failure labeling these values with the respective names \a A and \a C.
     \ingroup LE_CHECKS
 
 \include_example{reference-EXPECT_LE_LABELED}
 */
-#define EXPECT_LE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,LE,A,B,C,D)
+#define EXPECT_LE_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,LE,A " ",B,C " ",D)
+
+/*! \brief \ASSERT_REL_UNLABELED_MESSAGE{LE}
+    \ingroup LE_CHECKS
+
+\include_example{reference-ASSERT_LE_UNLABELED}
+*/
+#define ASSERT_LE_UNLABELED(A,B) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,LE,"",A,"",B)
+
+/*! \brief \EXPECT_REL_UNLABELED_MESSAGE{LE}
+    \ingroup LE_CHECKS
+
+\include_example{reference-EXPECT_LE_UNLABELED}
+*/
+#define EXPECT_LE_UNLABELED(A,B) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,LE,"",A,"",B)
 // }}}
 // Less than {{{
 /*! \defgroup LT_CHECKS LT [<] (less than)
@@ -438,7 +508,7 @@ DEFINE_CHECKS(LE,4)
 \note The types of the two operands need not be the same as long as comparing them using the < operator is supported.
 */
 #define LT_EXPRESSION(name_1,value_1,name_2,value_2) (value_1) < (value_2)
-#define LT_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1% <%2%> is greater than or equal to %3% <%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
+#define LT_MESSAGE(name_1,value_1,name_2,value_2) (boost::format("%1%<%2%> is greater than or equal to %3%<%4%>") % (name_1) % (value_1) % (name_2) % (value_2)).str()
 DEFINE_CHECKS(LT,4)
 
 /*! \brief \ASSERT_REL_MESSAGE{\a A < \a B}
@@ -474,14 +544,28 @@ DEFINE_CHECKS(LT,4)
 
 \include_example{reference-ASSERT_LT_LABELED}
 */
-#define ASSERT_LT_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,LT,A,B,C,D)
+#define ASSERT_LT_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,LT,A " ",B,C " ",D)
 
 /*! \brief Checks that \a B < \a D, and if not registers a failure labeling these values with the respective names \a A and \a C.
     \ingroup LT_CHECKS
 
 \include_example{reference-EXPECT_LT_LABELED}
 */
-#define EXPECT_LT_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,LT,A,B,C,D)
+#define EXPECT_LT_LABELED(A,B,C,D) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,LT,A " ",B,C " ",D)
+
+/*! \brief \ASSERT_REL_UNLABELED_MESSAGE{LT}
+    \ingroup LT_CHECKS
+
+\include_example{reference-ASSERT_LT_UNLABELED}
+*/
+#define ASSERT_LT_UNLABELED(A,B) DO_CHECK_WITH_4_ARGUMENTS(ASSERT,LT,"",A,"",B)
+
+/*! \brief \EXPECT_REL_UNLABELED_MESSAGE{LT}
+    \ingroup LT_CHECKS
+
+\include_example{reference-EXPECT_LT_UNLABELED}
+*/
+#define EXPECT_LT_UNLABELED(A,B) DO_CHECK_WITH_4_ARGUMENTS(EXPECT,LT,"",A,"",B)
 // }}}
 // Near (absolutely) {{{
 /*! \defgroup NEAR_ABS_CHECKS NEAR_ABS [≈] (absolutely approximately equal)
@@ -491,7 +575,7 @@ DEFINE_CHECKS(LT,4)
 Specifically, x_NEAR_ABS_y(a,b,c) checks that \f$|a-b| \le c\f$.
 */
 #define NEAR_ABS_EXPRESSION(name_1,value_1,name_2,value_2,absolute_error) (std::abs((value_1)-(value_2)) <= (absolute_error))
-#define NEAR_ABS_MESSAGE(name_1,value_1,name_2,value_2,absolute_error) (boost::format("%|| <%|.15|> does not match %|| <%|.15|> within an absolute tolerance of %||") % (name_1) % (value_1) % (name_2) % (value_2) % (absolute_error)).str()
+#define NEAR_ABS_MESSAGE(name_1,value_1,name_2,value_2,absolute_error) (boost::format("%||<%|.15|> does not match %||<%|.15|> within an absolute tolerance of %||") % (name_1) % (value_1) % (name_2) % (value_2) % (absolute_error)).str()
 DEFINE_CHECKS(NEAR_ABS,5)
 
 /*! \brief \ASSERT_REL_MESSAGE{\a A and \a B are approximately equal within an absolute tolerance of \a C}
@@ -527,14 +611,28 @@ DEFINE_CHECKS(NEAR_ABS,5)
 
 \include_example{reference-ASSERT_NEAR_ABS_LABELED}
 */
-#define ASSERT_NEAR_ABS_LABELED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(ASSERT,NEAR_ABS,A,B,C,D,E)
+#define ASSERT_NEAR_ABS_LABELED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(ASSERT,NEAR_ABS,A " ",B,C " ",D,E)
 
 /*! \brief Checks that \a B and \a D are approximately equal within an absolute tolerance of \a E, and if not registers a failure labeling these values with the respective names \a A and \a C.
     \ingroup NEAR_ABS_CHECKS
 
 \include_example{reference-EXPECT_NEAR_ABS_LABELED}
 */
-#define EXPECT_NEAR_ABS_LABELED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(EXPECT,NEAR_ABS,A,B,C,D,E)
+#define EXPECT_NEAR_ABS_LABELED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(EXPECT,NEAR_ABS,A " ",B,C " ",D,E)
+
+/*! \brief \ASSERT_REL_UNLABELED_MESSAGE{NEAR_ABS}
+    \ingroup NEAR_ABS_CHECKS
+
+\include_example{reference-ASSERT_NEAR_ABS_UNLABELED}
+*/
+#define ASSERT_NEAR_ABS_UNLABELED(A,B,C) DO_CHECK_WITH_5_ARGUMENTS(ASSERT,NEAR_ABS,"",A,"",B,C)
+
+/*! \brief \EXPECT_REL_UNLABELED_MESSAGE{NEAR_ABS}
+    \ingroup NEAR_ABS_CHECKS
+
+\include_example{reference-EXPECT_NEAR_ABS_UNLABELED}
+*/
+#define EXPECT_NEAR_ABS_UNLABELED(A,B,C) DO_CHECK_WITH_5_ARGUMENTS(EXPECT,NEAR_ABS,"",A,"",B,C)
 // }}}
 // Near (relatively) {{{
 /*! \defgroup NEAR_REL_CHECKS NEAR_REL [≈] (relatively approximately equal)
@@ -544,7 +642,7 @@ DEFINE_CHECKS(NEAR_ABS,5)
 Specifically, x_NEAR_REL_y(a,b,c) checks that either \f$|a|+|b| \le c\f$ (that is, both a and b are approximately 0) or that \f$\frac{|a-b|}{(|a|+|b|)/2} \le c\f$
 */
 #define NEAR_REL_EXPRESSION(name_1,value_1,name_2,value_2,relative_error) (((std::abs(value_1)+std::abs(value_2))/2 <= (relative_error)) || (std::abs((value_1)-(value_2))/((std::abs(value_1)+std::abs(value_2))/2) <= (relative_error)))
-#define NEAR_REL_MESSAGE(name_1,value_1,name_2,value_2,relative_error) (boost::format("%|| <%|.15|> does not match %|| <%|.15|> within a relative tolerance of %||") % (name_1) % (value_1) % (name_2) % (value_2) % (relative_error)).str()
+#define NEAR_REL_MESSAGE(name_1,value_1,name_2,value_2,relative_error) (boost::format("%||<%|.15|> does not match %||<%|.15|> within a relative tolerance of %||") % (name_1) % (value_1) % (name_2) % (value_2) % (relative_error)).str()
 DEFINE_CHECKS(NEAR_REL,5)
 
 /*! \brief \ASSERT_REL_MESSAGE{\a A and \a B are approximately equal within a relative tolerance of \a C}
@@ -580,14 +678,28 @@ DEFINE_CHECKS(NEAR_REL,5)
 
 \include_example{reference-ASSERT_NEAR_REL_LABELED}
 */
-#define ASSERT_NEAR_REL_LABELED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(ASSERT,NEAR_REL,A,B,C,D,E)
+#define ASSERT_NEAR_REL_LABELED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(ASSERT,NEAR_REL,A " ",B,C " ",D,E)
 
 /*! \brief Checks that \a B and \a D are approximately equal within a relative tolerance of \a E, and if not registers a failure labeling these values with the respective names \a A and \a C.
     \ingroup NEAR_REL_CHECKS
 
 \include_example{reference-EXPECT_NEAR_REL_LABELED}
 */
-#define EXPECT_NEAR_REL_LABELED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(EXPECT,NEAR_REL,A,B,C,D,E)
+#define EXPECT_NEAR_REL_LABELED(A,B,C,D,E) DO_CHECK_WITH_5_ARGUMENTS(EXPECT,NEAR_REL,A " ",B,C " ",D,E)
+
+/*! \brief \ASSERT_REL_UNLABELED_MESSAGE{NEAR_REL}
+    \ingroup NEAR_REL_CHECKS
+
+\include_example{reference-ASSERT_NEAR_REL_UNLABELED}
+*/
+#define ASSERT_NEAR_REL_UNLABELED(A,B,C) DO_CHECK_WITH_5_ARGUMENTS(ASSERT,NEAR_REL,"",A,"",B,C)
+
+/*! \brief \EXPECT_REL_UNLABELED_MESSAGE{NEAR_REL}
+    \ingroup NEAR_REL_CHECKS
+
+\include_example{reference-EXPECT_NEAR_REL_UNLABELED}
+*/
+#define EXPECT_NEAR_REL_UNLABELED(A,B,C) DO_CHECK_WITH_5_ARGUMENTS(EXPECT,NEAR_REL,"",A,"",B,C)
 // }}}
 
 // }}}

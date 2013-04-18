@@ -1,6 +1,6 @@
 Root:
     approximate equality test [#0]... FAILED :-(
-        * example.cpp:4 -  <4> does not match  <4.2> within an absolute tolerance of 0.1
-        * example.cpp:7 -  <0.1> does not match  <0.12> within a relative tolerance of 0.1
+        * example.cpp:4 - <4> does not match <4.2> within an absolute tolerance of 0.1
+        * example.cpp:7 - <0.1> does not match <0.12> within a relative tolerance of 0.1
 
 1 test failed.

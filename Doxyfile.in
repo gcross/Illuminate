@@ -186,6 +186,8 @@ ALIASES += ASSERT_REL_VAL_MESSAGE{1}="Like #ASSERT_\1, but only quotes the first
 ALIASES += EXPECT_REL_VAL_MESSAGE{1}="Like #EXPECT_\1, but only quotes the first argument in the error message.  This macro is provided for the case where \a B is a literal so that both quoting it and displaying its value would be redundant."
 ALIASES += ASSERT_REL_LABELED_MESSAGE{1}="Checks that \1, and if not registers a failure labeling these values with the respective names \a A and \a C, and then terminates the test."
 ALIASES += EXPECT_REL_LABELED_MESSAGE{1}="Checks that \1, and if not registers a failure labeling these values with the respective names \a A and \a C."
+ALIASES += ASSERT_REL_UNLABELED_MESSAGE{1}="Like #ASSERT_\1_LABELED, but without labeling the values in the failure message."
+ALIASES += EXPECT_REL_UNLABELED_MESSAGE{1}="Like #EXPECT_\1_LABELED, but without labeling the values in the failure message."
 
 # Set the OPTIMIZE_OUTPUT_FOR_C tag to YES if your project consists of C
 # sources only. Doxygen will then generate output that is more tailored for C.

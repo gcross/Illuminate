@@ -1,0 +1,6 @@
+Root:
+    EXPECT GE UNLABELED [#0]... FAILED :-(
+        * example.cpp:6 - <1> is less than <2>
+        * example.cpp:7 - <1> is less than <3>
+
+1 test failed.
