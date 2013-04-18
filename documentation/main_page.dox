@@ -18,8 +18,8 @@ Illuminate is a test framework with the goal of making it fun to write and organ
 - minimal boilerplate code for defining test cases and suites
 - arbitrary nesting of test suites to form a hierarchy
 - a special mode to facilitate debugging with a debugger by terminating immediately upon failure in such a way as to preserve the call stack at the point of failure
-- multiple variants of each value comparison tests to allow customization of the value labels in the failure message
-- two variants of each check macro (ASSERT and EXPECT) that both do and do not abort the test case upon failure
+- multiple variants of each value comparison test to allow customization of the value labels in the failure message
+- two variants of each check macro (ASSERT and EXPECT) that respectively abourt and do not abort the test case upon failure
 
 Of course, there are many test frameworks out there and I will not claim that Illuminate is the best in all situations;  however, I personally find it very pleasant to use in my own projects, and I think you may too.
 
