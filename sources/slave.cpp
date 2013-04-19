@@ -7,6 +7,7 @@
 #include <boost/process.hpp>
 #include <boost/serialization/string.hpp>
 #include <boost/serialization/vector.hpp>
+#include <cstdlib>
 #include <exception>
 #include <iostream>
 #include <sstream>
@@ -47,7 +48,10 @@ struct SlaveProcessContext : public boost::process::context {
         stdin_behavior  = boost::process::capture_stream();
         stderr_behavior = boost::process::redirect_stream_to_stdout();
         stdout_behavior = boost::process::capture_stream();
-        environment     = boost::process::self::get_environment();
+        if(getenv("PATH") != NULL) environment["PATH"] = getenv("PATH");
+        if(getenv("LIBRARY_PATH") != NULL) environment["LIBRARY_PATH"] = getenv("LIBRARY_PATH");
+        if(getenv("LD_LIBRARY_PATH") != NULL) environment["LD_LIBRARY_PATH"] = getenv("LD_LIBRARY_PATH");
+        if(getenv("DYLD_LIBRARY_PATH") != NULL) environment["DYLD_LIBRARY_PATH"] = getenv("DYLD_LIBRARY_PATH");
     }
 } const slave_process_context;
 // }}}
