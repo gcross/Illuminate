@@ -3,6 +3,7 @@
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/assign.hpp>
 #include <boost/serialization/vector.hpp>
+#include <exception>
 #include <sstream>
 
 #include "illuminate.hpp"
@@ -18,6 +19,7 @@ using boost::assign::list_of;
 
 using std::endl;
 using std::istringstream;
+using std::runtime_error;
 using std::string;
 using std::stringstream;
 using std::vector;
@@ -63,7 +65,7 @@ TEST_CASE(run_test_in_slave_with_empty_input) { // {{{
     try {
         slave(0);
         FAIL("Exception not thrown!");
-    } catch(stringstream::failure const& _) {}
+    } catch(runtime_error const& _) {}
     EXPECT_TRUE(slave.stream.eof());
 } // }}}
 TEST_CASE(run_test_in_slave_with_crashing_test) { // {{{
